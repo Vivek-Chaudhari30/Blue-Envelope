@@ -53,7 +53,7 @@ export default function PartnerSignOff({
   }
 
   return (
-    <div className={styles.wrap}>
+    <main className={styles.wrap}>
       <span className={styles.eyebrow}>Community partner sign-off · Sample</span>
       <h1 className={styles.title}>Confirm volunteer hours</h1>
 
@@ -123,6 +123,6 @@ export default function PartnerSignOff({
       )}
 
       <p className={styles.foot}>Independent tool · Not MassHealth · Sample data</p>
-    </div>
+    </main>
   );
 }

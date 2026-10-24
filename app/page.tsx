@@ -36,11 +36,11 @@ function Device() {
   return (
     <div className="device" role="region" aria-label="Blue Envelope app">
       <AppBar />
-      <div className="screen" id="screen" tabIndex={-1}>
+      <main className="screen" id="screen" tabIndex={-1}>
         <div className="screen-inner" id="view">
           <Screen />
         </div>
-      </div>
+      </main>
       <div className="appfoot">{t("footer", state.lang)}</div>
     </div>
   );

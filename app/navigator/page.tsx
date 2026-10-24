@@ -38,7 +38,7 @@ export default function NavigatorBoard() {
   const actNowQueue = panel.filter((p) => actNow(p, now));
 
   return (
-    <div className={styles.wrap}>
+    <main className={styles.wrap}>
       <div className={styles.head}>
         <Link href="/" className={styles.back}>
           ← Member app
@@ -91,7 +91,7 @@ export default function NavigatorBoard() {
       <p className={styles.foot}>
         Independent tool · Not MassHealth · Sample data
       </p>
-    </div>
+    </main>
   );
 }
 
