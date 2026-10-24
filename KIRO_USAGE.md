@@ -31,3 +31,6 @@ All non-English locale strings are drafts (the 12 Home/X-Ray keys are ported ver
 - **Eligibility is never AI.** The rules engine decides; Luna is explicitly barred from eligibility, from any deadline the rules already found, and from fixed UI text. Grounding + banned-phrase + 8s-timeout fallback bound every Luna response.
 - **Privacy by construction.** OCR runs on the device; only redacted *text* is ever sent to Luna, never the image; the server logs no text.
 
+### Property-test counterexample (readers)
+- **12:23 · E4 total = sum** — fast-check shrank to **`[$1000.00]`** and failed: expected 1000, got 100. **Cause:** the amount regex required a comma for thousands (`\d{1,3}(?:,\d{3})*`), so `$1000.00` without a separator matched only `100`. **Fix:** `\$\s?(\d{1,3}(?:,\d{3})+(?:\.\d{1,2})?|\d+(?:\.\d{1,2})?)` — comma-grouped OR a plain long digit run. A unit test couldn't have caught this (I'd have written $148.50-style inputs); PBT found a gig payout ≥ $1000 with no comma. Re-ran green.
+
