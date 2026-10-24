@@ -4,14 +4,13 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import styles from "./community.module.css";
 import { t, type Lang } from "@/lib/i18n";
-import { getMyEvents, getTown } from "@/lib/community/client";
-import towns from "@/lib/community/towns.json";
-import type { Town } from "@/lib/community/types";
+import { getMyEvents } from "@/lib/community/client";
 
 interface CommunityData {
   state: { actions: number; helped: number; goal: number };
-  towns: { name: string; county: string; pop2020: number; helpedDisplay: string; perThousand: number }[];
-  counties: { county: string; helpedDisplay: string }[];
+  ranked: { name: string; county: string; helped: number; perThousand: number }[];
+  gettingStarted: { name: string; county: string }[];
+  counties: { county: string; helped?: number; helpedDisplay?: string }[];
   helpers: { firstName: string; lastInitial: string; town: string; helpedDisplay: string }[];
   demo: boolean;
 }
@@ -38,34 +37,20 @@ export default function CommunityBoard() {
     };
   }, []);
 
-  // Overlay THIS device's own recent actions so the demo never looks empty.
-  const myTownName = useMemo(() => {
-    const id = getTown();
-    return (towns as Town[]).find((x) => x.id === id)?.name ?? null;
-  }, []);
-  const myEvents = typeof window !== "undefined" ? getMyEvents() : [];
-  const myMarkedSent = myEvents.some((e) => e.type === "marked_sent");
-
   const counties = useMemo(() => {
-    const set = new Set((data?.towns ?? []).map((x) => x.county));
+    const set = new Set((data?.ranked ?? []).map((x) => x.county));
     return Array.from(set).sort();
   }, [data]);
 
-  const rows = useMemo(() => {
-    const ts = (data?.towns ?? []).map((x) => ({ ...x }));
-    // Overlay this device's marked_sent onto its own town's display.
-    if (myMarkedSent && myTownName) {
-      const mineRow = ts.find((x) => x.name === myTownName);
-      if (mineRow) {
-        if (mineRow.helpedDisplay === "fewer than 10") mineRow.helpedDisplay = "fewer than 10";
-        else mineRow.helpedDisplay = String(Number(mineRow.helpedDisplay || 0) + 1);
-      } else {
-        const tw = (towns as Town[]).find((x) => x.name === myTownName);
-        if (tw) ts.push({ name: tw.name, county: tw.county, pop2020: tw.pop2020, helpedDisplay: "fewer than 10", perThousand: 0 });
-      }
-    }
+  const rankedRows = useMemo(() => {
+    const ts = data?.ranked ?? [];
     return county === "all" ? ts : ts.filter((x) => x.county === county);
-  }, [data, county, myMarkedSent, myTownName]);
+  }, [data, county]);
+
+  const gettingStarted = useMemo(() => {
+    const gs = data?.gettingStarted ?? [];
+    return county === "all" ? gs : gs.filter((x) => x.county === county);
+  }, [data, county]);
 
   const stateActions = (data?.state.actions ?? 0) + mine;
   const pct = data ? Math.min(100, (data.state.helped / data.state.goal) * 100) : 0;
@@ -116,19 +101,30 @@ export default function CommunityBoard() {
           </tr>
         </thead>
         <tbody>
-          {rows.map((town) => (
+          {rankedRows.map((town) => (
             <tr key={town.name}>
               <td>{town.name}</td>
               <td>{town.county}</td>
-              <td className={styles.num}>{town.helpedDisplay}</td>
+              <td className={styles.num}>{town.helped}</td>
               <td className={styles.num}>{town.perThousand.toFixed(2)}</td>
             </tr>
           ))}
-          {rows.length === 0 && (
+          {rankedRows.length === 0 && (
             <tr><td colSpan={4} className="sub">—</td></tr>
           )}
         </tbody>
       </table>
+
+      {gettingStarted.length > 0 && (
+        <div>
+          <span className="label">Getting started ({t("fewer_than_10", lang)})</span>
+          <div className={styles.helpers}>
+            {gettingStarted.map((town) => (
+              <span key={town.name} className={styles.helper}>{town.name}</span>
+            ))}
+          </div>
+        </div>
+      )}
 
       {data && data.helpers.length > 0 && (
         <div>
@@ -143,12 +139,12 @@ export default function CommunityBoard() {
         </div>
       )}
 
-      {data && rows.length > 0 && (
+      {data && rankedRows.length > 0 && (
         <div>
           <span className="label">{t("community_improved", lang)}</span>
           <div className={styles.helpers}>
             <span className={styles.helper}>
-              🚀 {rows[0]!.name} · {rows[0]!.perThousand.toFixed(2)} / 1,000
+              🚀 {rankedRows[0]!.name} · {rankedRows[0]!.perThousand.toFixed(2)} / 1,000
             </span>
           </div>
         </div>

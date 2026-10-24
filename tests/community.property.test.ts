@@ -152,3 +152,52 @@ describe("community — device overlay (b)", () => {
     expect(board.towns[0]!.helped).toBe(0);
   });
 });
+
+describe("community — suppression leak fix (bugfix-suppression-leak)", () => {
+  // Simulate the API serializer split and assert suppressed towns carry no
+  // numeric field from which the count can be recovered.
+  function serialize(townAggs: { name: string; county: string; pop2020: number; helped: number; perThousand: number }[]) {
+    const SUP = 9;
+    const ranked = townAggs.filter((t) => t.helped > SUP).map((t) => ({ name: t.name, county: t.county, helped: t.helped, perThousand: t.perThousand }));
+    const gettingStarted = townAggs.filter((t) => t.helped >= 1 && t.helped <= SUP).map((t) => ({ name: t.name, county: t.county })).sort((a, b) => a.name.localeCompare(b.name));
+    return { ranked, gettingStarted };
+  }
+
+  it("suppressed towns expose NO numeric field (count cannot be recovered)", () => {
+    fc.assert(
+      fc.property(
+        fc.array(
+          fc.record({
+            name: fc.string({ minLength: 1, maxLength: 8 }),
+            county: fc.constant("X"),
+            pop2020: fc.integer({ min: 100, max: 700000 }),
+            helped: fc.integer({ min: 0, max: 200 }),
+          }),
+          { maxLength: 30 },
+        ),
+        (townAggs) => {
+          const withRate = townAggs
+            .filter((t) => t.helped > 0)
+            .map((t) => ({ ...t, perThousand: (t.helped / t.pop2020) * 1000 }));
+          const { gettingStarted } = serialize(withRate);
+          for (const g of gettingStarted) {
+            // No key other than name/county — nothing numeric to recover a count from.
+            expect(Object.keys(g).sort()).toEqual(["county", "name"]);
+          }
+        },
+      ),
+    );
+  });
+
+  it("getting-started (suppressed) towns are alphabetical", () => {
+    const aggs = [
+      { name: "Zebra", county: "X", pop2020: 1000, helped: 2, perThousand: 2 },
+      { name: "Apple", county: "X", pop2020: 1000, helped: 3, perThousand: 3 },
+      { name: "Mango", county: "X", pop2020: 1000, helped: 1, perThousand: 1 },
+      { name: "Big", county: "X", pop2020: 1000, helped: 50, perThousand: 50 },
+    ];
+    const { ranked, gettingStarted } = serialize(aggs);
+    expect(ranked.map((t) => t.name)).toEqual(["Big"]);
+    expect(gettingStarted.map((t) => t.name)).toEqual(["Apple", "Mango", "Zebra"]);
+  });
+});
