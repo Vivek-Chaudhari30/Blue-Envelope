@@ -31,43 +31,67 @@ const members: Member[] = [];
 const events: CommunityEvent[] = [];
 let n = 0;
 
-function addHelperWithInvitees(townId: string, invitees: number, optinName?: string) {
-  const helperId = `seed-h-${n++}`;
-  const code = `SEED${n}`;
-  members.push({
-    id: helperId,
-    town_id: townId,
-    language: pick(LANGS),
-    helper_code: code,
-    referred_by_code: null,
-    display_name_optin: optinName ? { firstName: optinName } : null,
-    created_at: iso(0),
-  });
-  events.push({ member_id: helperId, type: "packet_ready", town_id: townId, created_at: iso(1) });
-  for (let i = 0; i < invitees; i++) {
-    const inviteeId = `seed-i-${n}-${i}`;
+function addHelperWithInvitees(townId: string, total: number, optinName?: string) {
+  // Split `total` referrals across enough helpers so no helper exceeds the
+  // 20/day cap (so the town's realized count equals `total`). The first helper
+  // carries the opt-in name when given.
+  let remaining = total;
+  let first = true;
+  while (remaining > 0) {
+    const chunk = Math.min(18, remaining); // under the 20/day cap
+    remaining -= chunk;
+    const helperId = `seed-h-${n++}`;
+    const code = `SEED${n}`;
     members.push({
-      id: inviteeId,
-      town_id: pick(towns).id,
+      id: helperId,
+      town_id: townId,
       language: pick(LANGS),
-      helper_code: `${code}I${i}`,
-      referred_by_code: code,
-      display_name_optin: null,
-      created_at: iso(2),
+      helper_code: code,
+      referred_by_code: null,
+      display_name_optin: first && optinName ? { firstName: optinName } : null,
+      created_at: iso(0),
     });
-    // Most invitees reach packet_ready (so the helper's count is real).
-    if (rand() < 0.8) {
-      events.push({ member_id: inviteeId, type: "referral_opened", town_id: null, created_at: iso(3 + i) });
-      events.push({ member_id: inviteeId, type: "packet_ready", town_id: null, created_at: iso(4 + i) });
+    events.push({ member_id: helperId, type: "packet_ready", town_id: townId, created_at: iso(1) });
+    for (let i = 0; i < chunk; i++) {
+      const inviteeId = `seed-i-${helperId}-${i}`;
+      members.push({
+        id: inviteeId,
+        town_id: pick(towns).id,
+        language: pick(LANGS),
+        helper_code: `${code}I${i}`,
+        referred_by_code: code,
+        display_name_optin: null,
+        created_at: iso(2),
+      });
+      // Every seeded invitee reaches packet_ready so the count is exact.
+      events.push({ member_id: inviteeId, type: "referral_opened", town_id: null, created_at: iso(3) });
+      events.push({ member_id: inviteeId, type: "packet_ready", town_id: null, created_at: iso(4) });
     }
+    first = false;
   }
 }
 
 // ~40 towns with synthetic helpers. Lowell first, with Maria opted in.
-addHelperWithInvitees("lowell", 4, "Maria");
-const sample = [...towns].sort(() => rand() - 0.5).slice(0, 39);
+// About a dozen large cities get 10-60 helpers each so the ranking shows
+// real numbers above the small-cell suppression floor.
+const BIG = [
+  "lowell", "lawrence", "boston", "worcester", "springfield", "new-bedford",
+  "brockton", "fall-river", "lynn", "chelsea", "framingham", "cambridge",
+];
+
+// Lowell (Maria opted in) gets a solid demo count.
+addHelperWithInvitees("lowell", 24, "Maria");
+for (const id of BIG.filter((x) => x !== "lowell")) {
+  addHelperWithInvitees(id, 10 + Math.floor(rand() * 51)); // 10..60
+}
+
+// A tail of smaller towns with low (suppressed) counts for "Getting started".
+const sample = [...towns]
+  .filter((x) => !BIG.includes(x.id))
+  .sort(() => rand() - 0.5)
+  .slice(0, 28);
 for (const town of sample) {
-  addHelperWithInvitees(town.id, 1 + Math.floor(rand() * 6));
+  addHelperWithInvitees(town.id, 1 + Math.floor(rand() * 6)); // 1..6 -> suppressed
 }
 
 const out = join(process.cwd(), "lib/community/seed-data.json");

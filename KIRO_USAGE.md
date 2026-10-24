@@ -98,3 +98,8 @@ A consolidated index of how Kiro was used across the whole build, for the judges
 ### Crew schedules
 - **Policy watcher** (every 6 h, `America/New_York`): compares the mass.gov work-requirements page against `docs/RULES_SOURCE.md` and opens a GitHub issue `policy: mass.gov rules changed` with the diff when it changes. (One-shot run attempted now: the page bot-blocks plain fetch with 403, so the scheduled job uses the browser path.)
 - **Deploy heartbeat** (every 30 min until 8 PM ET): runs Maria's flow on the live URL in a phone viewport and alerts only on failure.
+
+## 2026-10-24 — Two fixes before Stage 6
+
+- **CI red on `main`** — the "Kiro review" workflow failed at `npm ci` (lockfile's nested `picomatch@2.3.2` vs a `picomatch@4.0.7` peer under a newer npm). Pinned `actions/setup-node` to `node-version: "24"` (cache: npm) and regenerated `package-lock.json`; `npm ci` now exits 0. CI green on `main`.
+- **Bugfix spec `bugfix-suppression-leak`** — `/api/community` suppressed `helped` (1–9 → "fewer than 10") but still returned `perThousand` and `pop2020`, so `perThousand × pop2020 / 1000` recovered the exact count (Tyringham 12.232 × 327 = 4). Fix: the serializer now splits towns into **ranked** (helped ≥ 10, with numbers) and **getting started** (1–9, name + county only, **no numeric field**, alphabetical); counties keep a number only at ≥ 10. Property test asserts no suppressed town exposes a count-recovering field and that suppressed towns are alphabetical. Seed updated so ~12 large cities (Lowell, Lawrence, Boston, Worcester, Springfield, New Bedford, Brockton, Fall River, Lynn, Chelsea, Framingham, Cambridge) have 10–60 demo helpers, so the ranking shows real numbers.
