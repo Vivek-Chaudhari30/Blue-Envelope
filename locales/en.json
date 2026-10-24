@@ -147,5 +147,10 @@
   "step_packet_desc": "Checklist, partner sign-off, reminders, consent to share.",
   "step_submit": "Send it to MassHealth",
   "step_submit_desc": "Official channels, plus help from 211 and a health center.",
-  "build_packet": "Build my proof packet"
+  "build_packet": "Build my proof packet",
+  "help_understand": "I don't understand this, help me",
+  "help_ask_placeholder": "What would you like help with?",
+  "help_ask_send": "Ask",
+  "help_sample_note": "Here is the sample explanation. MassHealth makes the decision.",
+  "help_thinking": "Thinking…"
 }

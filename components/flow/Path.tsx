@@ -2,6 +2,7 @@
 
 import { useFlow } from "./FlowContext";
 import { Button, Meter } from "@/components/ui";
+import { HelpButton } from "./HelpButton";
 import { t } from "@/lib/i18n";
 import { money } from "@/lib/deadline";
 import { evaluate, INCOME_RULE, HOURS_RULE } from "@/lib/rules/engine";
@@ -118,6 +119,12 @@ export function Path() {
       {earningsBlock}
 
       <div className="decides">{t("decides_guide", L)}</div>
+
+      <HelpButton
+        lang={L}
+        letterText=""
+        rulesSummary={`status=${r.status}; hours=${r.hours}; income=${r.income}; school=${r.school}`}
+      />
 
       <Button onClick={() => dispatch({ type: "go", step: "packet" })}>
         {t("build_packet", L)}

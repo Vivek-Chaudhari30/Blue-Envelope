@@ -147,5 +147,10 @@
   "step_packet_desc": "Lista, confirmação de parceiro, lembretes, permissão para compartilhar.",
   "step_submit": "Enviar ao MassHealth",
   "step_submit_desc": "Canais oficiais, mais ajuda do 211 e de um centro de saúde.",
-  "build_packet": "Montar meu pacote de comprovantes"
+  "build_packet": "Montar meu pacote de comprovantes",
+  "help_understand": "Não entendo isto, me ajude",
+  "help_ask_placeholder": "Com o que você quer ajuda?",
+  "help_ask_send": "Perguntar",
+  "help_sample_note": "Aqui está a explicação de exemplo. O MassHealth toma a decisão.",
+  "help_thinking": "Pensando…"
 }

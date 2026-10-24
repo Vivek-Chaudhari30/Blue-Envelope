@@ -147,5 +147,10 @@
   "step_packet_desc": "Lis, konfimasyon patnè, rapèl, pèmisyon pou pataje.",
   "step_submit": "Voye l bay MassHealth",
   "step_submit_desc": "Chanèl ofisyèl, plis èd nan 211 ak yon sant sante.",
-  "build_packet": "Bati pakè prèv mwen an"
+  "build_packet": "Bati pakè prèv mwen an",
+  "help_understand": "Mwen pa konprann sa a, ede m",
+  "help_ask_placeholder": "Ak kisa ou vle èd?",
+  "help_ask_send": "Mande",
+  "help_sample_note": "Men eksplikasyon egzanp lan. Se MassHealth ki pran desizyon an.",
+  "help_thinking": "N ap reflechi…"
 }

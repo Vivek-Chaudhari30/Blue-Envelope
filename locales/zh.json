@@ -147,5 +147,10 @@
   "step_packet_desc": "清单、伙伴确认、提醒、共享许可。",
   "step_submit": "寄给 MassHealth",
   "step_submit_desc": "官方渠道，加上 211 和健康中心的帮助。",
-  "build_packet": "建立我的证明材料包"
+  "build_packet": "建立我的证明材料包",
+  "help_understand": "我看不懂这个，请帮我",
+  "help_ask_placeholder": "您想要什么帮助？",
+  "help_ask_send": "询问",
+  "help_sample_note": "这是示例说明。由 MassHealth 做出决定。",
+  "help_thinking": "思考中…"
 }

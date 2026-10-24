@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useFlow } from "./FlowContext";
 import { Button, Pill } from "@/components/ui";
+import { HelpButton } from "./HelpButton";
 import { t, speechCode, type MessageKey } from "@/lib/i18n";
 import { daysLeft } from "@/lib/deadline";
 import { SAMPLE_LETTER } from "@/content/sample-letter";
@@ -102,9 +103,19 @@ export function LetterXRay() {
       </Button>
       {speechNote && <p className="note">{speechNote}</p>}
 
+      <HelpButton lang={L} letterText={letterPlainText()} rulesSummary="" />
+
       <Button onClick={() => dispatch({ type: "go", step: "questions" })}>
         {t("check_applies", L)}
       </Button>
     </>
   );
+}
+
+/** The sample letter as plain text, for the help guide (redacted client-side). */
+function letterPlainText(): string {
+  const body = SAMPLE_LETTER.lines
+    .map((l) => l.highlight!.mark)
+    .join(" ");
+  return `${SAMPLE_LETTER.greeting} ${SAMPLE_LETTER.intro} ${body}`;
 }

@@ -34,3 +34,10 @@ All non-English locale strings are drafts (the 12 Home/X-Ray keys are ported ver
 ### Property-test counterexample (readers)
 - **12:23 · E4 total = sum** — fast-check shrank to **`[$1000.00]`** and failed: expected 1000, got 100. **Cause:** the amount regex required a comma for thousands (`\d{1,3}(?:,\d{3})*`), so `$1000.00` without a separator matched only `100`. **Fix:** `\$\s?(\d{1,3}(?:,\d{3})+(?:\.\d{1,2})?|\d+(?:\.\d{1,2})?)` — comma-grouped OR a plain long digit run. A unit test couldn't have caught this (I'd have written $148.50-style inputs); PBT found a gig payout ≥ $1000 with no comma. Re-ran green.
 
+### Property-test counterexample (guide grounding)
+- **12:35 · grounding rejects absent amount** — fast-check shrank to **`[present=$0.01, absent=$0.02]`** and failed: the ungrounded $0.02 was wrongly accepted. **Cause:** the amount-grounding check had a permissive whole-dollar fallback (`\b${Math.round(amount)}\b`), so `$0.02` (rounds to 0) matched the `0` inside `$0.01`. **Fix:** require an EXACT representation — the two-decimal form or an exact numeric token with digit boundaries — and drop the rounded-dollar match. This matters: grounding is the guardrail that stops Luna returning an amount not in the member's letter, so a false "grounded" is a correctness/safety bug. Re-ran green.
+
+## 2026-10-24 — Phase B (Luna guide)
+
+- **12:37 · Spec → code (letter-reader / Luna)** — Built the guarded AI fallback: `lib/guide/schema.ts` (per-reason zod), `lib/guide/ground.ts` (grounding + banned-phrase, reusing the steering `BANNED` list), `app/api/guide/route.ts` (no-key fallback → SDK dynamic import → zod → grounding → banned → 8s `Promise.race` timeout → sample fallback; per-IP rate limit; logs only reason/latency/tokens), `lib/guide/client.ts` (redacts on device, caches by hash of the redacted text), and `components/flow/HelpButton.tsx` wired into X-Ray + Path. Vercel AI SDK `ai@7` `generateObject` (verified `createOpenAI`/`generateObject` against the installed version). Works fully with no key. 47 tests green.
+

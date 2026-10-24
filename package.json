@@ -19,6 +19,8 @@
     "generate:panel": "tsx scripts/generate-panel.ts"
   },
   "dependencies": {
+    "@ai-sdk/openai": "4.0.101",
+    "ai": "7.0.152",
     "next": "15.5.28",
     "react": "19.1.1",
     "react-dom": "19.1.1",
