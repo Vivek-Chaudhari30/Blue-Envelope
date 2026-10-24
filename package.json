@@ -16,7 +16,9 @@
     "test:rules": "vitest run tests/rules.test.ts tests/rules.property.test.ts",
     "test:content": "vitest run tests/content.test.ts",
     "test:e2e": "playwright test",
-    "generate:panel": "tsx scripts/generate-panel.ts"
+    "generate:panel": "tsx scripts/generate-panel.ts",
+    "load:towns": "tsx scripts/load-towns.ts",
+    "seed:community": "tsx scripts/seed-community.ts"
   },
   "dependencies": {
     "@ai-sdk/openai": "4.0.101",
