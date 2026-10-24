@@ -7,6 +7,9 @@ import { Button } from "@/components/ui";
 import { t } from "@/lib/i18n";
 import { logEvent } from "@/lib/community/client";
 import { HelpNeighbor } from "./HelpNeighbor";
+import { ReadyToSend } from "./ReadyToSend";
+import { evaluate } from "@/lib/rules/engine";
+import { loadValues } from "@/lib/chat/store";
 
 const MASSHEALTH_URL = "https://www.mass.gov/topics/masshealth";
 
@@ -14,6 +17,11 @@ export function Submit() {
   const { state, dispatch } = useFlow();
   const L = state.lang;
   const [sent, setSent] = useState(false);
+
+  const result = evaluate({ age: state.age, exemptions: state.exemptions, act: state.act });
+  const edited = loadValues().deadline;
+  const deadline = edited && edited.provenance === "edited" ? edited.value : "December 15, 2026";
+  const partnerHours = state.partner === "confirmed" ? 22 : undefined;
 
   function markSent() {
     setSent(true);
@@ -62,6 +70,8 @@ export function Submit() {
           </p>
         )}
       </div>
+
+      <ReadyToSend lang={L} result={result} deadline={deadline} partnerHours={partnerHours} />
 
       <div className="decides">{t("decides_watch", L)}</div>
 

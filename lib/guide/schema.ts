@@ -8,6 +8,7 @@ export const GuideReason = z.enum([
   "letter_unknown_type",
   "earnings_normalize",
   "member_help",
+  "cover_note",
 ]);
 export type GuideReason = z.infer<typeof GuideReason>;
 
@@ -35,18 +36,25 @@ export const MemberHelpOut = z.object({
   answer: z.string().min(1),
 });
 
+// cover_note: the member's words rewritten into one plain sentence, grounded.
+export const CoverNoteOut = z.object({
+  sentence: z.string().min(1),
+});
+
 export const SCHEMA_BY_REASON = {
   letter_repair: LetterRepairOut,
   letter_unknown_type: LetterUnknownOut,
   earnings_normalize: EarningsNormalizeOut,
   member_help: MemberHelpOut,
+  cover_note: CoverNoteOut,
 } as const;
 
 export type GuideOut =
   | z.infer<typeof LetterRepairOut>
   | z.infer<typeof LetterUnknownOut>
   | z.infer<typeof EarningsNormalizeOut>
-  | z.infer<typeof MemberHelpOut>;
+  | z.infer<typeof MemberHelpOut>
+  | z.infer<typeof CoverNoteOut>;
 
 export interface GuideRequest {
   reason: GuideReason;
