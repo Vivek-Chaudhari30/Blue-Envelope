@@ -40,7 +40,7 @@ export default function ReferralLanding({
 
   return (
     <div className="page">
-      <div style={{ maxWidth: 420, margin: "0 auto", display: "grid", gap: 16, paddingTop: 48 }}>
+      <main style={{ maxWidth: 420, margin: "0 auto", display: "grid", gap: 16, paddingTop: 48 }}>
         <div className="env" aria-hidden="true" style={{ maxWidth: 240, justifySelf: "center" }}>
           <div className="stampbox" />
           <div className="window">
@@ -56,7 +56,7 @@ export default function ReferralLanding({
         <p className="appfoot" style={{ border: "none" }}>
           Independent tool · Not MassHealth · Sample data
         </p>
-      </div>
+      </main>
     </div>
   );
 }

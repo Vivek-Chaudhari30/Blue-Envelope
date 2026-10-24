@@ -57,7 +57,7 @@ export default function CommunityBoard() {
   const milestonePct = data ? Math.min(100, (data.state.helped / 1000) * 100) : 0;
 
   return (
-    <div className={styles.wrap}>
+    <main className={styles.wrap}>
       <div className={styles.head}>
         <Link href="/" className={styles.back}>← {t("brand", lang)}</Link>
         <h1 className={styles.title}>{t("community_title", lang)}</h1>
@@ -73,7 +73,7 @@ export default function CommunityBoard() {
       <div className={styles.progressCard}>
         <b className={styles.big}>{(data?.state.helped ?? 0).toLocaleString("en-US")}</b>
         <span className="sub">{t("community_goal", lang)}</span>
-        <div className={styles.bar} role="progressbar" aria-valuenow={Math.round(pct)} aria-valuemin={0} aria-valuemax={100}>
+        <div className={styles.bar} role="progressbar" aria-label="Statewide progress toward 360,000" aria-valuenow={Math.round(pct)} aria-valuemin={0} aria-valuemax={100}>
           <i style={{ width: `${pct}%` }} />
         </div>
         <span className="sub" style={{ fontSize: ".8rem" }}>
@@ -88,7 +88,7 @@ export default function CommunityBoard() {
               {Math.min(data?.state.helped ?? 0, 1000).toLocaleString("en-US")} / 1,000
             </span>
           </div>
-          <div className={styles.bar} role="progressbar" aria-valuenow={Math.round(milestonePct)} aria-valuemin={0} aria-valuemax={100}>
+          <div className={styles.bar} role="progressbar" aria-label="Progress toward the first 1,000 neighbors" aria-valuenow={Math.round(milestonePct)} aria-valuemin={0} aria-valuemax={100}>
             <i className="ok" style={{ width: `${milestonePct}%`, background: "var(--ok)" }} />
           </div>
         </div>
@@ -173,6 +173,6 @@ export default function CommunityBoard() {
       </div>
 
       <p className={styles.foot}>Independent tool · Not MassHealth · Sample data</p>
-    </div>
+    </main>
   );
 }

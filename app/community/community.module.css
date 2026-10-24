@@ -4,6 +4,9 @@
   padding: 24px 16px 48px;
   display: grid;
   gap: 18px;
+  /* Reserve height while data loads to prevent layout shift (CLS). */
+  min-height: 70vh;
+  align-content: start;
 }
 .head {
   display: grid;
@@ -72,6 +75,9 @@
   width: 100%;
   border-collapse: collapse;
   font-size: 0.92rem;
+  /* Reserve space for the ranking so rows arriving don't shift the layout. */
+  min-height: 240px;
+  display: table;
 }
 .table caption {
   text-align: left;
