@@ -1,12 +1,21 @@
 "use client";
+"use client";
 
+import { useEffect } from "react";
 import { useFlow } from "./FlowContext";
 import { Button } from "@/components/ui";
 import { t, type MessageKey } from "@/lib/i18n";
 import { daysLeft, money } from "@/lib/deadline";
 import { evaluate } from "@/lib/rules/engine";
+import { getStore, NAVIGATOR_ID, type Packet as PacketRecord } from "@/lib/store";
+import { makePartnerToken, PARTNER_ID } from "@/lib/store/partner-token";
 
 const MASSHEALTH_URL = "https://www.mass.gov/topics/masshealth";
+const PANEL_STATUS = {
+  none: "notice_received",
+  sent: "notice_received",
+  confirmed: "proof_gathered",
+} as const;
 
 type Icon = "done" | "todo" | "warn";
 
@@ -23,7 +32,30 @@ export function Packet() {
   const tr = (k: MessageKey) => t(k, L);
   const r = evaluate({ age: state.age, exemptions: state.exemptions, act: state.act });
 
+  // Keep Maria's packet record and consent in sync with the store so the
+  // Navigator Board (readForViewer) and partner page see the real state.
+  useEffect(() => {
+    const store = getStore();
+    const sharedWith: string[] = [];
+    if (state.share) sharedWith.push(NAVIGATOR_ID);
+    if (state.partner !== "none") sharedWith.push(PARTNER_ID);
+    const packet: PacketRecord = {
+      id: "maria",
+      firstName: "Maria",
+      status: PANEL_STATUS[state.partner],
+      sharedWith,
+      organization: "Riverside Food Pantry (sample)",
+      month: "March",
+      hours: state.partner === "confirmed" ? 22 : undefined,
+      partner: state.partner,
+      earningsTotal: r.status === "income" || r.status === "hours" ? 612 : undefined,
+      path: r.status,
+    };
+    void store.put(packet);
+  }, [state.share, state.partner, r.status]);
+
   const items: Item[] = [];
+
 
   if (r.status === "income" || r.status === "hours") {
     items.push(
@@ -62,20 +94,29 @@ export function Packet() {
         title: tr("partner_none_title"),
         body: tr("partner_none_body"),
         actions: (
-          <Button small onClick={() => dispatch({ type: "partner", state: "sent" })}>
+          <Button
+            small
+            onClick={() => dispatch({ type: "partner", state: "sent" })}
+          >
             {tr("partner_send")}
           </Button>
         ),
       });
     } else if (state.partner === "sent") {
+      const token = makePartnerToken("maria", PARTNER_ID);
       items.push({
         ic: "warn",
         title: tr("partner_sent_title"),
         body: tr("partner_sent_body"),
         actions: (
-          <Button small variant="secondary" onClick={() => dispatch({ type: "partner", state: "confirmed" })}>
-            {tr("partner_confirm")}
-          </Button>
+          <>
+            <a className="btn small" href={`/partner/${token}`} target="_blank" rel="noopener noreferrer">
+              Open the coordinator link
+            </a>
+            <Button small variant="secondary" onClick={() => dispatch({ type: "partner", state: "confirmed" })}>
+              {tr("partner_confirm")}
+            </Button>
+          </>
         ),
       });
     } else {
