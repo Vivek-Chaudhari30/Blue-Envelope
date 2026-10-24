@@ -201,3 +201,71 @@ describe("community — suppression leak fix (bugfix-suppression-leak)", () => {
     expect(gettingStarted.map((t) => t.name)).toEqual(["Apple", "Mango", "Zebra"]);
   });
 });
+
+import { publishedTotals } from "@/lib/community/aggregate";
+import type { CommunityAggregate } from "@/lib/community/types";
+
+describe("community — differencing-attack resistance (bugfix round 2)", () => {
+  it("county totals count only ranked (10+) towns, so a lone suppressed town can't be isolated", () => {
+    fc.assert(
+      fc.property(
+        fc.array(
+          fc.record({
+            townId: fc.string({ minLength: 1, maxLength: 6 }),
+            name: fc.string({ minLength: 1, maxLength: 6 }),
+            county: fc.constantFrom("Bristol", "Suffolk", "Worcester"),
+            pop2020: fc.integer({ min: 100, max: 700000 }),
+            helped: fc.integer({ min: 0, max: 100 }),
+          }),
+          { maxLength: 30 },
+        ),
+        (townsIn) => {
+          const towns = townsIn.filter((t) => t.helped > 0).map((t) => ({ ...t, perThousand: 0 }));
+          const helped = towns.reduce((s, t) => s + t.helped, 0);
+          const agg: CommunityAggregate = {
+            state: { actions: 0, helped, goal: 360000 },
+            towns,
+            counties: [],
+            helpers: [],
+          };
+          const { counties } = publishedTotals(agg);
+          // Every published county total must equal the sum of its RANKED towns.
+          for (const c of counties) {
+            const rankedSum = towns.filter((t) => t.county === c.county && t.helped >= 10).reduce((s, t) => s + t.helped, 0);
+            expect(c.helped).toBe(rankedSum);
+            // And a published county total never has suppressed towns folded in.
+            expect(c.helped).toBeGreaterThanOrEqual(10);
+          }
+        },
+      ),
+    );
+  });
+
+  it("statewide residual (published - ranked) can never isolate a single town or sub-10 group", () => {
+    fc.assert(
+      fc.property(
+        fc.array(fc.integer({ min: 1, max: 100 }), { maxLength: 25 }),
+        (helpedCounts) => {
+          const towns = helpedCounts.map((h, i) => ({ townId: `t${i}`, name: `T${i}`, county: "X", pop2020: 1000, helped: h, perThousand: 0 }));
+          const helped = towns.reduce((s, t) => s + t.helped, 0);
+          const agg: CommunityAggregate = { state: { actions: 0, helped, goal: 360000 }, towns, counties: [], helpers: [] };
+          const { statewideHelped } = publishedTotals(agg);
+          const rankedSum = towns.filter((t) => t.helped >= 10).reduce((s, t) => s + t.helped, 0);
+          const suppressed = towns.filter((t) => t.helped >= 1 && t.helped <= 9);
+          const suppressedSum = helped - rankedSum;
+          // When the suppressed residual could isolate a single town or a
+          // sub-10 group, the published statewide total is rounded DOWN to the
+          // nearest 10 — so an attacker cannot read an exact small count out of
+          // it, and the number never inflates past the truth.
+          if (suppressed.length < 3 || suppressedSum < 10) {
+            expect(statewideHelped % 10).toBe(0);
+            expect(statewideHelped).toBeLessThanOrEqual(helped);
+          } else {
+            // Otherwise the exact total may be published.
+            expect(statewideHelped).toBe(helped);
+          }
+        },
+      ),
+    );
+  });
+});
