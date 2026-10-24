@@ -1,0 +1,41 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Rules properties on save",
+      "description": "Re-run rules engine unit and property tests whenever rules code changes",
+      "trigger": "PostFileSave",
+      "matcher": "lib/rules/.*\\.ts$",
+      "action": { "type": "command", "command": "npm run test:rules" },
+      "timeout": 120
+    },
+    {
+      "name": "Locale parity and banned phrases",
+      "description": "Every locale has the same keys as en; no promise phrases in any language",
+      "trigger": "PostFileSave",
+      "matcher": "(locales/.*\\.json|content/.*\\.ts)$",
+      "action": { "type": "command", "command": "npm run test:content" },
+      "timeout": 60
+    },
+    {
+      "name": "Typecheck on save",
+      "trigger": "PostFileSave",
+      "matcher": "\\.(ts|tsx)$",
+      "action": { "type": "command", "command": "npm run typecheck" },
+      "timeout": 120
+    },
+    {
+      "name": "Consent guard",
+      "description": "Packet reads on the navigator and partner side must go through readForViewer",
+      "trigger": "PostFileSave",
+      "matcher": "(app/navigator/|app/partner/|lib/store/).*\\.(ts|tsx)$",
+      "action": { "type": "agent", "prompt": "Review the file just saved against .kiro/steering/consent-privacy.md. If any code reads a packet without PacketStore.readForViewer, or exposes letter, earnings or answers to a partner, fix it and explain the change in one line." }
+    },
+    {
+      "name": "Kiro usage log",
+      "description": "Keep the write-up evidence current",
+      "trigger": "Stop",
+      "action": { "type": "agent", "prompt": "Append a dated entry to KIRO_USAGE.md: which Kiro features were used in this session (spec, task, hook, steering, MCP, property test, Crew), what each produced or caught, and the commit hashes. Keep it to five bullets." }
+    }
+  ]
+}
