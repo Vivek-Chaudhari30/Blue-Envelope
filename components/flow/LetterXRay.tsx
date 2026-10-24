@@ -1,11 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFlow } from "./FlowContext";
 import { Button, Pill } from "@/components/ui";
+import { HelpButton } from "./HelpButton";
 import { t, speechCode, type MessageKey } from "@/lib/i18n";
 import { daysLeft } from "@/lib/deadline";
 import { SAMPLE_LETTER } from "@/content/sample-letter";
+import { runOcr } from "@/lib/readers/ocr-client";
+import { readLetter } from "@/lib/readers/letter-rules";
 
 const CALLOUTS: {
   pin: 1 | 2 | 3 | 4;
@@ -23,6 +26,27 @@ export function LetterXRay() {
   const { state, dispatch } = useFlow();
   const L = state.lang;
   const [speechNote, setSpeechNote] = useState<string | null>(null);
+  const [ocrStatus, setOcrStatus] = useState<"idle" | "reading" | "done">("idle");
+  const [ocrDeadline, setOcrDeadline] = useState<string | null>(null);
+
+  // On-device OCR runs only when a real photo was added. The photo never
+  // leaves the device; nothing is uploaded or logged.
+  useEffect(() => {
+    if (!state.letterPhoto) return;
+    let alive = true;
+    setOcrStatus("reading");
+    runOcr(state.letterPhoto)
+      .then((lines) => {
+        if (!alive) return;
+        const fields = readLetter(lines);
+        setOcrDeadline(fields.deadline?.date ?? null);
+        setOcrStatus("done");
+      })
+      .catch(() => alive && setOcrStatus("done"));
+    return () => {
+      alive = false;
+    };
+  }, [state.letterPhoto]);
 
   function readAloud() {
     const text = CALLOUTS.map((c) => `${t(c.labelKey, L)}. ${t(c.bodyKey, L)}`).join(". ");
@@ -51,9 +75,23 @@ export function LetterXRay() {
         <div className="card photo-thumb">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={state.letterPhoto} alt="Your letter photo" />
-          <p className="sub" style={{ fontSize: ".875rem" }}>
-            {t("photo_got", L)}
-          </p>
+          <div>
+            <p className="sub" style={{ fontSize: ".875rem", fontWeight: 600 }}>
+              🔒 {t("stays_on_phone", L)}
+            </p>
+            <p className="sub" style={{ fontSize: ".8125rem" }}>
+              {ocrStatus === "reading"
+                ? t("ocr_reading", L)
+                : ocrStatus === "done"
+                  ? t("ocr_done", L)
+                  : t("photo_got", L)}
+            </p>
+            {ocrStatus === "done" && ocrDeadline && (
+              <p className="sub" style={{ fontSize: ".8125rem" }}>
+                {t("deadline", L)}: {ocrDeadline}
+              </p>
+            )}
+          </div>
         </div>
       )}
 
@@ -102,9 +140,19 @@ export function LetterXRay() {
       </Button>
       {speechNote && <p className="note">{speechNote}</p>}
 
+      <HelpButton lang={L} letterText={letterPlainText()} rulesSummary="" />
+
       <Button onClick={() => dispatch({ type: "go", step: "questions" })}>
         {t("check_applies", L)}
       </Button>
     </>
   );
+}
+
+/** The sample letter as plain text, for the help guide (redacted client-side). */
+function letterPlainText(): string {
+  const body = SAMPLE_LETTER.lines
+    .map((l) => l.highlight!.mark)
+    .join(" ");
+  return `${SAMPLE_LETTER.greeting} ${SAMPLE_LETTER.intro} ${body}`;
 }

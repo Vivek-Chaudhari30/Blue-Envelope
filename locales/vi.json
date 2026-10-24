@@ -147,5 +147,13 @@
   "step_packet_desc": "Danh sách, xác nhận đối tác, nhắc nhở, cho phép chia sẻ.",
   "step_submit": "Gửi đến MassHealth",
   "step_submit_desc": "Kênh chính thức, cùng trợ giúp từ 211 và trung tâm y tế.",
-  "build_packet": "Tạo bộ hồ sơ chứng minh của tôi"
+  "build_packet": "Tạo bộ hồ sơ chứng minh của tôi",
+  "help_understand": "Tôi không hiểu cái này, hãy giúp tôi",
+  "help_ask_placeholder": "Bạn muốn được giúp gì?",
+  "help_ask_send": "Hỏi",
+  "help_sample_note": "Đây là phần giải thích mẫu. MassHealth đưa ra quyết định.",
+  "help_thinking": "Đang suy nghĩ…",
+  "stays_on_phone": "Lá thư của bạn ở lại trên điện thoại của bạn",
+  "ocr_reading": "Đang đọc lá thư của bạn trên điện thoại…",
+  "ocr_done": "Đã đọc trên điện thoại của bạn. Không có gì được tải lên."
 }
