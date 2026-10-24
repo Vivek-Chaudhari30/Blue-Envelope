@@ -162,3 +162,38 @@ test("on-device OCR reads a printed sample letter (rules only, AI off)", async (
     page.locator(".photo-thumb").getByText("Deadline: December 15, 2026"),
   ).toBeVisible();
 });
+
+// Letter-chat (kiro/letter-chat): chips, evidence highlight, edit deadline
+// flows to the packet banner, and "Delete my letter" clears the X-Ray.
+test("letter chat: proof chip -> evidence, edit deadline -> packet, delete clears", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Try a sample letter" }).click();
+  await expect(page.getByText("Here's what your letter says")).toBeVisible();
+
+  // Open the chat sheet and tap a pre-written chip (no AI).
+  await page.getByRole("button", { name: /Ask about your letter/ }).click();
+  await page.getByRole("button", { name: "What counts as proof?" }).click();
+  // Evidence chip cites line #3; clicking it flashes the "send" callout.
+  const evidence = page.getByRole("button", { name: /Based on:.*#3/ });
+  await expect(evidence).toBeVisible();
+  await evidence.click();
+
+  // Edit the deadline (fix what we read) -> provenance becomes "You changed this".
+  await page.getByRole("button", { name: "Edit" }).first().click();
+  const input = page.getByLabel("Deadline");
+  await input.fill("December 20, 2026");
+  await page.getByRole("button", { name: "Save" }).click();
+  await expect(page.getByText("You changed this")).toBeVisible();
+
+  // The edited deadline flows to the packet banner.
+  await page.getByRole("button", { name: "Check what applies to me" }).click();
+  await page.getByRole("button", { name: "See my easiest path" }).click();
+  await page.getByRole("button", { name: "Build my proof packet" }).click();
+  await expect(page.getByText("December 20, 2026")).toBeVisible();
+
+  // Delete my letter clears the chat/values; confirmation shows.
+  await page.goto("/");
+  await page.getByRole("button", { name: "Try a sample letter" }).click();
+  await page.getByRole("button", { name: /Delete my letter/ }).click();
+  await expect(page.getByText("Deleted from this phone")).toBeVisible();
+});

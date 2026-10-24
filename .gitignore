@@ -42,3 +42,6 @@ npm-debug.log*
 
 # Local KiroCrew CLI state only (NOT steering, specs, or hooks — those stay tracked)
 .kiro/settings/.kirocrew-cli-settings.lock
+
+# tesseract.js runtime artifacts
+*.traineddata
