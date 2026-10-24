@@ -221,3 +221,28 @@ test("community: I sent it -> share card -> board shows Lowell and Maria", async
   await expect(page.getByRole("cell", { name: "Lowell" }).first()).toBeVisible();
   await expect(page.getByText(/Maria/).first()).toBeVisible();
 });
+
+// Ready-to-send packet: build the PDF on the device, download (share fallback
+// in headless), then "I sent it" shows the review reminder.
+test("ready to send: build PDF -> download -> I sent it", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Try a sample letter" }).click();
+  await page.getByRole("button", { name: "Check what applies to me" }).click();
+  await page.getByRole("button", { name: "See my easiest path" }).click();
+  await page.getByRole("button", { name: "Build my proof packet" }).click();
+  await page.getByRole("button", { name: "How to send it" }).click();
+
+  await expect(page.getByText("Ready-to-send packet")).toBeVisible();
+  await page.getByRole("button", { name: "Build my packet (PDF)" }).click();
+  await expect(page.getByText(/made on your phone/)).toBeVisible();
+
+  // Download (Web Share is unavailable in headless Chromium).
+  const dl = page.waitForEvent("download");
+  await page.getByRole("button", { name: "Download" }).click();
+  const file = await dl;
+  expect(file.suggestedFilename()).toContain(".pdf");
+
+  // "I sent it" shows the review reminder (never "approved"/"updated").
+  await page.getByRole("button", { name: "I sent it", exact: true }).click();
+  await expect(page.getByText(/Check your account in about 10 days/)).toBeVisible();
+});

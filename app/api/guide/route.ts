@@ -6,7 +6,7 @@ import {
   type GuideOut,
   type GuideResponse,
 } from "@/lib/guide/schema";
-import { isGrounded, hasBannedPhrase } from "@/lib/guide/ground";
+import { isGrounded, hasBannedPhrase, coverNoteGrounded } from "@/lib/guide/ground";
 
 export const runtime = "nodejs";
 
@@ -127,7 +127,15 @@ export async function POST(req: Request) {
     outTok = usage?.completionTokens ?? 0;
 
     // Validate: zod already applied by generateObject; now ground + banned.
-    if (!isGrounded(reason, out, text, lineIds ?? [])) {
+    // cover_note is grounded against the member's OWN words (the submitted text):
+    // the rewrite may add no number or date the member did not write.
+    if (reason === "cover_note") {
+      const sentence = (out as { sentence: string }).sentence;
+      if (!coverNoteGrounded(sentence, text)) {
+        log(reason, t0, inTok, outTok, "ungrounded");
+        return NextResponse.json(fallback(reason, "Couldn't verify the note against your words; keeping your own words."));
+      }
+    } else if (!isGrounded(reason, out, text, lineIds ?? [])) {
       log(reason, t0, inTok, outTok, "ungrounded");
       return NextResponse.json(fallback(reason, "Couldn't verify the answer against your letter; showing the sample."));
     }

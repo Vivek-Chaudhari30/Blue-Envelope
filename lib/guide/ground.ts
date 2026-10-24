@@ -16,9 +16,32 @@ function textValues(reason: GuideReason, out: GuideOut): string[] {
       return (out as { weeks: { period: string }[] }).weeks.map((w) => w.period);
     case "member_help":
       return [(out as { answer: string }).answer];
+    case "cover_note":
+      return [(out as { sentence: string }).sentence];
     default:
       return [];
   }
+}
+
+/** Numbers + simple dates in a string, for the cover_note grounding check. */
+function numberAndDateTokens(s: string): string[] {
+  const nums = s.match(/\$?\d[\d,.]*/g) ?? [];
+  const months =
+    "January|February|March|April|May|June|July|August|September|October|November|December";
+  const dates = s.match(new RegExp(`(?:${months})\\s+\\d{1,2},?\\s+\\d{4}`, "gi")) ?? [];
+  return [...nums.map((n) => n.replace(/[$,]/g, "")), ...dates];
+}
+
+/**
+ * cover_note grounding: the rewritten sentence must not introduce any number
+ * or date that is absent from the member's own words.
+ */
+export function coverNoteGrounded(sentence: string, memberWords: string): boolean {
+  const have = new Set(numberAndDateTokens(memberWords));
+  for (const tok of numberAndDateTokens(sentence)) {
+    if (!have.has(tok) && !memberWords.includes(tok)) return false;
+  }
+  return true;
 }
 
 /** Numbers/dates/line ids that must be grounded in the submitted text. */
