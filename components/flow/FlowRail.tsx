@@ -35,6 +35,11 @@ export function FlowRail() {
         ))}
       </ol>
       <p className="fine">
+        <a href="/community">{t("community_open", state.lang)}</a>
+        {" · "}
+        <a href="/navigator">Navigator Board</a>
+      </p>
+      <p className="fine">
         Independent student prototype for Hackachusetts 2026. Not affiliated
         with MassHealth. Every person, letter and amount shown is a sample.
         Translations are drafts for the demo; have a native speaker check them.

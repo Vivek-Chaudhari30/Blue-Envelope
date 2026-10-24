@@ -5,6 +5,7 @@ import { Button, Option } from "@/components/ui";
 import { t, type MessageKey } from "@/lib/i18n";
 import type { AgeBand, ExemptionId } from "@/lib/rules/types";
 import type { Contact } from "./FlowContext";
+import { TownPicker } from "./TownPicker";
 
 const AGES: { id: AgeBand; key: MessageKey }[] = [
   { id: "under-19", key: "age_under" },
@@ -198,6 +199,8 @@ export function Questions() {
           ))}
         </div>
       </div>
+
+      <TownPicker lang={L} />
 
       <Button onClick={() => dispatch({ type: "go", step: "path" })}>
         {t("see_path", L)}

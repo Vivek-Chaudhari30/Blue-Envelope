@@ -1,0 +1,2108 @@
+[
+  {
+    "id": "abington",
+    "name": "Abington",
+    "county": "Plymouth",
+    "pop2020": 17062
+  },
+  {
+    "id": "acton",
+    "name": "Acton",
+    "county": "Middlesex",
+    "pop2020": 24021
+  },
+  {
+    "id": "acushnet",
+    "name": "Acushnet",
+    "county": "Bristol",
+    "pop2020": 10649
+  },
+  {
+    "id": "adams",
+    "name": "Adams",
+    "county": "Berkshire",
+    "pop2020": 8166
+  },
+  {
+    "id": "agawam",
+    "name": "Agawam",
+    "county": "Hampden",
+    "pop2020": 28692
+  },
+  {
+    "id": "alford",
+    "name": "Alford",
+    "county": "Berkshire",
+    "pop2020": 486
+  },
+  {
+    "id": "amesbury",
+    "name": "Amesbury",
+    "county": "Essex",
+    "pop2020": 17851
+  },
+  {
+    "id": "amherst",
+    "name": "Amherst",
+    "county": "Hampshire",
+    "pop2020": 39263
+  },
+  {
+    "id": "andover",
+    "name": "Andover",
+    "county": "Essex",
+    "pop2020": 36569
+  },
+  {
+    "id": "aquinnah",
+    "name": "Aquinnah",
+    "county": "Dukes",
+    "pop2020": 439
+  },
+  {
+    "id": "arlington",
+    "name": "Arlington",
+    "county": "Middlesex",
+    "pop2020": 46308
+  },
+  {
+    "id": "ashburnham",
+    "name": "Ashburnham",
+    "county": "Worcester",
+    "pop2020": 6315
+  },
+  {
+    "id": "ashby",
+    "name": "Ashby",
+    "county": "Middlesex",
+    "pop2020": 3193
+  },
+  {
+    "id": "ashfield",
+    "name": "Ashfield",
+    "county": "Franklin",
+    "pop2020": 1737
+  },
+  {
+    "id": "ashland",
+    "name": "Ashland",
+    "county": "Middlesex",
+    "pop2020": 18832
+  },
+  {
+    "id": "athol",
+    "name": "Athol",
+    "county": "Worcester",
+    "pop2020": 11945
+  },
+  {
+    "id": "attleboro",
+    "name": "Attleboro",
+    "county": "Bristol",
+    "pop2020": 46461
+  },
+  {
+    "id": "auburn",
+    "name": "Auburn",
+    "county": "Worcester",
+    "pop2020": 17127
+  },
+  {
+    "id": "avon",
+    "name": "Avon",
+    "county": "Norfolk",
+    "pop2020": 4356
+  },
+  {
+    "id": "ayer",
+    "name": "Ayer",
+    "county": "Middlesex",
+    "pop2020": 8078
+  },
+  {
+    "id": "barnstable",
+    "name": "Barnstable",
+    "county": "Barnstable",
+    "pop2020": 48916
+  },
+  {
+    "id": "barre",
+    "name": "Barre",
+    "county": "Worcester",
+    "pop2020": 5508
+  },
+  {
+    "id": "becket",
+    "name": "Becket",
+    "county": "Berkshire",
+    "pop2020": 1779
+  },
+  {
+    "id": "bedford",
+    "name": "Bedford",
+    "county": "Middlesex",
+    "pop2020": 14383
+  },
+  {
+    "id": "belchertown",
+    "name": "Belchertown",
+    "county": "Hampshire",
+    "pop2020": 15353
+  },
+  {
+    "id": "bellingham",
+    "name": "Bellingham",
+    "county": "Norfolk",
+    "pop2020": 16945
+  },
+  {
+    "id": "belmont",
+    "name": "Belmont",
+    "county": "Middlesex",
+    "pop2020": 27295
+  },
+  {
+    "id": "berkley",
+    "name": "Berkley",
+    "county": "Bristol",
+    "pop2020": 6722
+  },
+  {
+    "id": "berlin",
+    "name": "Berlin",
+    "county": "Worcester",
+    "pop2020": 3329
+  },
+  {
+    "id": "bernardston",
+    "name": "Bernardston",
+    "county": "Franklin",
+    "pop2020": 2142
+  },
+  {
+    "id": "beverly",
+    "name": "Beverly",
+    "county": "Essex",
+    "pop2020": 42670
+  },
+  {
+    "id": "billerica",
+    "name": "Billerica",
+    "county": "Middlesex",
+    "pop2020": 44522
+  },
+  {
+    "id": "blackstone",
+    "name": "Blackstone",
+    "county": "Worcester",
+    "pop2020": 9272
+  },
+  {
+    "id": "blandford",
+    "name": "Blandford",
+    "county": "Hampden",
+    "pop2020": 1288
+  },
+  {
+    "id": "bolton",
+    "name": "Bolton",
+    "county": "Worcester",
+    "pop2020": 5516
+  },
+  {
+    "id": "boston",
+    "name": "Boston",
+    "county": "Suffolk",
+    "pop2020": 675647
+  },
+  {
+    "id": "bourne",
+    "name": "Bourne",
+    "county": "Barnstable",
+    "pop2020": 20452
+  },
+  {
+    "id": "boxborough",
+    "name": "Boxborough",
+    "county": "Middlesex",
+    "pop2020": 5506
+  },
+  {
+    "id": "boxford",
+    "name": "Boxford",
+    "county": "Essex",
+    "pop2020": 8359
+  },
+  {
+    "id": "boylston",
+    "name": "Boylston",
+    "county": "Worcester",
+    "pop2020": 4680
+  },
+  {
+    "id": "braintree",
+    "name": "Braintree",
+    "county": "Norfolk",
+    "pop2020": 39143
+  },
+  {
+    "id": "brewster",
+    "name": "Brewster",
+    "county": "Barnstable",
+    "pop2020": 9820
+  },
+  {
+    "id": "bridgewater",
+    "name": "Bridgewater",
+    "county": "Plymouth",
+    "pop2020": 28633
+  },
+  {
+    "id": "brimfield",
+    "name": "Brimfield",
+    "county": "Hampden",
+    "pop2020": 3609
+  },
+  {
+    "id": "brockton",
+    "name": "Brockton",
+    "county": "Plymouth",
+    "pop2020": 105643
+  },
+  {
+    "id": "brookfield",
+    "name": "Brookfield",
+    "county": "Worcester",
+    "pop2020": 3461
+  },
+  {
+    "id": "brookline",
+    "name": "Brookline",
+    "county": "Norfolk",
+    "pop2020": 63191
+  },
+  {
+    "id": "buckland",
+    "name": "Buckland",
+    "county": "Franklin",
+    "pop2020": 1862
+  },
+  {
+    "id": "burlington",
+    "name": "Burlington",
+    "county": "Middlesex",
+    "pop2020": 26377
+  },
+  {
+    "id": "cambridge",
+    "name": "Cambridge",
+    "county": "Middlesex",
+    "pop2020": 118403
+  },
+  {
+    "id": "canton",
+    "name": "Canton",
+    "county": "Norfolk",
+    "pop2020": 24370
+  },
+  {
+    "id": "carlisle",
+    "name": "Carlisle",
+    "county": "Middlesex",
+    "pop2020": 5237
+  },
+  {
+    "id": "carver",
+    "name": "Carver",
+    "county": "Plymouth",
+    "pop2020": 11853
+  },
+  {
+    "id": "charlemont",
+    "name": "Charlemont",
+    "county": "Franklin",
+    "pop2020": 1370
+  },
+  {
+    "id": "charlton",
+    "name": "Charlton",
+    "county": "Worcester",
+    "pop2020": 13776
+  },
+  {
+    "id": "chatham",
+    "name": "Chatham",
+    "county": "Barnstable",
+    "pop2020": 6594
+  },
+  {
+    "id": "chelmsford",
+    "name": "Chelmsford",
+    "county": "Middlesex",
+    "pop2020": 36447
+  },
+  {
+    "id": "chelsea",
+    "name": "Chelsea",
+    "county": "Suffolk",
+    "pop2020": 40787
+  },
+  {
+    "id": "cheshire",
+    "name": "Cheshire",
+    "county": "Berkshire",
+    "pop2020": 3101
+  },
+  {
+    "id": "chester",
+    "name": "Chester",
+    "county": "Hampden",
+    "pop2020": 1337
+  },
+  {
+    "id": "chesterfield",
+    "name": "Chesterfield",
+    "county": "Hampshire",
+    "pop2020": 1264
+  },
+  {
+    "id": "chicopee",
+    "name": "Chicopee",
+    "county": "Hampden",
+    "pop2020": 55560
+  },
+  {
+    "id": "chilmark",
+    "name": "Chilmark",
+    "county": "Dukes",
+    "pop2020": 901
+  },
+  {
+    "id": "clarksburg",
+    "name": "Clarksburg",
+    "county": "Berkshire",
+    "pop2020": 1655
+  },
+  {
+    "id": "clinton",
+    "name": "Clinton",
+    "county": "Worcester",
+    "pop2020": 15428
+  },
+  {
+    "id": "cohasset",
+    "name": "Cohasset",
+    "county": "Norfolk",
+    "pop2020": 8381
+  },
+  {
+    "id": "colrain",
+    "name": "Colrain",
+    "county": "Franklin",
+    "pop2020": 1670
+  },
+  {
+    "id": "concord",
+    "name": "Concord",
+    "county": "Middlesex",
+    "pop2020": 18491
+  },
+  {
+    "id": "conway",
+    "name": "Conway",
+    "county": "Franklin",
+    "pop2020": 1894
+  },
+  {
+    "id": "cummington",
+    "name": "Cummington",
+    "county": "Hampshire",
+    "pop2020": 872
+  },
+  {
+    "id": "dalton",
+    "name": "Dalton",
+    "county": "Berkshire",
+    "pop2020": 6690
+  },
+  {
+    "id": "danvers",
+    "name": "Danvers",
+    "county": "Essex",
+    "pop2020": 28087
+  },
+  {
+    "id": "dartmouth",
+    "name": "Dartmouth",
+    "county": "Bristol",
+    "pop2020": 34032
+  },
+  {
+    "id": "dedham",
+    "name": "Dedham",
+    "county": "Norfolk",
+    "pop2020": 25364
+  },
+  {
+    "id": "deerfield",
+    "name": "Deerfield",
+    "county": "Franklin",
+    "pop2020": 5090
+  },
+  {
+    "id": "dennis",
+    "name": "Dennis",
+    "county": "Barnstable",
+    "pop2020": 14674
+  },
+  {
+    "id": "dighton",
+    "name": "Dighton",
+    "county": "Bristol",
+    "pop2020": 7786
+  },
+  {
+    "id": "douglas",
+    "name": "Douglas",
+    "county": "Worcester",
+    "pop2020": 9232
+  },
+  {
+    "id": "dover",
+    "name": "Dover",
+    "county": "Norfolk",
+    "pop2020": 6136
+  },
+  {
+    "id": "dracut",
+    "name": "Dracut",
+    "county": "Middlesex",
+    "pop2020": 32617
+  },
+  {
+    "id": "dudley",
+    "name": "Dudley",
+    "county": "Worcester",
+    "pop2020": 11871
+  },
+  {
+    "id": "dunstable",
+    "name": "Dunstable",
+    "county": "Middlesex",
+    "pop2020": 3550
+  },
+  {
+    "id": "duxbury",
+    "name": "Duxbury",
+    "county": "Plymouth",
+    "pop2020": 16090
+  },
+  {
+    "id": "east-bridgewater",
+    "name": "East Bridgewater",
+    "county": "Plymouth",
+    "pop2020": 14695
+  },
+  {
+    "id": "east-brookfield",
+    "name": "East Brookfield",
+    "county": "Worcester",
+    "pop2020": 2213
+  },
+  {
+    "id": "east-longmeadow",
+    "name": "East Longmeadow",
+    "county": "Hampden",
+    "pop2020": 16211
+  },
+  {
+    "id": "eastham",
+    "name": "Eastham",
+    "county": "Barnstable",
+    "pop2020": 5752
+  },
+  {
+    "id": "easthampton",
+    "name": "Easthampton",
+    "county": "Hampshire",
+    "pop2020": 16211
+  },
+  {
+    "id": "easton",
+    "name": "Easton",
+    "county": "Bristol",
+    "pop2020": 25058
+  },
+  {
+    "id": "edgartown",
+    "name": "Edgartown",
+    "county": "Dukes",
+    "pop2020": 5093
+  },
+  {
+    "id": "egremont",
+    "name": "Egremont",
+    "county": "Berkshire",
+    "pop2020": 1225
+  },
+  {
+    "id": "erving",
+    "name": "Erving",
+    "county": "Franklin",
+    "pop2020": 1803
+  },
+  {
+    "id": "essex",
+    "name": "Essex",
+    "county": "Essex",
+    "pop2020": 3675
+  },
+  {
+    "id": "everett",
+    "name": "Everett",
+    "county": "Middlesex",
+    "pop2020": 49075
+  },
+  {
+    "id": "fairhaven",
+    "name": "Fairhaven",
+    "county": "Bristol",
+    "pop2020": 15924
+  },
+  {
+    "id": "fall-river",
+    "name": "Fall River",
+    "county": "Bristol",
+    "pop2020": 94000
+  },
+  {
+    "id": "falmouth",
+    "name": "Falmouth",
+    "county": "Barnstable",
+    "pop2020": 32517
+  },
+  {
+    "id": "fitchburg",
+    "name": "Fitchburg",
+    "county": "Worcester",
+    "pop2020": 41946
+  },
+  {
+    "id": "florida",
+    "name": "Florida",
+    "county": "Berkshire",
+    "pop2020": 696
+  },
+  {
+    "id": "foxborough",
+    "name": "Foxborough",
+    "county": "Norfolk",
+    "pop2020": 18618
+  },
+  {
+    "id": "framingham",
+    "name": "Framingham",
+    "county": "Middlesex",
+    "pop2020": 72362
+  },
+  {
+    "id": "franklin",
+    "name": "Franklin",
+    "county": "Norfolk",
+    "pop2020": 33261
+  },
+  {
+    "id": "freetown",
+    "name": "Freetown",
+    "county": "Bristol",
+    "pop2020": 9492
+  },
+  {
+    "id": "gardner",
+    "name": "Gardner",
+    "county": "Worcester",
+    "pop2020": 21001
+  },
+  {
+    "id": "georgetown",
+    "name": "Georgetown",
+    "county": "Essex",
+    "pop2020": 8733
+  },
+  {
+    "id": "gill",
+    "name": "Gill",
+    "county": "Franklin",
+    "pop2020": 1500
+  },
+  {
+    "id": "gloucester",
+    "name": "Gloucester",
+    "county": "Essex",
+    "pop2020": 29729
+  },
+  {
+    "id": "goshen",
+    "name": "Goshen",
+    "county": "Hampshire",
+    "pop2020": 1054
+  },
+  {
+    "id": "gosnold",
+    "name": "Gosnold",
+    "county": "Dukes",
+    "pop2020": 70
+  },
+  {
+    "id": "grafton",
+    "name": "Grafton",
+    "county": "Worcester",
+    "pop2020": 19664
+  },
+  {
+    "id": "granby",
+    "name": "Granby",
+    "county": "Hampshire",
+    "pop2020": 6451
+  },
+  {
+    "id": "granville",
+    "name": "Granville",
+    "county": "Hampden",
+    "pop2020": 1562
+  },
+  {
+    "id": "great-barrington",
+    "name": "Great Barrington",
+    "county": "Berkshire",
+    "pop2020": 6935
+  },
+  {
+    "id": "greenfield",
+    "name": "Greenfield",
+    "county": "Franklin",
+    "pop2020": 17768
+  },
+  {
+    "id": "groton",
+    "name": "Groton",
+    "county": "Middlesex",
+    "pop2020": 11315
+  },
+  {
+    "id": "groveland",
+    "name": "Groveland",
+    "county": "Essex",
+    "pop2020": 6757
+  },
+  {
+    "id": "hadley",
+    "name": "Hadley",
+    "county": "Hampshire",
+    "pop2020": 5325
+  },
+  {
+    "id": "halifax",
+    "name": "Halifax",
+    "county": "Plymouth",
+    "pop2020": 7708
+  },
+  {
+    "id": "hamilton",
+    "name": "Hamilton",
+    "county": "Essex",
+    "pop2020": 7561
+  },
+  {
+    "id": "hampden",
+    "name": "Hampden",
+    "county": "Hampden",
+    "pop2020": 5114
+  },
+  {
+    "id": "hancock",
+    "name": "Hancock",
+    "county": "Berkshire",
+    "pop2020": 717
+  },
+  {
+    "id": "hanover",
+    "name": "Hanover",
+    "county": "Plymouth",
+    "pop2020": 14833
+  },
+  {
+    "id": "hanson",
+    "name": "Hanson",
+    "county": "Plymouth",
+    "pop2020": 10932
+  },
+  {
+    "id": "hardwick",
+    "name": "Hardwick",
+    "county": "Worcester",
+    "pop2020": 2693
+  },
+  {
+    "id": "harvard",
+    "name": "Harvard",
+    "county": "Worcester",
+    "pop2020": 6851
+  },
+  {
+    "id": "harwich",
+    "name": "Harwich",
+    "county": "Barnstable",
+    "pop2020": 13440
+  },
+  {
+    "id": "hatfield",
+    "name": "Hatfield",
+    "county": "Hampshire",
+    "pop2020": 3362
+  },
+  {
+    "id": "haverhill",
+    "name": "Haverhill",
+    "county": "Essex",
+    "pop2020": 67787
+  },
+  {
+    "id": "hawley",
+    "name": "Hawley",
+    "county": "Franklin",
+    "pop2020": 313
+  },
+  {
+    "id": "heath",
+    "name": "Heath",
+    "county": "Franklin",
+    "pop2020": 702
+  },
+  {
+    "id": "hingham",
+    "name": "Hingham",
+    "county": "Plymouth",
+    "pop2020": 24679
+  },
+  {
+    "id": "hinsdale",
+    "name": "Hinsdale",
+    "county": "Berkshire",
+    "pop2020": 1915
+  },
+  {
+    "id": "holbrook",
+    "name": "Holbrook",
+    "county": "Norfolk",
+    "pop2020": 11405
+  },
+  {
+    "id": "holden",
+    "name": "Holden",
+    "county": "Worcester",
+    "pop2020": 19905
+  },
+  {
+    "id": "holland",
+    "name": "Holland",
+    "county": "Hampden",
+    "pop2020": 2534
+  },
+  {
+    "id": "holliston",
+    "name": "Holliston",
+    "county": "Middlesex",
+    "pop2020": 14996
+  },
+  {
+    "id": "holyoke",
+    "name": "Holyoke",
+    "county": "Hampden",
+    "pop2020": 38238
+  },
+  {
+    "id": "hopedale",
+    "name": "Hopedale",
+    "county": "Worcester",
+    "pop2020": 6017
+  },
+  {
+    "id": "hopkinton",
+    "name": "Hopkinton",
+    "county": "Middlesex",
+    "pop2020": 18758
+  },
+  {
+    "id": "hubbardston",
+    "name": "Hubbardston",
+    "county": "Worcester",
+    "pop2020": 4382
+  },
+  {
+    "id": "hudson",
+    "name": "Hudson",
+    "county": "Middlesex",
+    "pop2020": 19063
+  },
+  {
+    "id": "hull",
+    "name": "Hull",
+    "county": "Plymouth",
+    "pop2020": 10072
+  },
+  {
+    "id": "huntington",
+    "name": "Huntington",
+    "county": "Hampshire",
+    "pop2020": 2175
+  },
+  {
+    "id": "ipswich",
+    "name": "Ipswich",
+    "county": "Essex",
+    "pop2020": 13785
+  },
+  {
+    "id": "kingston",
+    "name": "Kingston",
+    "county": "Plymouth",
+    "pop2020": 13708
+  },
+  {
+    "id": "lakeville",
+    "name": "Lakeville",
+    "county": "Plymouth",
+    "pop2020": 11523
+  },
+  {
+    "id": "lancaster",
+    "name": "Lancaster",
+    "county": "Worcester",
+    "pop2020": 8441
+  },
+  {
+    "id": "lanesborough",
+    "name": "Lanesborough",
+    "county": "Berkshire",
+    "pop2020": 2951
+  },
+  {
+    "id": "lawrence",
+    "name": "Lawrence",
+    "county": "Essex",
+    "pop2020": 89143
+  },
+  {
+    "id": "lee",
+    "name": "Lee",
+    "county": "Berkshire",
+    "pop2020": 5789
+  },
+  {
+    "id": "leicester",
+    "name": "Leicester",
+    "county": "Worcester",
+    "pop2020": 11087
+  },
+  {
+    "id": "lenox",
+    "name": "Lenox",
+    "county": "Berkshire",
+    "pop2020": 4946
+  },
+  {
+    "id": "leominster",
+    "name": "Leominster",
+    "county": "Worcester",
+    "pop2020": 43782
+  },
+  {
+    "id": "leverett",
+    "name": "Leverett",
+    "county": "Franklin",
+    "pop2020": 1853
+  },
+  {
+    "id": "lexington",
+    "name": "Lexington",
+    "county": "Middlesex",
+    "pop2020": 34454
+  },
+  {
+    "id": "leyden",
+    "name": "Leyden",
+    "county": "Franklin",
+    "pop2020": 772
+  },
+  {
+    "id": "lincoln",
+    "name": "Lincoln",
+    "county": "Middlesex",
+    "pop2020": 7014
+  },
+  {
+    "id": "littleton",
+    "name": "Littleton",
+    "county": "Middlesex",
+    "pop2020": 10141
+  },
+  {
+    "id": "longmeadow",
+    "name": "Longmeadow",
+    "county": "Hampden",
+    "pop2020": 15784
+  },
+  {
+    "id": "lowell",
+    "name": "Lowell",
+    "county": "Middlesex",
+    "pop2020": 115554
+  },
+  {
+    "id": "ludlow",
+    "name": "Ludlow",
+    "county": "Hampden",
+    "pop2020": 21516
+  },
+  {
+    "id": "lunenburg",
+    "name": "Lunenburg",
+    "county": "Worcester",
+    "pop2020": 11782
+  },
+  {
+    "id": "lynn",
+    "name": "Lynn",
+    "county": "Essex",
+    "pop2020": 101253
+  },
+  {
+    "id": "lynnfield",
+    "name": "Lynnfield",
+    "county": "Essex",
+    "pop2020": 13010
+  },
+  {
+    "id": "malden",
+    "name": "Malden",
+    "county": "Middlesex",
+    "pop2020": 66263
+  },
+  {
+    "id": "manchester-by-the-sea",
+    "name": "Manchester-by-the-Sea",
+    "county": "Essex",
+    "pop2020": 5395
+  },
+  {
+    "id": "mansfield",
+    "name": "Mansfield",
+    "county": "Bristol",
+    "pop2020": 23715
+  },
+  {
+    "id": "marblehead",
+    "name": "Marblehead",
+    "county": "Essex",
+    "pop2020": 20441
+  },
+  {
+    "id": "marion",
+    "name": "Marion",
+    "county": "Plymouth",
+    "pop2020": 4998
+  },
+  {
+    "id": "marlborough",
+    "name": "Marlborough",
+    "county": "Middlesex",
+    "pop2020": 41793
+  },
+  {
+    "id": "marshfield",
+    "name": "Marshfield",
+    "county": "Plymouth",
+    "pop2020": 25825
+  },
+  {
+    "id": "mashpee",
+    "name": "Mashpee",
+    "county": "Barnstable",
+    "pop2020": 15060
+  },
+  {
+    "id": "mattapoisett",
+    "name": "Mattapoisett",
+    "county": "Plymouth",
+    "pop2020": 6469
+  },
+  {
+    "id": "maynard",
+    "name": "Maynard",
+    "county": "Middlesex",
+    "pop2020": 10746
+  },
+  {
+    "id": "medfield",
+    "name": "Medfield",
+    "county": "Norfolk",
+    "pop2020": 12799
+  },
+  {
+    "id": "medford",
+    "name": "Medford",
+    "county": "Middlesex",
+    "pop2020": 59659
+  },
+  {
+    "id": "medway",
+    "name": "Medway",
+    "county": "Norfolk",
+    "pop2020": 13115
+  },
+  {
+    "id": "melrose",
+    "name": "Melrose",
+    "county": "Middlesex",
+    "pop2020": 29817
+  },
+  {
+    "id": "mendon",
+    "name": "Mendon",
+    "county": "Worcester",
+    "pop2020": 6228
+  },
+  {
+    "id": "merrimac",
+    "name": "Merrimac",
+    "county": "Essex",
+    "pop2020": 6723
+  },
+  {
+    "id": "methuen",
+    "name": "Methuen",
+    "county": "Essex",
+    "pop2020": 53059
+  },
+  {
+    "id": "middleborough",
+    "name": "Middleborough",
+    "county": "Plymouth",
+    "pop2020": 24136
+  },
+  {
+    "id": "middlefield",
+    "name": "Middlefield",
+    "county": "Hampshire",
+    "pop2020": 525
+  },
+  {
+    "id": "middleton",
+    "name": "Middleton",
+    "county": "Essex",
+    "pop2020": 10025
+  },
+  {
+    "id": "milford",
+    "name": "Milford",
+    "county": "Worcester",
+    "pop2020": 30379
+  },
+  {
+    "id": "millbury",
+    "name": "Millbury",
+    "county": "Worcester",
+    "pop2020": 13832
+  },
+  {
+    "id": "millis",
+    "name": "Millis",
+    "county": "Norfolk",
+    "pop2020": 8460
+  },
+  {
+    "id": "millville",
+    "name": "Millville",
+    "county": "Worcester",
+    "pop2020": 3337
+  },
+  {
+    "id": "milton",
+    "name": "Milton",
+    "county": "Norfolk",
+    "pop2020": 28630
+  },
+  {
+    "id": "monroe",
+    "name": "Monroe",
+    "county": "Franklin",
+    "pop2020": 124
+  },
+  {
+    "id": "monson",
+    "name": "Monson",
+    "county": "Hampden",
+    "pop2020": 8744
+  },
+  {
+    "id": "montague",
+    "name": "Montague",
+    "county": "Franklin",
+    "pop2020": 8469
+  },
+  {
+    "id": "monterey",
+    "name": "Monterey",
+    "county": "Berkshire",
+    "pop2020": 1023
+  },
+  {
+    "id": "montgomery",
+    "name": "Montgomery",
+    "county": "Hampden",
+    "pop2020": 855
+  },
+  {
+    "id": "mount-washington",
+    "name": "Mount Washington",
+    "county": "Berkshire",
+    "pop2020": 174
+  },
+  {
+    "id": "nahant",
+    "name": "Nahant",
+    "county": "Essex",
+    "pop2020": 3334
+  },
+  {
+    "id": "nantucket",
+    "name": "Nantucket",
+    "county": "Nantucket",
+    "pop2020": 14255
+  },
+  {
+    "id": "natick",
+    "name": "Natick",
+    "county": "Middlesex",
+    "pop2020": 37006
+  },
+  {
+    "id": "needham",
+    "name": "Needham",
+    "county": "Norfolk",
+    "pop2020": 32091
+  },
+  {
+    "id": "new-ashford",
+    "name": "New Ashford",
+    "county": "Berkshire",
+    "pop2020": 223
+  },
+  {
+    "id": "new-bedford",
+    "name": "New Bedford",
+    "county": "Bristol",
+    "pop2020": 101079
+  },
+  {
+    "id": "new-braintree",
+    "name": "New Braintree",
+    "county": "Worcester",
+    "pop2020": 1021
+  },
+  {
+    "id": "new-marlborough",
+    "name": "New Marlborough",
+    "county": "Berkshire",
+    "pop2020": 1491
+  },
+  {
+    "id": "new-salem",
+    "name": "New Salem",
+    "county": "Franklin",
+    "pop2020": 990
+  },
+  {
+    "id": "newbury",
+    "name": "Newbury",
+    "county": "Essex",
+    "pop2020": 7140
+  },
+  {
+    "id": "newburyport",
+    "name": "Newburyport",
+    "county": "Essex",
+    "pop2020": 18289
+  },
+  {
+    "id": "newton",
+    "name": "Newton",
+    "county": "Middlesex",
+    "pop2020": 88923
+  },
+  {
+    "id": "norfolk",
+    "name": "Norfolk",
+    "county": "Norfolk",
+    "pop2020": 12163
+  },
+  {
+    "id": "north-adams",
+    "name": "North Adams",
+    "county": "Berkshire",
+    "pop2020": 12961
+  },
+  {
+    "id": "north-andover",
+    "name": "North Andover",
+    "county": "Essex",
+    "pop2020": 30915
+  },
+  {
+    "id": "north-attleborough",
+    "name": "North Attleborough",
+    "county": "Bristol",
+    "pop2020": 29225
+  },
+  {
+    "id": "north-brookfield",
+    "name": "North Brookfield",
+    "county": "Worcester",
+    "pop2020": 4636
+  },
+  {
+    "id": "north-reading",
+    "name": "North Reading",
+    "county": "Middlesex",
+    "pop2020": 15554
+  },
+  {
+    "id": "northampton",
+    "name": "Northampton",
+    "county": "Hampshire",
+    "pop2020": 29571
+  },
+  {
+    "id": "northborough",
+    "name": "Northborough",
+    "county": "Worcester",
+    "pop2020": 15380
+  },
+  {
+    "id": "northbridge",
+    "name": "Northbridge",
+    "county": "Worcester",
+    "pop2020": 16763
+  },
+  {
+    "id": "northfield",
+    "name": "Northfield",
+    "county": "Franklin",
+    "pop2020": 2932
+  },
+  {
+    "id": "norton",
+    "name": "Norton",
+    "county": "Bristol",
+    "pop2020": 19202
+  },
+  {
+    "id": "norwell",
+    "name": "Norwell",
+    "county": "Plymouth",
+    "pop2020": 11351
+  },
+  {
+    "id": "norwood",
+    "name": "Norwood",
+    "county": "Norfolk",
+    "pop2020": 30903
+  },
+  {
+    "id": "oak-bluffs",
+    "name": "Oak Bluffs",
+    "county": "Dukes",
+    "pop2020": 5341
+  },
+  {
+    "id": "oakham",
+    "name": "Oakham",
+    "county": "Worcester",
+    "pop2020": 1998
+  },
+  {
+    "id": "orange",
+    "name": "Orange",
+    "county": "Franklin",
+    "pop2020": 7839
+  },
+  {
+    "id": "orleans",
+    "name": "Orleans",
+    "county": "Barnstable",
+    "pop2020": 6307
+  },
+  {
+    "id": "otis",
+    "name": "Otis",
+    "county": "Berkshire",
+    "pop2020": 1612
+  },
+  {
+    "id": "oxford",
+    "name": "Oxford",
+    "county": "Worcester",
+    "pop2020": 14034
+  },
+  {
+    "id": "palmer",
+    "name": "Palmer",
+    "county": "Hampden",
+    "pop2020": 12448
+  },
+  {
+    "id": "paxton",
+    "name": "Paxton",
+    "county": "Worcester",
+    "pop2020": 5024
+  },
+  {
+    "id": "peabody",
+    "name": "Peabody",
+    "county": "Essex",
+    "pop2020": 54481
+  },
+  {
+    "id": "pelham",
+    "name": "Pelham",
+    "county": "Hampshire",
+    "pop2020": 1321
+  },
+  {
+    "id": "pembroke",
+    "name": "Pembroke",
+    "county": "Plymouth",
+    "pop2020": 18361
+  },
+  {
+    "id": "pepperell",
+    "name": "Pepperell",
+    "county": "Middlesex",
+    "pop2020": 12261
+  },
+  {
+    "id": "peru",
+    "name": "Peru",
+    "county": "Berkshire",
+    "pop2020": 824
+  },
+  {
+    "id": "petersham",
+    "name": "Petersham",
+    "county": "Worcester",
+    "pop2020": 1219
+  },
+  {
+    "id": "phillipston",
+    "name": "Phillipston",
+    "county": "Worcester",
+    "pop2020": 1799
+  },
+  {
+    "id": "pittsfield",
+    "name": "Pittsfield",
+    "county": "Berkshire",
+    "pop2020": 43927
+  },
+  {
+    "id": "plainfield",
+    "name": "Plainfield",
+    "county": "Hampshire",
+    "pop2020": 685
+  },
+  {
+    "id": "plainville",
+    "name": "Plainville",
+    "county": "Norfolk",
+    "pop2020": 9640
+  },
+  {
+    "id": "plymouth",
+    "name": "Plymouth",
+    "county": "Plymouth",
+    "pop2020": 61217
+  },
+  {
+    "id": "plympton",
+    "name": "Plympton",
+    "county": "Plymouth",
+    "pop2020": 2983
+  },
+  {
+    "id": "princeton",
+    "name": "Princeton",
+    "county": "Worcester",
+    "pop2020": 3524
+  },
+  {
+    "id": "provincetown",
+    "name": "Provincetown",
+    "county": "Barnstable",
+    "pop2020": 3664
+  },
+  {
+    "id": "quincy",
+    "name": "Quincy",
+    "county": "Norfolk",
+    "pop2020": 101636
+  },
+  {
+    "id": "randolph",
+    "name": "Randolph",
+    "county": "Norfolk",
+    "pop2020": 34984
+  },
+  {
+    "id": "raynham",
+    "name": "Raynham",
+    "county": "Bristol",
+    "pop2020": 14176
+  },
+  {
+    "id": "reading",
+    "name": "Reading",
+    "county": "Middlesex",
+    "pop2020": 25518
+  },
+  {
+    "id": "rehoboth",
+    "name": "Rehoboth",
+    "county": "Bristol",
+    "pop2020": 12385
+  },
+  {
+    "id": "revere",
+    "name": "Revere",
+    "county": "Suffolk",
+    "pop2020": 62186
+  },
+  {
+    "id": "richmond",
+    "name": "Richmond",
+    "county": "Berkshire",
+    "pop2020": 1445
+  },
+  {
+    "id": "rochester",
+    "name": "Rochester",
+    "county": "Plymouth",
+    "pop2020": 5811
+  },
+  {
+    "id": "rockland",
+    "name": "Rockland",
+    "county": "Plymouth",
+    "pop2020": 17986
+  },
+  {
+    "id": "rockport",
+    "name": "Rockport",
+    "county": "Essex",
+    "pop2020": 7308
+  },
+  {
+    "id": "rowe",
+    "name": "Rowe",
+    "county": "Franklin",
+    "pop2020": 393
+  },
+  {
+    "id": "rowley",
+    "name": "Rowley",
+    "county": "Essex",
+    "pop2020": 6400
+  },
+  {
+    "id": "royalston",
+    "name": "Royalston",
+    "county": "Worcester",
+    "pop2020": 1258
+  },
+  {
+    "id": "russell",
+    "name": "Russell",
+    "county": "Hampden",
+    "pop2020": 1775
+  },
+  {
+    "id": "rutland",
+    "name": "Rutland",
+    "county": "Worcester",
+    "pop2020": 9335
+  },
+  {
+    "id": "salem",
+    "name": "Salem",
+    "county": "Essex",
+    "pop2020": 44480
+  },
+  {
+    "id": "salisbury",
+    "name": "Salisbury",
+    "county": "Essex",
+    "pop2020": 9826
+  },
+  {
+    "id": "sandisfield",
+    "name": "Sandisfield",
+    "county": "Berkshire",
+    "pop2020": 915
+  },
+  {
+    "id": "sandwich",
+    "name": "Sandwich",
+    "county": "Barnstable",
+    "pop2020": 20259
+  },
+  {
+    "id": "saugus",
+    "name": "Saugus",
+    "county": "Essex",
+    "pop2020": 28619
+  },
+  {
+    "id": "savoy",
+    "name": "Savoy",
+    "county": "Berkshire",
+    "pop2020": 702
+  },
+  {
+    "id": "scituate",
+    "name": "Scituate",
+    "county": "Plymouth",
+    "pop2020": 19063
+  },
+  {
+    "id": "seekonk",
+    "name": "Seekonk",
+    "county": "Bristol",
+    "pop2020": 15531
+  },
+  {
+    "id": "sharon",
+    "name": "Sharon",
+    "county": "Norfolk",
+    "pop2020": 18575
+  },
+  {
+    "id": "sheffield",
+    "name": "Sheffield",
+    "county": "Berkshire",
+    "pop2020": 3256
+  },
+  {
+    "id": "shelburne",
+    "name": "Shelburne",
+    "county": "Franklin",
+    "pop2020": 1799
+  },
+  {
+    "id": "sherborn",
+    "name": "Sherborn",
+    "county": "Middlesex",
+    "pop2020": 4401
+  },
+  {
+    "id": "shirley",
+    "name": "Shirley",
+    "county": "Middlesex",
+    "pop2020": 7211
+  },
+  {
+    "id": "shrewsbury",
+    "name": "Shrewsbury",
+    "county": "Worcester",
+    "pop2020": 38325
+  },
+  {
+    "id": "shutesbury",
+    "name": "Shutesbury",
+    "county": "Franklin",
+    "pop2020": 1771
+  },
+  {
+    "id": "somerset",
+    "name": "Somerset",
+    "county": "Bristol",
+    "pop2020": 18090
+  },
+  {
+    "id": "somerville",
+    "name": "Somerville",
+    "county": "Middlesex",
+    "pop2020": 81045
+  },
+  {
+    "id": "south-hadley",
+    "name": "South Hadley",
+    "county": "Hampshire",
+    "pop2020": 17791
+  },
+  {
+    "id": "southampton",
+    "name": "Southampton",
+    "county": "Hampshire",
+    "pop2020": 6224
+  },
+  {
+    "id": "southborough",
+    "name": "Southborough",
+    "county": "Worcester",
+    "pop2020": 10450
+  },
+  {
+    "id": "southbridge",
+    "name": "Southbridge",
+    "county": "Worcester",
+    "pop2020": 17415
+  },
+  {
+    "id": "southwick",
+    "name": "Southwick",
+    "county": "Hampden",
+    "pop2020": 9733
+  },
+  {
+    "id": "spencer",
+    "name": "Spencer",
+    "county": "Worcester",
+    "pop2020": 11688
+  },
+  {
+    "id": "springfield",
+    "name": "Springfield",
+    "county": "Hampden",
+    "pop2020": 155929
+  },
+  {
+    "id": "sterling",
+    "name": "Sterling",
+    "county": "Worcester",
+    "pop2020": 8124
+  },
+  {
+    "id": "stockbridge",
+    "name": "Stockbridge",
+    "county": "Berkshire",
+    "pop2020": 1945
+  },
+  {
+    "id": "stoneham",
+    "name": "Stoneham",
+    "county": "Middlesex",
+    "pop2020": 23244
+  },
+  {
+    "id": "stoughton",
+    "name": "Stoughton",
+    "county": "Norfolk",
+    "pop2020": 29281
+  },
+  {
+    "id": "stow",
+    "name": "Stow",
+    "county": "Middlesex",
+    "pop2020": 7174
+  },
+  {
+    "id": "sturbridge",
+    "name": "Sturbridge",
+    "county": "Worcester",
+    "pop2020": 9755
+  },
+  {
+    "id": "sudbury",
+    "name": "Sudbury",
+    "county": "Middlesex",
+    "pop2020": 18934
+  },
+  {
+    "id": "sunderland",
+    "name": "Sunderland",
+    "county": "Franklin",
+    "pop2020": 3673
+  },
+  {
+    "id": "sutton",
+    "name": "Sutton",
+    "county": "Worcester",
+    "pop2020": 9598
+  },
+  {
+    "id": "swampscott",
+    "name": "Swampscott",
+    "county": "Essex",
+    "pop2020": 15699
+  },
+  {
+    "id": "swansea",
+    "name": "Swansea",
+    "county": "Bristol",
+    "pop2020": 17144
+  },
+  {
+    "id": "taunton",
+    "name": "Taunton",
+    "county": "Bristol",
+    "pop2020": 59408
+  },
+  {
+    "id": "templeton",
+    "name": "Templeton",
+    "county": "Worcester",
+    "pop2020": 8349
+  },
+  {
+    "id": "tewksbury",
+    "name": "Tewksbury",
+    "county": "Middlesex",
+    "pop2020": 31178
+  },
+  {
+    "id": "tisbury",
+    "name": "Tisbury",
+    "county": "Dukes",
+    "pop2020": 4169
+  },
+  {
+    "id": "tolland",
+    "name": "Tolland",
+    "county": "Hampden",
+    "pop2020": 533
+  },
+  {
+    "id": "topsfield",
+    "name": "Topsfield",
+    "county": "Essex",
+    "pop2020": 6569
+  },
+  {
+    "id": "townsend",
+    "name": "Townsend",
+    "county": "Middlesex",
+    "pop2020": 9676
+  },
+  {
+    "id": "truro",
+    "name": "Truro",
+    "county": "Barnstable",
+    "pop2020": 2454
+  },
+  {
+    "id": "tyngsborough",
+    "name": "Tyngsborough",
+    "county": "Middlesex",
+    "pop2020": 12565
+  },
+  {
+    "id": "tyringham",
+    "name": "Tyringham",
+    "county": "Berkshire",
+    "pop2020": 327
+  },
+  {
+    "id": "upton",
+    "name": "Upton",
+    "county": "Worcester",
+    "pop2020": 8349
+  },
+  {
+    "id": "uxbridge",
+    "name": "Uxbridge",
+    "county": "Worcester",
+    "pop2020": 14098
+  },
+  {
+    "id": "wakefield",
+    "name": "Wakefield",
+    "county": "Middlesex",
+    "pop2020": 27090
+  },
+  {
+    "id": "wales",
+    "name": "Wales",
+    "county": "Hampden",
+    "pop2020": 1826
+  },
+  {
+    "id": "walpole",
+    "name": "Walpole",
+    "county": "Norfolk",
+    "pop2020": 26383
+  },
+  {
+    "id": "waltham",
+    "name": "Waltham",
+    "county": "Middlesex",
+    "pop2020": 65218
+  },
+  {
+    "id": "ware",
+    "name": "Ware",
+    "county": "Hampshire",
+    "pop2020": 10066
+  },
+  {
+    "id": "wareham",
+    "name": "Wareham",
+    "county": "Plymouth",
+    "pop2020": 23303
+  },
+  {
+    "id": "warren",
+    "name": "Warren",
+    "county": "Worcester",
+    "pop2020": 5135
+  },
+  {
+    "id": "warwick",
+    "name": "Warwick",
+    "county": "Franklin",
+    "pop2020": 764
+  },
+  {
+    "id": "washington",
+    "name": "Washington",
+    "county": "Berkshire",
+    "pop2020": 541
+  },
+  {
+    "id": "watertown",
+    "name": "Watertown",
+    "county": "Middlesex",
+    "pop2020": 35329
+  },
+  {
+    "id": "wayland",
+    "name": "Wayland",
+    "county": "Middlesex",
+    "pop2020": 13943
+  },
+  {
+    "id": "webster",
+    "name": "Webster",
+    "county": "Worcester",
+    "pop2020": 17776
+  },
+  {
+    "id": "wellesley",
+    "name": "Wellesley",
+    "county": "Norfolk",
+    "pop2020": 29550
+  },
+  {
+    "id": "wellfleet",
+    "name": "Wellfleet",
+    "county": "Barnstable",
+    "pop2020": 3566
+  },
+  {
+    "id": "wendell",
+    "name": "Wendell",
+    "county": "Franklin",
+    "pop2020": 848
+  },
+  {
+    "id": "wenham",
+    "name": "Wenham",
+    "county": "Essex",
+    "pop2020": 5285
+  },
+  {
+    "id": "west-boylston",
+    "name": "West Boylston",
+    "county": "Worcester",
+    "pop2020": 8010
+  },
+  {
+    "id": "west-bridgewater",
+    "name": "West Bridgewater",
+    "county": "Plymouth",
+    "pop2020": 7658
+  },
+  {
+    "id": "west-brookfield",
+    "name": "West Brookfield",
+    "county": "Worcester",
+    "pop2020": 3701
+  },
+  {
+    "id": "west-newbury",
+    "name": "West Newbury",
+    "county": "Essex",
+    "pop2020": 4579
+  },
+  {
+    "id": "west-springfield",
+    "name": "West Springfield",
+    "county": "Hampden",
+    "pop2020": 28835
+  },
+  {
+    "id": "west-stockbridge",
+    "name": "West Stockbridge",
+    "county": "Berkshire",
+    "pop2020": 1451
+  },
+  {
+    "id": "west-tisbury",
+    "name": "West Tisbury",
+    "county": "Dukes",
+    "pop2020": 3298
+  },
+  {
+    "id": "westborough",
+    "name": "Westborough",
+    "county": "Worcester",
+    "pop2020": 20752
+  },
+  {
+    "id": "westfield",
+    "name": "Westfield",
+    "county": "Hampden",
+    "pop2020": 40834
+  },
+  {
+    "id": "westford",
+    "name": "Westford",
+    "county": "Middlesex",
+    "pop2020": 24559
+  },
+  {
+    "id": "westhampton",
+    "name": "Westhampton",
+    "county": "Hampshire",
+    "pop2020": 1631
+  },
+  {
+    "id": "westminster",
+    "name": "Westminster",
+    "county": "Worcester",
+    "pop2020": 8213
+  },
+  {
+    "id": "weston",
+    "name": "Weston",
+    "county": "Middlesex",
+    "pop2020": 12061
+  },
+  {
+    "id": "westport",
+    "name": "Westport",
+    "county": "Bristol",
+    "pop2020": 16314
+  },
+  {
+    "id": "westwood",
+    "name": "Westwood",
+    "county": "Norfolk",
+    "pop2020": 16266
+  },
+  {
+    "id": "weymouth",
+    "name": "Weymouth",
+    "county": "Norfolk",
+    "pop2020": 57437
+  },
+  {
+    "id": "whately",
+    "name": "Whately",
+    "county": "Franklin",
+    "pop2020": 1591
+  },
+  {
+    "id": "whitman",
+    "name": "Whitman",
+    "county": "Plymouth",
+    "pop2020": 15558
+  },
+  {
+    "id": "wilbraham",
+    "name": "Wilbraham",
+    "county": "Hampden",
+    "pop2020": 14590
+  },
+  {
+    "id": "williamsburg",
+    "name": "Williamsburg",
+    "county": "Hampshire",
+    "pop2020": 2470
+  },
+  {
+    "id": "williamstown",
+    "name": "Williamstown",
+    "county": "Berkshire",
+    "pop2020": 7513
+  },
+  {
+    "id": "wilmington",
+    "name": "Wilmington",
+    "county": "Middlesex",
+    "pop2020": 23349
+  },
+  {
+    "id": "winchendon",
+    "name": "Winchendon",
+    "county": "Worcester",
+    "pop2020": 10364
+  },
+  {
+    "id": "winchester",
+    "name": "Winchester",
+    "county": "Middlesex",
+    "pop2020": 22970
+  },
+  {
+    "id": "windsor",
+    "name": "Windsor",
+    "county": "Berkshire",
+    "pop2020": 899
+  },
+  {
+    "id": "winthrop",
+    "name": "Winthrop",
+    "county": "Suffolk",
+    "pop2020": 19316
+  },
+  {
+    "id": "woburn",
+    "name": "Woburn",
+    "county": "Middlesex",
+    "pop2020": 40876
+  },
+  {
+    "id": "worcester",
+    "name": "Worcester",
+    "county": "Worcester",
+    "pop2020": 206518
+  },
+  {
+    "id": "worthington",
+    "name": "Worthington",
+    "county": "Hampshire",
+    "pop2020": 1247
+  },
+  {
+    "id": "wrentham",
+    "name": "Wrentham",
+    "county": "Norfolk",
+    "pop2020": 12178
+  },
+  {
+    "id": "yarmouth",
+    "name": "Yarmouth",
+    "county": "Barnstable",
+    "pop2020": 25023
+  }
+]

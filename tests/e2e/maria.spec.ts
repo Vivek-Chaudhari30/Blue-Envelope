@@ -197,3 +197,27 @@ test("letter chat: proof chip -> evidence, edit deadline -> packet, delete clear
   await page.getByRole("button", { name: /Delete my letter/ }).click();
   await expect(page.getByText("Deleted from this phone")).toBeVisible();
 });
+
+// Community + referrals (crew/finish). The seeded demo store already gives
+// Lowell a helper "Maria" with opt-in, so the board shows her. The flow logs
+// marked_sent and shows the share card + impact.
+test("community: I sent it -> share card -> board shows Lowell and Maria", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Try a sample letter" }).click();
+  await page.getByRole("button", { name: "Check what applies to me" }).click();
+  await page.getByRole("button", { name: "See my easiest path" }).click();
+  await page.getByRole("button", { name: "Build my proof packet" }).click();
+  await page.getByRole("button", { name: "How to send it" }).click();
+
+  // "I sent it to MassHealth" logs marked_sent and reveals the share card.
+  await page.getByRole("button", { name: "I sent it to MassHealth" }).click();
+  await expect(page.getByText("Help a neighbor who got a blue envelope")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Copy link" })).toBeVisible();
+
+  // The Community Board shows Lowell (seeded) and Maria as a helper.
+  await page.goto("/community");
+  await expect(page.getByText("Neighbors helping neighbors")).toBeVisible();
+  await expect(page.getByText("Demo data")).toBeVisible();
+  await expect(page.getByRole("cell", { name: "Lowell" }).first()).toBeVisible();
+  await expect(page.getByText(/Maria/).first()).toBeVisible();
+});
