@@ -1,0 +1,24 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"],
+      "disabled": false,
+      "autoApprove": []
+    },
+    "aws-documentation": {
+      "command": "uvx",
+      "args": ["awslabs.aws-documentation-mcp-server@latest"],
+      "disabled": false,
+      "autoApprove": [],
+      "comment": "Textract + Bedrock Converse usage for the letter/earnings readers. Needs uv (brew install uv)."
+    },
+    "google-data-commons": {
+      "command": "uvx",
+      "args": ["datacommons-mcp@latest"],
+      "disabled": true,
+      "autoApprove": [],
+      "comment": "Census uninsured and language data for the Coverage Twin (Phase C). Needs uv. Enabled only for the stretch."
+    }
+  }
+}
