@@ -13,7 +13,16 @@ export default defineConfig({
   projects: [
     {
       name: "iphone",
-      use: { ...devices["iPhone 13"] },
+      use: {
+        // iPhone 13 viewport + touch, on the Chromium engine (CI-friendly,
+        // no separate WebKit download). The phone viewport is what the
+        // layout and tap-target checks care about.
+        ...devices["Desktop Chrome"],
+        viewport: { width: 390, height: 844 },
+        deviceScaleFactor: 3,
+        isMobile: true,
+        hasTouch: true,
+      },
     },
   ],
   webServer: {
