@@ -1,0 +1,980 @@
+<title>Blue Envelope App</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: a security-tint envelope ground; the flow rail on the left, a working phone on the right. On a phone the device becomes the page. */
+:root {
+  --ground: #e3eaf7;
+  --tint: rgba(31, 79, 163, 0.10);
+  --app: #f5f7fb;
+  --card: #ffffff;
+  --ink: #0f192d;
+  --muted: #4a5670;
+  --rule: #d3dae7;
+  --envelope: #1f4fa3;
+  --envelope-deep: #173c7e;
+  --envelope-ink: #ffffff;
+  --envelope-soft: #e2eaf8;
+  --bezel: #101a2e;
+  --stamp: #b2361f;
+  --stamp-soft: #fbe8e3;
+  --ok: #1d7849;
+  --ok-soft: #e1f2e8;
+  --warn: #8a5a00;
+  --warn-soft: #fbf0d9;
+  --letter-bg: #fffdf8;
+  --letter-ink: #1d2433;
+  --letter-rule: #e4dfd2;
+  --mark: rgba(31, 79, 163, 0.16);
+  --mark-due: rgba(178, 54, 31, 0.16);
+  --font-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Public Sans", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --font-letter: "Courier New", "IBM Plex Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #0a1120;
+    --tint: rgba(134, 170, 240, 0.08);
+    --app: #0f1729;
+    --card: #162038;
+    --ink: #e7ecf6;
+    --muted: #9eabc4;
+    --rule: #28345a;
+    --envelope: #86aaf0;
+    --envelope-deep: #5f88d8;
+    --envelope-ink: #0b1222;
+    --envelope-soft: #1b2a4b;
+    --bezel: #03060d;
+    --stamp: #f2896b;
+    --stamp-soft: #3b201a;
+    --ok: #62c592;
+    --ok-soft: #14301f;
+    --warn: #f0c05a;
+    --warn-soft: #362a10;
+    --letter-bg: #ece8de;
+    --letter-ink: #1d2433;
+    --letter-rule: #d4cebf;
+    --mark: rgba(31, 79, 163, 0.20);
+    --mark-due: rgba(178, 54, 31, 0.20);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #0a1120;
+  --tint: rgba(134, 170, 240, 0.08);
+  --app: #0f1729;
+  --card: #162038;
+  --ink: #e7ecf6;
+  --muted: #9eabc4;
+  --rule: #28345a;
+  --envelope: #86aaf0;
+  --envelope-deep: #5f88d8;
+  --envelope-ink: #0b1222;
+  --envelope-soft: #1b2a4b;
+  --bezel: #03060d;
+  --stamp: #f2896b;
+  --stamp-soft: #3b201a;
+  --ok: #62c592;
+  --ok-soft: #14301f;
+  --warn: #f0c05a;
+  --warn-soft: #362a10;
+  --letter-bg: #ece8de;
+  --letter-ink: #1d2433;
+  --letter-rule: #d4cebf;
+  --mark: rgba(31, 79, 163, 0.20);
+  --mark-due: rgba(178, 54, 31, 0.20);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background-color: var(--ground);
+  background-image:
+    repeating-linear-gradient(45deg, var(--tint) 0 2px, transparent 2px 9px),
+    repeating-linear-gradient(-45deg, var(--tint) 0 2px, transparent 2px 9px);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--envelope); text-underline-offset: 3px; }
+button, input, select { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--envelope); outline-offset: 2px; }
+h1, h2, h3 { font-family: var(--font-display); margin: 0; line-height: 1.15; text-wrap: balance; }
+p { margin: 0; }
+
+.page {
+  padding-block: 28px 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.stage {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 410px;
+  gap: 48px;
+  align-items: start;
+}
+
+/* Flow rail */
+.rail { display: grid; gap: 22px; min-width: 0; padding-top: 12px; }
+.rail .eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.rail h1 { font-size: clamp(2.2rem, 1.6rem + 2.4vw, 3.2rem); font-weight: 800; letter-spacing: -0.02em; color: var(--envelope); }
+.rail .intro { color: var(--muted); max-width: 46ch; }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; counter-reset: s; }
+.steps li { counter-increment: s; }
+.step-btn {
+  width: 100%;
+  text-align: left;
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: none;
+  cursor: pointer;
+}
+.step-btn::before {
+  content: counter(s);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.15rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid var(--envelope);
+  color: var(--envelope);
+}
+.step-btn:hover { background: var(--card); }
+.step-btn[aria-current="step"] { background: var(--card); border-color: var(--rule); }
+.step-btn[aria-current="step"]::before { background: var(--envelope); color: var(--envelope-ink); }
+.step-btn b { display: block; font-size: 1rem; }
+.step-btn span { display: block; font-size: 0.875rem; color: var(--muted); }
+.step-btn code { display: block; margin-top: 4px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--envelope); }
+.rail .fine { font-size: 0.8125rem; color: var(--muted); max-width: 52ch; }
+
+/* Device */
+.device {
+  width: 100%;
+  max-width: 410px;
+  justify-self: center;
+  height: 820px;
+  border: 10px solid var(--bezel);
+  border-radius: 46px;
+  background: var(--app);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 30px 60px -30px rgba(10, 20, 40, 0.55);
+}
+.appbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 16px 12px;
+  background: var(--card);
+  border-bottom: 1px solid var(--rule);
+}
+.back {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--rule);
+  background: var(--app);
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  flex: none;
+}
+.back[disabled] { opacity: 0.35; cursor: default; }
+.brand { flex: 1; min-width: 0; display: grid; }
+.brand b { font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; color: var(--envelope); }
+.brand span { font-family: var(--font-mono); font-size: 0.6875rem; color: var(--muted); }
+.lang {
+  border: 1px solid var(--rule);
+  background: var(--app);
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 0.8125rem;
+  max-width: 132px;
+}
+.progress { height: 3px; background: var(--rule); }
+.progress i { display: block; height: 100%; background: var(--envelope); transition: width 0.3s ease; }
+.screen { flex: 1; overflow-y: auto; padding: 20px 16px 28px; }
+.screen-inner { display: grid; gap: 16px; align-content: start; }
+.appfoot {
+  padding: 8px 16px 10px;
+  border-top: 1px solid var(--rule);
+  background: var(--card);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* App components */
+.title { font-size: 1.65rem; font-weight: 800; letter-spacing: -0.01em; }
+.sub { color: var(--muted); }
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 52px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  border: 1.5px solid var(--envelope);
+  background: var(--envelope);
+  color: var(--envelope-ink);
+  font-weight: 700;
+  font-size: 1.0625rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn:hover { background: var(--envelope-deep); border-color: var(--envelope-deep); }
+.btn.secondary { background: var(--card); color: var(--envelope); }
+.btn.secondary:hover { background: var(--envelope-soft); }
+.btn.small { min-height: 40px; font-size: 0.9375rem; border-radius: 10px; width: auto; }
+.file-btn { position: relative; overflow: hidden; }
+.file-btn input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.card { background: var(--card); border: 1px solid var(--rule); border-radius: 14px; padding: 16px; display: grid; gap: 10px; }
+.note {
+  font-size: 0.8125rem;
+  color: var(--muted);
+  background: var(--envelope-soft);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.decides {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 0.875rem;
+  border: 1px dashed var(--envelope);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+.decides::before { content: "⚖"; color: var(--envelope); font-size: 1.1rem; line-height: 1.2; }
+.label { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.pill { display: inline-block; font-family: var(--font-mono); font-size: 0.75rem; padding: 2px 8px; border-radius: 999px; }
+.pill.ok { background: var(--ok-soft); color: var(--ok); }
+.pill.warn { background: var(--warn-soft); color: var(--warn); }
+.pill.due { background: var(--stamp-soft); color: var(--stamp); }
+
+/* Home envelope illustration */
+.env {
+  position: relative;
+  aspect-ratio: 1.62;
+  max-width: 100%;
+  border-radius: 12px;
+  background-color: var(--envelope);
+  overflow: hidden;
+}
+.env::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 62%;
+  background: var(--envelope-deep);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+.env .window {
+  position: absolute;
+  left: 9%;
+  bottom: 14%;
+  width: 56%;
+  height: 30%;
+  border-radius: 6px;
+  background: var(--letter-bg);
+  padding: 8px 10px;
+  display: grid;
+  align-content: center;
+  gap: 4px;
+  font-family: var(--font-letter);
+  font-size: 0.6875rem;
+  color: var(--letter-ink);
+}
+.env .stampbox {
+  position: absolute;
+  right: 7%;
+  top: 9%;
+  width: 15%;
+  aspect-ratio: 0.85;
+  border: 2px dashed var(--envelope-ink);
+  border-radius: 3px;
+  opacity: 0.7;
+}
+.trust { display: flex; flex-wrap: wrap; gap: 6px; }
+.trust span { font-size: 0.8125rem; border: 1px solid var(--rule); border-radius: 999px; padding: 3px 10px; background: var(--card); color: var(--muted); }
+
+/* Letter X-Ray */
+.letter {
+  position: relative;
+  background: var(--letter-bg);
+  color: var(--letter-ink);
+  border: 1px solid var(--letter-rule);
+  border-radius: 6px;
+  padding: 18px 16px 20px;
+  font-family: var(--font-letter);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  display: grid;
+  gap: 9px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px -18px rgba(10, 20, 40, 0.6);
+}
+.letter::after {
+  content: "SAMPLE · NOT AN OFFICIAL NOTICE";
+  position: absolute;
+  top: 46%;
+  left: -10%;
+  width: 120%;
+  text-align: center;
+  transform: rotate(-24deg);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+  color: rgba(178, 54, 31, 0.22);
+  pointer-events: none;
+}
+.letter .head { display: flex; justify-content: space-between; gap: 8px; border-bottom: 1px solid var(--letter-rule); padding-bottom: 8px; font-size: 0.72rem; }
+.letter .meta { font-size: 0.72rem; }
+.hl { background: var(--mark); border-radius: 3px; padding: 1px 2px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.hl.due { background: var(--mark-due); }
+.pin {
+  display: inline-grid;
+  place-items: center;
+  width: 1.35em;
+  height: 1.35em;
+  border-radius: 50%;
+  background: var(--envelope);
+  color: var(--envelope-ink);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.72rem;
+  margin-right: 4px;
+  vertical-align: 1px;
+}
+.pin.due { background: var(--stamp); color: var(--letter-bg); }
+.letter .pin { background: #1f4fa3; color: #ffffff; }
+.letter .pin.due { background: #b2361f; color: #ffffff; }
+.callouts { display: grid; gap: 10px; }
+.callout { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; padding: 12px 14px; display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; }
+.callout.due { border-color: var(--stamp); background: var(--stamp-soft); }
+.callout .pin { grid-row: span 2; margin: 2px 0 0; font-size: 0.8rem; }
+.callout b { font-size: 0.9375rem; }
+.callout p { font-size: 0.9375rem; grid-column: 2; }
+.photo-thumb { display: grid; grid-template-columns: 64px 1fr; gap: 12px; align-items: center; }
+.photo-thumb img { width: 64px; height: 64px; object-fit: cover; border-radius: 8px; border: 1px solid var(--rule); }
+
+/* Questions */
+.q { display: grid; gap: 10px; }
+.q h3 { font-size: 1.0625rem; font-weight: 600; font-family: var(--font-body); }
+.q .qn { font-family: var(--font-mono); font-size: 0.75rem; color: var(--envelope); }
+.seg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.opt {
+  border: 1.5px solid var(--rule);
+  background: var(--card);
+  border-radius: 12px;
+  padding: 10px 12px;
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.9375rem;
+  min-height: 44px;
+}
+.seg .opt { text-align: center; padding: 10px 6px; }
+.opt[aria-pressed="true"] { border-color: var(--envelope); background: var(--envelope-soft); font-weight: 600; }
+.opt-list { display: grid; gap: 6px; }
+.activity { border: 1.5px solid var(--rule); background: var(--card); border-radius: 12px; padding: 10px 12px; display: grid; gap: 10px; }
+.activity.on { border-color: var(--envelope); }
+.activity .row { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.toggle { position: relative; width: 46px; height: 28px; flex: none; }
+.toggle input { position: absolute; inset: 0; opacity: 0; cursor: pointer; margin: 0; }
+.toggle i { position: absolute; inset: 0; border-radius: 999px; background: var(--rule); transition: background 0.2s; pointer-events: none; }
+.toggle i::after { content: ""; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; border-radius: 50%; background: var(--card); transition: transform 0.2s; }
+.toggle input:checked + i { background: var(--envelope); }
+.toggle input:checked + i::after { transform: translateX(18px); }
+.toggle input:focus-visible + i { outline: 2px solid var(--envelope); outline-offset: 2px; }
+.fields { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.field { display: grid; gap: 4px; font-size: 0.8125rem; color: var(--muted); }
+.field input {
+  border: 1px solid var(--rule);
+  background: var(--app);
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 1rem;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  width: 100%;
+}
+
+/* Path */
+.result { border-radius: 16px; padding: 18px; display: grid; gap: 8px; background: var(--ok-soft); border: 1px solid var(--ok); }
+.result.warn { background: var(--warn-soft); border-color: var(--warn); }
+.result h2 { font-size: 1.35rem; }
+.result .big { font-family: var(--font-display); font-weight: 800; font-size: 2rem; color: var(--ok); font-variant-numeric: tabular-nums; }
+.result.warn .big { color: var(--warn); }
+.meter { display: grid; gap: 6px; }
+.meter .top { display: flex; justify-content: space-between; gap: 8px; font-size: 0.9375rem; }
+.meter .top span { font-variant-numeric: tabular-nums; font-family: var(--font-mono); font-size: 0.8125rem; }
+.bar { height: 8px; border-radius: 999px; background: var(--rule); overflow: hidden; }
+.bar i { display: block; height: 100%; border-radius: 999px; background: var(--muted); }
+.bar i.ok { background: var(--ok); }
+.weeks { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.week { border: 1px solid var(--rule); border-radius: 10px; padding: 10px; display: grid; gap: 2px; background: var(--app); }
+.week .amt { font-family: var(--font-display); font-weight: 800; font-size: 1.2rem; font-variant-numeric: tabular-nums; }
+.week span { font-size: 0.75rem; color: var(--muted); }
+.total { display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid var(--rule); padding-top: 10px; }
+.total b { font-family: var(--font-display); font-size: 1.5rem; font-variant-numeric: tabular-nums; }
+
+/* Packet */
+.due-banner { display: flex; justify-content: space-between; align-items: center; gap: 10px; border-radius: 14px; padding: 12px 14px; background: var(--stamp-soft); border: 1px solid var(--stamp); }
+.due-banner b { color: var(--stamp); font-family: var(--font-display); font-size: 1.2rem; font-variant-numeric: tabular-nums; }
+.items { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.item { background: var(--card); border: 1px solid var(--rule); border-radius: 14px; padding: 14px; display: grid; grid-template-columns: 28px 1fr; gap: 4px 12px; }
+.item .ic { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 0.875rem; grid-row: span 3; }
+.item .ic.done { background: var(--ok); color: var(--card); }
+.item .ic.todo { border: 2px solid var(--rule); color: var(--muted); }
+.item .ic.warn { background: var(--warn-soft); color: var(--warn); border: 1px solid var(--warn); }
+.item b { font-size: 0.9875rem; }
+.item p { font-size: 0.875rem; color: var(--muted); }
+.item .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.item .row { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+
+/* Submit */
+.ways { display: grid; gap: 10px; }
+.way { background: var(--card); border: 1px solid var(--rule); border-radius: 14px; padding: 14px; display: grid; gap: 4px; }
+.way b { font-size: 1rem; }
+.way p { font-size: 0.875rem; color: var(--muted); }
+.copyrow { display: flex; gap: 8px; align-items: center; }
+.copyrow code { font-family: var(--font-mono); font-size: 1.1rem; font-weight: 500; user-select: all; }
+
+@media (max-width: 900px) {
+  .stage { grid-template-columns: 1fr; gap: 28px; }
+  .device { order: -1; }
+  .rail { padding-top: 0; }
+}
+@media (max-width: 520px) {
+  .page { padding-block: 12px 32px; }
+  .device { height: auto; border-width: 1px; border-color: var(--rule); border-radius: 20px; box-shadow: none; }
+  .screen { overflow: visible; }
+  .seg { grid-template-columns: 1fr; }
+  .fields { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+</style>
+
+<div class="page">
+  <div class="stage">
+    <aside class="rail" aria-label="Flow">
+      <div>
+        <div class="eyebrow">Clickable prototype · Healthcare H2</div>
+        <h1>Blue Envelope</h1>
+      </div>
+      <p class="intro">The member website, start to finish. Tap through it on the phone, or jump to any step here. It opens with Maria's sample answers filled in.</p>
+      <ol class="steps" id="rail"></ol>
+      <p class="fine">Independent student prototype for Hackachusetts 2026. Not affiliated with MassHealth. Every person, letter and amount shown is a sample. Translations are drafts for the demo; have a native speaker check them.</p>
+    </aside>
+
+    <div class="device" role="region" aria-label="Blue Envelope app">
+      <div class="appbar">
+        <button class="back" id="back" type="button" aria-label="Back">←</button>
+        <div class="brand"><b>Blue Envelope</b><span id="stepcount">Step 1 of 6</span></div>
+        <label class="label" for="lang" hidden>Language</label>
+        <select class="lang" id="lang" aria-label="Language"></select>
+      </div>
+      <div class="progress"><i id="progress"></i></div>
+      <div class="screen" id="screen" tabindex="-1"><div class="screen-inner" id="view"></div></div>
+      <div class="appfoot">Independent tool · Not MassHealth · Sample data</div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var STEPS = [
+    { id: "home", name: "Got a blue envelope?", desc: "One button, six languages.", tech: "Phone camera or photo upload" },
+    { id: "letter", name: "Letter X-Ray", desc: "The deadline, the request and what to send, highlighted and translated.", tech: "Amazon Textract + Claude on Bedrock" },
+    { id: "questions", name: "Four quick questions", desc: "Age, reasons that excuse you, last month's activities, contact details.", tech: "Rules engine, plain code" },
+    { id: "path", name: "Your easiest path", desc: "Income, hours, school or excused. Earnings screenshots added up.", tech: "Rules engine + image reading" },
+    { id: "packet", name: "Proof packet", desc: "Checklist, partner sign-off, reminders, consent to share.", tech: "Packet + consent" },
+    { id: "submit", name: "Send it to MassHealth", desc: "Official channels, plus help from 211 and a health center.", tech: "Handoff, MassHealth decides" }
+  ];
+
+  var LANGS = [
+    ["en", "English", "en-US"],
+    ["es", "Español", "es-US"],
+    ["pt", "Português", "pt-BR"],
+    ["ht", "Kreyòl", "ht-HT"],
+    ["zh", "中文", "zh-CN"],
+    ["vi", "Tiếng Việt", "vi-VN"]
+  ];
+
+  var T = {
+    en: {
+      headline: "Got a blue envelope from MassHealth?",
+      sub: "Take a photo of your letter. We'll show you what it means and help you get your proof ready.",
+      photo: "Take a photo of your letter",
+      sample: "Try a sample letter",
+      deadline: "Deadline", asking: "What they're asking", send: "What to send", how: "How to send it",
+      e_deadline: "Answer by December 15, 2026. If you miss it, your coverage could stop.",
+      e_asking: "They need to know what you did for one month since your last renewal: work, school, volunteering or job training. Or tell them if a reason excuses you.",
+      e_send: "Proof like pay stubs or earnings screenshots, a letter from a volunteer group, or a school enrollment letter.",
+      e_how: "Online, by mail, fax or phone. Use the contact details printed on your own letter."
+    },
+    es: {
+      headline: "¿Recibió un sobre azul de MassHealth?",
+      sub: "Tome una foto de su carta. Le explicamos lo que significa y le ayudamos a preparar sus pruebas.",
+      photo: "Tomar foto de la carta",
+      sample: "Probar con una carta de ejemplo",
+      deadline: "Fecha límite", asking: "Lo que le piden", send: "Qué enviar", how: "Cómo enviarlo",
+      e_deadline: "Responda antes del 15 de diciembre de 2026. Si no lo hace, su cobertura podría terminar.",
+      e_asking: "Necesitan saber qué hizo durante un mes desde su última renovación: trabajo, escuela, voluntariado o capacitación laboral. O dígales si alguna razón lo exime.",
+      e_send: "Pruebas como talones de pago o capturas de pantalla de ganancias, una carta de una organización de voluntariado o un comprobante de matrícula.",
+      e_how: "En línea, por correo, fax o teléfono. Use los datos de contacto impresos en su propia carta."
+    },
+    pt: {
+      headline: "Recebeu um envelope azul do MassHealth?",
+      sub: "Tire uma foto da sua carta. Vamos explicar o que ela significa e ajudar você a preparar seus comprovantes.",
+      photo: "Tirar foto da carta",
+      sample: "Testar com uma carta de exemplo",
+      deadline: "Prazo", asking: "O que estão pedindo", send: "O que enviar", how: "Como enviar",
+      e_deadline: "Responda até 15 de dezembro de 2026. Se perder o prazo, sua cobertura pode ser cancelada.",
+      e_asking: "Eles precisam saber o que você fez durante um mês desde a última renovação: trabalho, escola, voluntariado ou treinamento profissional. Ou informe se algum motivo dispensa você.",
+      e_send: "Comprovantes como contracheques ou capturas de tela de ganhos, uma carta de uma organização de voluntariado ou um comprovante de matrícula.",
+      e_how: "Online, pelo correio, fax ou telefone. Use os contatos impressos na sua própria carta."
+    },
+    ht: {
+      headline: "Ou resevwa yon anvlòp ble nan men MassHealth?",
+      sub: "Pran yon foto lèt ou a. N ap montre w sa li vle di epi ede w prepare prèv ou yo.",
+      photo: "Pran foto lèt la",
+      sample: "Eseye ak yon lèt egzanp",
+      deadline: "Dat limit", asking: "Sa yo mande w", send: "Sa pou w voye", how: "Kijan pou w voye l",
+      e_deadline: "Reponn anvan 15 desanm 2026. Si w rate dat sa a, asirans ou ka sispann.",
+      e_asking: "Yo bezwen konnen sa w te fè pandan yon mwa depi dènye renouvèlman ou: travay, lekòl, volontè oswa fòmasyon pou travay. Oswa di yo si gen yon rezon ki egzante w.",
+      e_send: "Prèv tankou fich peman oswa foto ekran sa w touche, yon lèt nan men yon òganizasyon volontè, oswa prèv enskripsyon lekòl.",
+      e_how: "Sou entènèt, pa lapòs, pa faks oswa pa telefòn. Sèvi ak enfòmasyon kontak ki enprime sou pwòp lèt ou a."
+    },
+    zh: {
+      headline: "收到 MassHealth 的蓝色信封了吗？",
+      sub: "给信件拍张照片。我们会告诉您信件的意思，并帮您准备证明材料。",
+      photo: "给信件拍照",
+      sample: "用示例信件试试",
+      deadline: "截止日期", asking: "他们要求什么", send: "需要寄送什么", how: "如何寄送",
+      e_deadline: "请在 2026 年 12 月 15 日前回复。如果错过截止日期，您的保险可能会终止。",
+      e_asking: "他们需要知道您在上次续保后的某一个月里做了什么：工作、上学、做志愿者或参加职业培训。或者告诉他们您是否有可以免除要求的理由。",
+      e_send: "证明材料，例如工资单或收入截图、志愿组织的信函，或入学证明。",
+      e_how: "可以在线、邮寄、传真或电话回复。请使用您本人信件上印的联系方式。"
+    },
+    vi: {
+      headline: "Bạn nhận được phong bì màu xanh từ MassHealth?",
+      sub: "Chụp ảnh lá thư của bạn. Chúng tôi sẽ giải thích ý nghĩa và giúp bạn chuẩn bị giấy tờ chứng minh.",
+      photo: "Chụp ảnh lá thư",
+      sample: "Thử với thư mẫu",
+      deadline: "Hạn chót", asking: "Họ yêu cầu gì", send: "Cần gửi gì", how: "Cách gửi",
+      e_deadline: "Hãy trả lời trước ngày 15 tháng 12 năm 2026. Nếu bỏ lỡ hạn này, bảo hiểm của bạn có thể bị ngừng.",
+      e_asking: "Họ cần biết bạn đã làm gì trong một tháng kể từ lần gia hạn trước: đi làm, đi học, làm tình nguyện hoặc học nghề. Hoặc cho họ biết nếu bạn có lý do được miễn.",
+      e_send: "Giấy tờ chứng minh như phiếu lương hoặc ảnh chụp màn hình thu nhập, thư từ tổ chức tình nguyện, hoặc giấy xác nhận đang đi học.",
+      e_how: "Trực tuyến, qua thư, fax hoặc điện thoại. Dùng thông tin liên hệ in trên lá thư của chính bạn."
+    }
+  };
+
+  var EXEMPTIONS = [
+    ["pregnant", "Pregnant, or had a baby in the last 12 months"],
+    ["caregiver", "Care for a child under 14 or a person with a disability"],
+    ["medicare", "Have Medicare"],
+    ["health", "A health condition that makes it hard to work"],
+    ["treatment", "In a treatment program for alcohol or drug use"],
+    ["veteran", "Veteran with a total disability rating from the VA"],
+    ["none", "None of these"]
+  ];
+
+  var SAMPLE_WEEKS = [
+    { label: "Mar 1–7", amt: 148.5 },
+    { label: "Mar 8–14", amt: 171.25 },
+    { label: "Mar 15–21", amt: 139.0 },
+    { label: "Mar 22–31", amt: 153.25 }
+  ];
+
+  var DEADLINE = new Date("2026-12-15T23:59:00-05:00").getTime();
+  var INCOME_RULE = 580;
+  var HOURS_RULE = 80;
+
+  function freshState() {
+    return {
+      step: "home",
+      lang: "en",
+      letterPhoto: null,
+      age: "19-64",
+      exemptions: ["none"],
+      act: {
+        work: { on: true, hours: 52, income: 612 },
+        volunteer: { on: true, hours: 22 },
+        training: { on: false, hours: 10 },
+        school: { on: false }
+      },
+      contact: "old",
+      earnings: false,
+      earningsPhotos: 0,
+      partner: "none",
+      reminders: true,
+      share: false,
+      contactUpdated: false
+    };
+  }
+  var S = freshState();
+
+  var view = document.getElementById("view");
+  var screen = document.getElementById("screen");
+  var rail = document.getElementById("rail");
+  var back = document.getElementById("back");
+  var langSel = document.getElementById("lang");
+  var stepcount = document.getElementById("stepcount");
+  var progress = document.getElementById("progress");
+
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; });
+  }
+  function money(n) { return "$" + Number(n).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+  function daysLeft() { return Math.max(0, Math.ceil((DEADLINE - Date.now()) / 86400000)); }
+  function t(key) { return (T[S.lang] && T[S.lang][key]) || T.en[key]; }
+  function stepIndex(id) { for (var i = 0; i < STEPS.length; i++) if (STEPS[i].id === id) return i; return 0; }
+
+  /* Rules engine: plain code, no AI. MassHealth makes the decision. */
+  function evaluate() {
+    var a = S.act;
+    var work = a.work.on ? (+a.work.hours || 0) : 0;
+    var vol = a.volunteer.on ? (+a.volunteer.hours || 0) : 0;
+    var train = a.training.on ? (+a.training.hours || 0) : 0;
+    var hours = work + vol + train;
+    var income = a.work.on ? (+a.work.income || 0) : 0;
+    var school = a.school.on;
+    var base = { hours: hours, income: income, school: school };
+    if (S.age !== "19-64") return Object.assign({ status: "age" }, base);
+    var ex = S.exemptions.filter(function (e) { return e !== "none"; });
+    if (ex.length) return Object.assign({ status: "excused", reasons: ex }, base);
+    if (income >= INCOME_RULE) return Object.assign({ status: "income" }, base);
+    if (school) return Object.assign({ status: "school" }, base);
+    if (hours >= HOURS_RULE) return Object.assign({ status: "hours" }, base);
+    return Object.assign({ status: "short", short: HOURS_RULE - hours }, base);
+  }
+
+  function exemptionLabel(id) {
+    for (var i = 0; i < EXEMPTIONS.length; i++) if (EXEMPTIONS[i][0] === id) return EXEMPTIONS[i][1];
+    return id;
+  }
+
+  /* Screens */
+  function renderHome() {
+    var L = S.lang;
+    return '' +
+      '<div class="env" aria-hidden="true"><div class="stampbox"></div><div class="window"><span>MARIA SANTOS</span><span>LOWELL MA 018··</span></div></div>' +
+      '<h2 class="title" lang="' + L + '">' + esc(t("headline")) + '</h2>' +
+      '<p class="sub" lang="' + L + '">' + esc(t("sub")) + '</p>' +
+      '<label class="btn file-btn" for="letter-photo" lang="' + L + '">📷 ' + esc(t("photo")) +
+      '<input type="file" id="letter-photo" accept="image/*" capture="environment"></label>' +
+      '<button class="btn secondary" type="button" data-go="letter" lang="' + L + '">' + esc(t("sample")) + '</button>' +
+      '<div class="trust"><span>Free</span><span>6 languages</span><span>Read aloud</span><span>You choose who sees your papers</span></div>' +
+      '<p class="note">Not sure the new rules affect you? Start with <a href="https://www.mass.gov/info-details/new-work-and-education-requirements-for-masshealth-members" target="_blank" rel="noopener">MassHealth\'s own screener</a>. Blue Envelope helps after that.</p>';
+  }
+
+  function renderLetter() {
+    var L = S.lang;
+    var photo = S.letterPhoto
+      ? '<div class="card photo-thumb"><img src="' + S.letterPhoto + '" alt="Your letter photo"><p class="sub" style="font-size:.875rem">Got your photo. In the real app, Textract and Claude read it. This prototype shows the X-Ray on a sample letter.</p></div>'
+      : '';
+    var letter = '' +
+      '<div class="letter" aria-label="Sample renewal letter">' +
+        '<div class="head"><span>HEALTH COVERAGE RENEWAL</span><span>SAMPLE</span></div>' +
+        '<div class="meta">November 2, 2026<br>Maria Santos · Member ID 000-SAMPLE-00</div>' +
+        '<p>Dear Maria,</p>' +
+        '<p>It is time to renew your MassHealth coverage. Starting January 1, 2027, some members must show work, school, volunteering or a job program for at least 80 hours a month, or income of at least $580 a month. We could not confirm this from the information we have.</p>' +
+        '<p><span class="hl due"><span class="pin due">1</span>Please respond by December 15, 2026.</span> If we do not hear from you, your coverage may end.</p>' +
+        '<p><span class="hl"><span class="pin">2</span>Tell us about your work, school, volunteering or job training for one month since your last renewal, or tell us if a reason applies that excuses you.</span></p>' +
+        '<p><span class="hl"><span class="pin">3</span>Send proof such as pay stubs, a letter from your employer or volunteer organization, or proof of school enrollment.</span></p>' +
+        '<p><span class="hl"><span class="pin">4</span>You can respond online, by mail, by fax, or by phone</span> using the contact information on this notice.</p>' +
+      '</div>';
+    var items = [["due", "deadline", "e_deadline", 1], ["", "asking", "e_asking", 2], ["", "send", "e_send", 3], ["", "how", "e_how", 4]];
+    var callouts = '<div class="callouts" lang="' + L + '">' + items.map(function (it) {
+      return '<div class="callout ' + it[0] + '"><span class="pin ' + it[0] + '">' + it[3] + '</span><b>' + esc(t(it[1])) +
+        (it[3] === 1 ? ' <span class="pill due">' + daysLeft() + ' days left</span>' : '') +
+        '</b><p>' + esc(t(it[2])) + '</p></div>';
+    }).join("") + '</div>';
+    return '' +
+      '<div><span class="label">Letter X-Ray</span><h2 class="title">Here\'s what your letter says</h2></div>' +
+      photo + letter + callouts +
+      '<button class="btn secondary" type="button" id="read-aloud">🔊 Read it to me</button>' +
+      '<p class="note" id="speech-note" hidden></p>' +
+      '<button class="btn" type="button" data-go="questions">Check what applies to me</button>';
+  }
+
+  function renderQuestions() {
+    var ages = [["under-19", "Under 19"], ["19-64", "19 to 64"], ["65-plus", "65 or older"]];
+    var a = S.act;
+    function activity(key, title, extra) {
+      var on = a[key].on;
+      return '<div class="activity' + (on ? ' on' : '') + '">' +
+        '<div class="row"><span>' + title + '</span><span class="toggle"><input type="checkbox" id="act-' + key + '" data-act="' + key + '"' + (on ? ' checked' : '') + ' aria-label="' + esc(title) + '"><i></i></span></div>' +
+        (on && extra ? extra : '') + '</div>';
+    }
+    var workExtra = '<div class="fields">' +
+      '<label class="field" for="work-hours">Hours last month<input type="number" inputmode="numeric" min="0" id="work-hours" data-num="work.hours" value="' + a.work.hours + '"></label>' +
+      '<label class="field" for="work-income">Earned last month ($)<input type="number" inputmode="decimal" min="0" id="work-income" data-num="work.income" value="' + a.work.income + '"></label></div>';
+    var volExtra = '<div class="fields"><label class="field" for="vol-hours">Hours last month<input type="number" inputmode="numeric" min="0" id="vol-hours" data-num="volunteer.hours" value="' + a.volunteer.hours + '"></label></div>';
+    var trainExtra = '<div class="fields"><label class="field" for="train-hours">Hours last month<input type="number" inputmode="numeric" min="0" id="train-hours" data-num="training.hours" value="' + a.training.hours + '"></label></div>';
+    var contacts = [["recent", "In the last year"], ["old", "More than a year ago"], ["unsure", "Not sure"]];
+    return '' +
+      '<div><span class="label">Four quick questions</span><h2 class="title">Let\'s find your easiest path</h2><p class="sub">Maria\'s sample answers are filled in. Change them to see the result change.</p></div>' +
+      '<div class="q"><span class="qn">QUESTION 1 OF 4</span><h3>How old are you?</h3><div class="seg">' +
+        ages.map(function (o) { return '<button type="button" class="opt" data-age="' + o[0] + '" aria-pressed="' + (S.age === o[0]) + '">' + o[1] + '</button>'; }).join("") +
+      '</div></div>' +
+      '<div class="q"><span class="qn">QUESTION 2 OF 4</span><h3>Do any of these apply to you?</h3><div class="opt-list">' +
+        EXEMPTIONS.map(function (o) { return '<button type="button" class="opt" data-ex="' + o[0] + '" aria-pressed="' + (S.exemptions.indexOf(o[0]) > -1) + '">' + o[1] + '</button>'; }).join("") +
+      '</div></div>' +
+      '<div class="q"><span class="qn">QUESTION 3 OF 4</span><h3>What did you do last month?</h3><div class="opt-list">' +
+        activity("work", "Paid work, including gig work", workExtra) +
+        activity("volunteer", "Volunteering", volExtra) +
+        activity("training", "Job training program", trainExtra) +
+        activity("school", "In school at least half-time", "") +
+      '</div></div>' +
+      '<div class="q"><span class="qn">QUESTION 4 OF 4</span><h3>When did you last update your phone and address with MassHealth?</h3><div class="opt-list">' +
+        contacts.map(function (o) { return '<button type="button" class="opt" data-contact="' + o[0] + '" aria-pressed="' + (S.contact === o[0]) + '">' + o[1] + '</button>'; }).join("") +
+      '</div></div>' +
+      '<button class="btn" type="button" data-go="path">See my easiest path</button>';
+  }
+
+  function meter(label, value, target, unit) {
+    var pct = Math.min(100, Math.round(value / target * 100));
+    var met = value >= target;
+    var shown = unit === "$" ? money(value) + " of " + money(target) : value + " of " + target + " hours";
+    return '<div class="meter"><div class="top"><b>' + label + '</b><span>' + shown + '</span></div>' +
+      '<div class="bar"><i class="' + (met ? 'ok' : '') + '" style="width:' + pct + '%"></i></div></div>';
+  }
+
+  function earningsBlock() {
+    if (!S.earnings) {
+      return '<div class="card"><span class="label">Prove it with screenshots</span>' +
+        '<p>Add screenshots of your weekly pay from DoorDash, Uber, Instacart or your pay stubs. We add up the month for you.</p>' +
+        '<label class="btn file-btn" for="earn-photos">📱 Add earnings screenshots<input type="file" id="earn-photos" accept="image/*" multiple></label>' +
+        '<button class="btn secondary" type="button" id="sample-earnings">Use sample screenshots</button></div>';
+    }
+    var total = SAMPLE_WEEKS.reduce(function (s, w) { return s + w.amt; }, 0);
+    return '<div class="card"><div class="row" style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="label">March earnings</span><span class="pill ok">Read from 4 screenshots</span></div>' +
+      (S.earningsPhotos ? '<p class="note">Got your ' + S.earningsPhotos + ' screenshot' + (S.earningsPhotos > 1 ? 's' : '') + '. The prototype shows sample amounts; the real app reads yours.</p>' : '') +
+      '<div class="weeks">' + SAMPLE_WEEKS.map(function (w) { return '<div class="week"><span>' + w.label + '</span><span class="amt">' + money(w.amt) + '</span><span>Gig app payout</span></div>'; }).join("") + '</div>' +
+      '<div class="total"><span>Total for March</span><b>' + money(total) + '</b></div>' +
+      '<p class="sub" style="font-size:.875rem">' + (total >= INCOME_RULE ? 'That is more than the $580 monthly amount.' : 'That is under the $580 monthly amount.') + '</p></div>';
+  }
+
+  function renderPath() {
+    var r = evaluate();
+    var head, body = "", cls = "result";
+    if (r.status === "age") {
+      head = '<h2>The new work rules likely don\'t apply at your age</h2><p>They cover adults 19 to 64. Still answer your letter by the deadline so your coverage continues.</p>';
+    } else if (r.status === "excused") {
+      head = '<h2>You may be excused</h2><p>Because: ' + r.reasons.map(function (x) { return esc(exemptionLabel(x)); }).join("; ") + '. MassHealth may ask you to confirm this. Your health center can help with papers.</p>';
+    } else if (r.status === "income") {
+      head = '<span class="label">Easiest path: income</span><span class="big">' + money(r.income) + '</span><h2>Your earnings may meet the income rule</h2><p>One month of income of $580 or more counts, no matter how many hours you worked.</p>';
+      body = earningsBlock();
+    } else if (r.status === "school") {
+      head = '<span class="label">Easiest path: school</span><h2>School may meet the rule</h2><p>Being enrolled at least half-time counts. A letter from your school is usually enough proof.</p>';
+    } else if (r.status === "hours") {
+      head = '<span class="label">Easiest path: hours</span><span class="big">' + r.hours + ' hrs</span><h2>Your hours may meet the rule</h2><p>Work, volunteering and job training add up. You need 80 in one month.</p>';
+      if (S.act.work.on) body = earningsBlock();
+    } else {
+      cls = "result warn";
+      head = '<span class="label">Not there yet</span><span class="big">' + r.short + ' hrs short</span><h2>You\'re close. Here\'s how to close the gap</h2><p>Add volunteer or training hours, check whether a reason excuses you, or talk to a navigator at your health center.</p>';
+    }
+    var checks = '<div class="card"><span class="label">How you compare</span>' +
+      meter("Income", r.income, INCOME_RULE, "$") +
+      meter("Hours (work + volunteer + training)", r.hours, HOURS_RULE, "h") +
+      '<div class="meter"><div class="top"><b>School half-time</b><span>' + (r.school ? 'Yes' : 'No') + '</span></div></div></div>';
+    if (r.status === "age" || r.status === "excused") checks = "";
+    return '' +
+      '<div class="' + cls + '">' + head + '</div>' +
+      checks + body +
+      '<div class="decides">This is a guide, not a decision. MassHealth makes the decision about your coverage.</div>' +
+      '<button class="btn" type="button" data-go="packet">Build my proof packet</button>';
+  }
+
+  function renderPacket() {
+    var r = evaluate();
+    var items = [];
+    if (r.status === "income" || r.status === "hours") {
+      items.push(S.earnings
+        ? { ic: "done", title: "March earnings: " + money(612), text: "Added up from 4 screenshots. Ready to send." }
+        : { ic: "todo", title: "Earnings for one month", text: "Screenshots or pay stubs.", action: '<button class="btn small secondary" type="button" data-go="path">Add screenshots</button>' });
+    }
+    if (r.status === "school") items.push({ ic: "todo", title: "School enrollment letter", text: "Ask your school's registrar for a letter showing half-time enrollment." });
+    if (r.status === "excused") items.push({ ic: "todo", title: "Proof of your reason, if MassHealth asks", text: "For example a doctor's note. Your health center can help." });
+    if (r.status === "short") items.push({ ic: "todo", title: "More hours this month", text: "Volunteer or job training hours can make up the " + r.short + " hours." });
+
+    if (S.act.volunteer.on || r.status === "short") {
+      var p;
+      if (S.partner === "none") {
+        p = { ic: "todo", title: "Volunteer hours from Riverside Food Pantry (sample)", text: "Backup proof. Send the coordinator a link and they confirm your hours.", action: '<button class="btn small" type="button" id="partner-send">Send sign-off link</button>' };
+      } else if (S.partner === "sent") {
+        p = { ic: "warn", title: "Waiting for Riverside Food Pantry", text: "Link sent to the coordinator. You'll get a text when they confirm.", action: '<button class="btn small secondary" type="button" id="partner-confirm">Show the pantry confirming (demo)</button>' };
+      } else {
+        p = { ic: "done", title: "22 volunteer hours confirmed", text: "Riverside Food Pantry confirmed your March hours. Added to your packet." };
+      }
+      items.push(p);
+    }
+
+    if (S.contact !== "recent" && !S.contactUpdated) {
+      items.push({ ic: "warn", title: "Update your phone and address", text: "Letters and texts go to the details MassHealth has on file. Update them so you don't miss the next one.", action: '<a class="btn small secondary" href="https://www.mass.gov/topics/masshealth" target="_blank" rel="noopener">Update with MassHealth</a><button class="btn small secondary" type="button" id="contact-done">I updated it</button>' });
+    } else if (S.contact !== "recent") {
+      items.push({ ic: "done", title: "Contact details updated", text: "Thanks. Future letters and texts should reach you." });
+    }
+
+    var list = items.map(function (it) {
+      return '<li class="item"><span class="ic ' + it.ic + '">' + (it.ic === "done" ? "✓" : it.ic === "warn" ? "!" : "") + '</span>' +
+        '<b>' + esc(it.title) + '</b><p>' + esc(it.text) + '</p>' + (it.action ? '<div class="actions">' + it.action + '</div>' : '') + '</li>';
+    }).join("");
+
+    var reminders = '<li class="item"><span class="ic ' + (S.reminders ? 'done' : 'todo') + '">' + (S.reminders ? '✓' : '') + '</span>' +
+      '<div class="row"><b>Text me before the deadline</b><span class="toggle"><input type="checkbox" id="reminders" aria-label="Text reminders"' + (S.reminders ? ' checked' : '') + '><i></i></span></div>' +
+      '<p>30, 14 and 3 days before December 15, in your language, to (•••) •••-0142.</p></li>';
+
+    var share = '<li class="item"><span class="ic ' + (S.share ? 'done' : 'todo') + '">' + (S.share ? '✓' : '') + '</span>' +
+      '<div class="row"><b>Share with my health center</b><span class="toggle"><input type="checkbox" id="share" aria-label="Share packet with health center"' + (S.share ? ' checked' : '') + '><i></i></span></div>' +
+      '<p>' + (S.share ? 'A navigator at Riverside Community Health Center (sample) can see your packet and check it before you send it. Turn this off anytime.' : 'Off. Nobody else can see your packet. Turn this on if you want a navigator to check it.') + '</p></li>';
+
+    return '' +
+      '<div><span class="label">Proof packet</span><h2 class="title">Your packet</h2></div>' +
+      '<div class="due-banner"><span>Due December 15, 2026</span><b>' + daysLeft() + ' days left</b></div>' +
+      '<ul class="items">' + list + reminders + share + '</ul>' +
+      '<button class="btn" type="button" data-go="submit">How do I send it?</button>';
+  }
+
+  function renderSubmit() {
+    return '' +
+      '<div><span class="label">Send it</span><h2 class="title">Send your proof to MassHealth</h2><p class="sub">Pick whichever way is easiest. Use the contact details printed on your own letter.</p></div>' +
+      '<div class="ways">' +
+        '<div class="way"><b>Online</b><p>Upload your packet through MassHealth\'s website.</p><a class="btn small" href="https://www.mass.gov/topics/masshealth" target="_blank" rel="noopener">Go to MassHealth</a></div>' +
+        '<div class="way"><b>By mail or fax</b><p>Send the packet to the address or fax number on your letter.</p></div>' +
+        '<div class="way"><b>By phone</b><p>Call the number on your letter and tell them what your packet shows.</p></div>' +
+      '</div>' +
+      '<div class="card"><span class="label">Need help?</span>' +
+        '<p>Call Mass 211 for help with food, housing and other needs, any time.</p>' +
+        '<div class="copyrow"><code>2-1-1</code></div>' +
+        (S.share ? '<p class="sub" style="font-size:.875rem">Your navigator at Riverside Community Health Center (sample) has your packet and can help you send it.</p>' : '<p class="sub" style="font-size:.875rem">Want someone to check it first? Turn on sharing with your health center in your packet.</p>') +
+      '</div>' +
+      '<div class="decides">MassHealth makes the decision. Watch for a letter, text or email with the answer.</div>' +
+      '<button class="btn secondary" type="button" id="restart">Start over</button>';
+  }
+
+  var RENDER = { home: renderHome, letter: renderLetter, questions: renderQuestions, path: renderPath, packet: renderPacket, submit: renderSubmit };
+
+  function renderRail() {
+    rail.innerHTML = STEPS.map(function (s) {
+      return '<li><button type="button" class="step-btn" data-go="' + s.id + '"' + (S.step === s.id ? ' aria-current="step"' : '') + '>' +
+        '<span><b>' + esc(s.name) + '</b><span>' + esc(s.desc) + '</span><code>' + esc(s.tech) + '</code></span></button></li>';
+    }).join("");
+  }
+
+  function render(keepScroll) {
+    var idx = stepIndex(S.step);
+    var top = screen.scrollTop;
+    view.innerHTML = RENDER[S.step]();
+    stepcount.textContent = "Step " + (idx + 1) + " of " + STEPS.length + " · " + STEPS[idx].name;
+    progress.style.width = ((idx + 1) / STEPS.length * 100) + "%";
+    back.disabled = idx === 0;
+    renderRail();
+    if (keepScroll) screen.scrollTop = top; else screen.scrollTop = 0;
+  }
+
+  function go(id) {
+    if (!RENDER[id]) return;
+    S.step = id;
+    render(false);
+    try { if (window.matchMedia("(max-width: 900px)").matches) screen.scrollIntoView({ block: "start" }); } catch (e) {}
+  }
+
+  langSel.innerHTML = LANGS.map(function (l) { return '<option value="' + l[0] + '">' + l[1] + '</option>'; }).join("");
+  langSel.addEventListener("change", function () { S.lang = langSel.value; render(true); });
+  back.addEventListener("click", function () { var i = stepIndex(S.step); if (i > 0) go(STEPS[i - 1].id); });
+
+  document.addEventListener("click", function (e) {
+    var el = e.target.closest("[data-go],[data-age],[data-ex],[data-contact],#read-aloud,#sample-earnings,#partner-send,#partner-confirm,#contact-done,#restart");
+    if (!el) return;
+    if (el.dataset.go) { go(el.dataset.go); return; }
+    if (el.dataset.age) { S.age = el.dataset.age; render(true); return; }
+    if (el.dataset.ex) {
+      var id = el.dataset.ex;
+      if (id === "none") S.exemptions = ["none"];
+      else {
+        var list = S.exemptions.filter(function (x) { return x !== "none"; });
+        var at = list.indexOf(id);
+        if (at > -1) list.splice(at, 1); else list.push(id);
+        S.exemptions = list.length ? list : ["none"];
+      }
+      render(true); return;
+    }
+    if (el.dataset.contact) { S.contact = el.dataset.contact; S.contactUpdated = false; render(true); return; }
+    if (el.id === "read-aloud") { readAloud(); return; }
+    if (el.id === "sample-earnings") { S.earnings = true; render(true); return; }
+    if (el.id === "partner-send") { S.partner = "sent"; render(true); return; }
+    if (el.id === "partner-confirm") { S.partner = "confirmed"; render(true); return; }
+    if (el.id === "contact-done") { S.contactUpdated = true; render(true); return; }
+    if (el.id === "restart") { var lang = S.lang; S = freshState(); S.lang = lang; go("home"); return; }
+  });
+
+  document.addEventListener("change", function (e) {
+    var el = e.target;
+    if (el.id === "letter-photo" && el.files && el.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function () { S.letterPhoto = reader.result; go("letter"); };
+      reader.readAsDataURL(el.files[0]);
+      return;
+    }
+    if (el.id === "earn-photos" && el.files && el.files.length) {
+      S.earningsPhotos = el.files.length; S.earnings = true; render(true); return;
+    }
+    if (el.dataset && el.dataset.act) { S.act[el.dataset.act].on = el.checked; render(true); return; }
+    if (el.id === "reminders") { S.reminders = el.checked; render(true); return; }
+    if (el.id === "share") { S.share = el.checked; render(true); return; }
+  });
+
+  document.addEventListener("input", function (e) {
+    var el = e.target;
+    if (el.dataset && el.dataset.num) {
+      var parts = el.dataset.num.split(".");
+      S.act[parts[0]][parts[1]] = el.value === "" ? 0 : Number(el.value);
+    }
+  });
+
+  function readAloud() {
+    var note = document.getElementById("speech-note");
+    var code = "en-US";
+    for (var i = 0; i < LANGS.length; i++) if (LANGS[i][0] === S.lang) code = LANGS[i][2];
+    var text = [t("deadline"), t("e_deadline"), t("asking"), t("e_asking"), t("send"), t("e_send"), t("how"), t("e_how")].join(". ");
+    try {
+      if (!("speechSynthesis" in window)) throw new Error("none");
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(text);
+      u.lang = code;
+      window.speechSynthesis.speak(u);
+      if (note) { note.hidden = false; note.textContent = "Reading aloud. If you hear nothing, this browser may not have a voice for this language yet."; }
+    } catch (err) {
+      if (note) { note.hidden = false; note.textContent = "Read-aloud isn't available in this browser. The real app uses a hosted voice."; }
+    }
+  }
+
+  var start = (location.hash || "").replace("#", "");
+  if (RENDER[start]) S.step = start;
+  render(false);
+})();
+</script>

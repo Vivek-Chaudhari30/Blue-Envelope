@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Next.js build
+/.next/
+/out/
+/build
+next-env.d.ts
+
+# Production
+/dist
+
+# Testing
+/coverage
+/playwright-report/
+/test-results/
+/.playwright/
+
+# Secrets — never commit keys
+.env
+.env*.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Vercel
+.vercel
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+*.pem
+
+# TypeScript
+*.tsbuildinfo
+
+# Local KiroCrew CLI state only (NOT steering, specs, or hooks — those stay tracked)
+.kiro/settings/.kirocrew-cli-settings.lock
