@@ -9,6 +9,7 @@ import { evaluate } from "@/lib/rules/engine";
 import { getStore, NAVIGATOR_ID, type Packet as PacketRecord } from "@/lib/store";
 import { makePartnerToken, PARTNER_ID } from "@/lib/store/partner-token";
 import { loadValues } from "@/lib/chat/store";
+import { logEvent } from "@/lib/community/client";
 
 const MASSHEALTH_URL = "https://www.mass.gov/topics/masshealth";
 const PANEL_STATUS = {
@@ -37,6 +38,12 @@ export function Packet() {
   useEffect(() => {
     const d = loadValues().deadline;
     setEditedDeadline(d && d.provenance === "edited" ? d.value : null);
+  }, []);
+
+  // Reaching the packet means the member's proof is ready — log it once.
+  useEffect(() => {
+    void logEvent(L, "packet_ready");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Keep Maria's packet record and consent in sync with the store so the
