@@ -152,5 +152,8 @@
   "help_ask_placeholder": "What would you like help with?",
   "help_ask_send": "Ask",
   "help_sample_note": "Here is the sample explanation. MassHealth makes the decision.",
-  "help_thinking": "Thinking…"
+  "help_thinking": "Thinking…",
+  "stays_on_phone": "Your letter stays on your phone",
+  "ocr_reading": "Reading your letter on your phone…",
+  "ocr_done": "Read on your phone. Nothing was uploaded."
 }

@@ -152,5 +152,8 @@
   "help_ask_placeholder": "您想要什么帮助？",
   "help_ask_send": "询问",
   "help_sample_note": "这是示例说明。由 MassHealth 做出决定。",
-  "help_thinking": "思考中…"
+  "help_thinking": "思考中…",
+  "stays_on_phone": "您的信件留在您的手机上",
+  "ocr_reading": "正在您的手机上读取您的信件…",
+  "ocr_done": "已在您的手机上读取。没有上传任何内容。"
 }

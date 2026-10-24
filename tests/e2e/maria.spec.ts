@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import path from "node:path";
 
 // Maria's whole story, end to end, on an iPhone viewport.
 // Default state is Maria's sample answers => income path, $612.
@@ -142,4 +143,22 @@ test.fixme("partner sign-off link reaches confirmed", async ({ page }) => {
   await expect(page.getByText("Riverside Food Pantry (sample)")).toBeVisible();
   await page.getByRole("button", { name: "Confirm hours" }).click();
   await expect(page.getByText(/hours confirmed/)).toBeVisible();
+});
+
+// On-device OCR, AI disabled (no GUIDANCE_MODEL/OPENAI_API_KEY in the test env):
+// a printed photo of the sample letter is read ON THE DEVICE by tesseract.js and
+// the plain-code rules extract the deadline. Nothing is uploaded.
+test("on-device OCR reads a printed sample letter (rules only, AI off)", async ({ page }) => {
+  await page.goto("/");
+  const file = path.resolve(process.cwd(), "public/samples/sample-letter.png");
+  await page.setInputFiles('input[type="file"][accept="image/*"]', file);
+
+  // X-Ray shows the privacy notice.
+  await expect(page.getByText("Your letter stays on your phone")).toBeVisible();
+
+  // OCR runs on device and the plain-code reader finds the deadline.
+  await expect(page.getByText(/Read on your phone/)).toBeVisible({ timeout: 30000 });
+  await expect(
+    page.locator(".photo-thumb").getByText("Deadline: December 15, 2026"),
+  ).toBeVisible();
 });

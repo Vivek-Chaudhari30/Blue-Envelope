@@ -152,5 +152,8 @@
   "help_ask_placeholder": "Bạn muốn được giúp gì?",
   "help_ask_send": "Hỏi",
   "help_sample_note": "Đây là phần giải thích mẫu. MassHealth đưa ra quyết định.",
-  "help_thinking": "Đang suy nghĩ…"
+  "help_thinking": "Đang suy nghĩ…",
+  "stays_on_phone": "Lá thư của bạn ở lại trên điện thoại của bạn",
+  "ocr_reading": "Đang đọc lá thư của bạn trên điện thoại…",
+  "ocr_done": "Đã đọc trên điện thoại của bạn. Không có gì được tải lên."
 }

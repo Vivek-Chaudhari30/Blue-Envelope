@@ -152,5 +152,8 @@
   "help_ask_placeholder": "¿Con qué quiere ayuda?",
   "help_ask_send": "Preguntar",
   "help_sample_note": "Aquí está la explicación de ejemplo. MassHealth toma la decisión.",
-  "help_thinking": "Pensando…"
+  "help_thinking": "Pensando…",
+  "stays_on_phone": "Su carta se queda en su teléfono",
+  "ocr_reading": "Leyendo su carta en su teléfono…",
+  "ocr_done": "Leída en su teléfono. No se subió nada."
 }
