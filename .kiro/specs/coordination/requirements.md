@@ -4,7 +4,7 @@ Sources: `docs/PRD.md` §4 Phase B, `docs/SAMPLE_CONTENT.md`, `.kiro/steering/co
 
 ## PacketStore + consent
 
-**C1 — Interface.** The system SHALL expose a `PacketStore` with two adapters: `LocalStore` (same-browser localStorage, demo default) and `RedisStore` (Upstash Redis REST), selected at runtime — RedisStore WHEN both `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` are set, otherwise LocalStore.
+**C1 — Interface + storage.** The system SHALL expose a `PacketStore` with a `readForViewer` consent gate. The packet **draft** lives in `localStorage` (demo `LocalStore`). **Shared** packet summaries and partner sign-offs live in **Supabase** (the shared adapter), selected at runtime WHEN the Supabase env vars are set, otherwise LocalStore for the keyless demo. Supabase stores **no images and no OCR text** — only the shared summary fields and sign-off state.
 
 **C2 — Private by default.** A packet's `sharedWith` SHALL be empty until the member turns on sharing; sharing can be revoked at any time, emptying `sharedWith`.
 
