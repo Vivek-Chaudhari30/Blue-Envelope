@@ -217,5 +217,6 @@
   "community_county_all": "Todos los condados",
   "community_helpers": "Ayudantes Vecinales",
   "community_table": "Vista de tabla",
-  "fewer_than_10": "menos de 10"
+  "fewer_than_10": "menos de 10",
+  "community_including_you": "Incluyendo su actividad más reciente"
 }

@@ -7,6 +7,7 @@ const ID_KEY = "be:member:id";
 const CODE_KEY = "be:member:code";
 const REF_KEY = "be:member:ref"; // pending referred_by_code from a /r link
 const TOWN_KEY = "be:member:town";
+const MINE_KEY = "be:member:events"; // this device's own recent events (demo overlay)
 
 function ls(): Storage | null {
   try {
@@ -65,6 +66,9 @@ export async function logEvent(
 ): Promise<void> {
   const id = (await ensureMember(lang)) ?? getMemberId();
   if (!id) return;
+  // Record on the device so the Community Board can overlay this member's own
+  // latest activity even when the server store is stateless (no Supabase).
+  recordMyEvent({ type, town_id: getTown(), created_at: new Date().toISOString() });
   try {
     await fetch("/api/events", {
       method: "POST",
@@ -73,5 +77,35 @@ export async function logEvent(
     });
   } catch {
     /* best-effort; the app never blocks on this */
+  }
+}
+
+export interface MyEvent {
+  type: EventType;
+  town_id: string | null;
+  created_at: string;
+}
+
+function recordMyEvent(e: MyEvent): void {
+  const s = ls();
+  if (!s) return;
+  try {
+    const list = JSON.parse(s.getItem(MINE_KEY) ?? "[]") as MyEvent[];
+    list.push(e);
+    // Keep the last 50 only.
+    s.setItem(MINE_KEY, JSON.stringify(list.slice(-50)));
+  } catch {
+    /* ignore */
+  }
+}
+
+/** This device's own recent events, for the Community Board demo overlay. */
+export function getMyEvents(): MyEvent[] {
+  const s = ls();
+  if (!s) return [];
+  try {
+    return JSON.parse(s.getItem(MINE_KEY) ?? "[]") as MyEvent[];
+  } catch {
+    return [];
   }
 }

@@ -60,6 +60,18 @@ npm run test:e2e     # Playwright, iPhone viewport, Maria's story
 
 Push to `crew/build` builds a Vercel preview once the GitHub repo is connected to a Vercel project (Vercel dashboard → Add New → Project → import `Vivek-Chaudhari30/Blue-Envelope`). `main` is kept deployable at all times.
 
+## Connect Supabase (optional — the app works fully without it)
+
+Shared community data and partner sign-offs can be stored in Supabase. Without it, the app uses an in-memory demo store with the same interface, and `/community` still shows a seeded synthetic board plus your own latest activity.
+
+1. In the Vercel dashboard: **Storage → Supabase → Connect** (or create a project at supabase.com). This sets `NEXT_PUBLIC_SUPABASE_URL` and the service role key in the project env.
+2. Add `SUPABASE_SERVICE_ROLE_KEY` to the Vercel project's Environment Variables (server-side only — never expose it to the client).
+3. In the Supabase **SQL editor**, paste and run [`supabase/schema.sql`](supabase/schema.sql). It creates `members`, `events`, `packets`, and `partner_signoffs` with indexes.
+4. Redeploy. The app detects both env vars and switches the `CommunityStore` and `PacketStore` to Supabase automatically.
+
+Supabase holds **only** shared summaries and sign-off state — never images, OCR text, or letter content.
+
+
 ## Translations — needs review
 
 Non-English strings (es, pt, ht, zh, vi) are **drafts**. The Home and Letter X-Ray strings are ported verbatim from the prototype; the rest are machine-drafted at a sixth-grade reading level and screened against each language's banned-phrase list. Have a native speaker review before any real use.

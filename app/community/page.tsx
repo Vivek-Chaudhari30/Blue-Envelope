@@ -4,6 +4,9 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import styles from "./community.module.css";
 import { t, type Lang } from "@/lib/i18n";
+import { getMyEvents, getTown } from "@/lib/community/client";
+import towns from "@/lib/community/towns.json";
+import type { Town } from "@/lib/community/types";
 
 interface CommunityData {
   state: { actions: number; helped: number; goal: number };
@@ -17,6 +20,7 @@ export default function CommunityBoard() {
   const lang: Lang = "en";
   const [data, setData] = useState<CommunityData | null>(null);
   const [county, setCounty] = useState("all");
+  const [mine, setMine] = useState(0);
 
   useEffect(() => {
     let alive = true;
@@ -27,11 +31,20 @@ export default function CommunityBoard() {
         .catch(() => {});
     load();
     const id = setInterval(load, 10_000); // refresh every 10s
+    setMine(getMyEvents().length);
     return () => {
       alive = false;
       clearInterval(id);
     };
   }, []);
+
+  // Overlay THIS device's own recent actions so the demo never looks empty.
+  const myTownName = useMemo(() => {
+    const id = getTown();
+    return (towns as Town[]).find((x) => x.id === id)?.name ?? null;
+  }, []);
+  const myEvents = typeof window !== "undefined" ? getMyEvents() : [];
+  const myMarkedSent = myEvents.some((e) => e.type === "marked_sent");
 
   const counties = useMemo(() => {
     const set = new Set((data?.towns ?? []).map((x) => x.county));
@@ -39,10 +52,22 @@ export default function CommunityBoard() {
   }, [data]);
 
   const rows = useMemo(() => {
-    const ts = data?.towns ?? [];
+    const ts = (data?.towns ?? []).map((x) => ({ ...x }));
+    // Overlay this device's marked_sent onto its own town's display.
+    if (myMarkedSent && myTownName) {
+      const mineRow = ts.find((x) => x.name === myTownName);
+      if (mineRow) {
+        if (mineRow.helpedDisplay === "fewer than 10") mineRow.helpedDisplay = "fewer than 10";
+        else mineRow.helpedDisplay = String(Number(mineRow.helpedDisplay || 0) + 1);
+      } else {
+        const tw = (towns as Town[]).find((x) => x.name === myTownName);
+        if (tw) ts.push({ name: tw.name, county: tw.county, pop2020: tw.pop2020, helpedDisplay: "fewer than 10", perThousand: 0 });
+      }
+    }
     return county === "all" ? ts : ts.filter((x) => x.county === county);
-  }, [data, county]);
+  }, [data, county, myMarkedSent, myTownName]);
 
+  const stateActions = (data?.state.actions ?? 0) + mine;
   const pct = data ? Math.min(100, (data.state.helped / data.state.goal) * 100) : 0;
 
   return (
@@ -52,6 +77,11 @@ export default function CommunityBoard() {
         <h1 className={styles.title}>{t("community_title", lang)}</h1>
         <p className={styles.label}>{t("community_label", lang)}</p>
         <span className={styles.demo}>{t("community_demo", lang)}</span>
+        {mine > 0 && (
+          <span className={styles.demo} style={{ background: "var(--ok-soft)", color: "var(--ok)" }}>
+            {t("community_including_you", lang)}
+          </span>
+        )}
       </div>
 
       <div className={styles.progressCard}>

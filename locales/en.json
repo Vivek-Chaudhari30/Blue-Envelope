@@ -217,5 +217,6 @@
   "community_county_all": "All counties",
   "community_helpers": "Neighbor Helpers",
   "community_table": "Table view",
-  "fewer_than_10": "fewer than 10"
+  "fewer_than_10": "fewer than 10",
+  "community_including_you": "Including your latest activity"
 }
