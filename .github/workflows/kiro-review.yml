@@ -1,0 +1,54 @@
+name: Kiro review
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    env:
+      KIRO_API_KEY: ${{ secrets.KIRO_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Unit + property tests
+        run: npm test
+
+      - name: Content (locale parity + banned phrases)
+        run: npm run test:content
+
+      # Kiro CLI headless review of changed locale files against the
+      # plain-language steering. Runs only when a Kiro CLI token is configured
+      # as a repository secret; otherwise this step is skipped (the test gates
+      # above still run and still gate the merge). See the README.
+      - name: Kiro headless locale review
+        if: ${{ env.KIRO_API_KEY != '' }}
+        run: |
+          CHANGED=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" -- 'locales/*.json' || true)
+          if [ -z "$CHANGED" ]; then
+            echo "No locale files changed." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          echo "## Kiro plain-language review" >> "$GITHUB_STEP_SUMMARY"
+          echo "Reviewing: $CHANGED" >> "$GITHUB_STEP_SUMMARY"
+          npx --yes @kirodotdev/kiro-cli@latest review \
+            --rules .kiro/steering/plain-language.md \
+            --files $CHANGED >> "$GITHUB_STEP_SUMMARY" 2>&1 || \
+            echo "Kiro CLI review step reported issues — see above." >> "$GITHUB_STEP_SUMMARY"

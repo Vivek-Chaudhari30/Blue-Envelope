@@ -18,6 +18,7 @@ export function HelpNeighbor({ lang, firstName = "Maria" }: { lang: Lang; firstN
   const [optin, setOptin] = useState(false);
   const [copied, setCopied] = useState(false);
   const [helped, setHelped] = useState(0);
+  const [qr, setQr] = useState<string | null>(null);
 
   useEffect(() => {
     ensureMember(lang).then(() => {
@@ -39,6 +40,14 @@ export function HelpNeighbor({ lang, firstName = "Maria" }: { lang: Lang; firstN
   const waText = `${t("share_msg", lang)} ${link}`;
   const waHref = `https://wa.me/?text=${encodeURIComponent(waText)}`;
   const badges = badgesFor(helped);
+
+  useEffect(() => {
+    if (!link) return;
+    import("qrcode")
+      .then((m) => m.toDataURL(link, { width: 160, margin: 1 }))
+      .then(setQr)
+      .catch(() => setQr(null));
+  }, [link]);
 
   async function copy() {
     try {
@@ -73,6 +82,11 @@ export function HelpNeighbor({ lang, firstName = "Maria" }: { lang: Lang; firstN
           </a>
         )}
       </div>
+
+      {qr && (
+        /* eslint-disable-next-line @next/next/no-img-element */
+        <img src={qr} alt="QR code for your share link" width={160} height={160} style={{ justifySelf: "center", borderRadius: 8 }} />
+      )}
 
       <div className="row" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }}>
         <b style={{ fontSize: ".9rem" }}>{t("show_me_board", lang)}</b>

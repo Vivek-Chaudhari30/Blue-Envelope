@@ -121,3 +121,34 @@ describe("community — aggregation invariants", () => {
     expect(agg.helpers.find((h) => h.firstName === "")).toBeUndefined();
   });
 });
+
+import { overlayMyActions } from "@/lib/community/aggregate";
+
+describe("community — device overlay (b)", () => {
+  it("overlay bumps the action count and the member's town on marked_sent", () => {
+    const board = {
+      state: { actions: 10, helped: 5, goal: 360000 },
+      towns: [{ name: "Lowell", county: "Middlesex", pop2020: 115554, helped: 3 }],
+    };
+    const res = overlayMyActions(board, ["started", "xray_done", "marked_sent"], "Lowell");
+    expect(res.applied).toBe(true);
+    expect(board.state.actions).toBe(13); // +3 device actions
+    expect(board.towns[0]!.helped).toBe(4); // +1 for marked_sent in Lowell
+  });
+
+  it("overlay with no device events changes nothing", () => {
+    const board = { state: { actions: 10, helped: 5, goal: 360000 }, towns: [] as never[] };
+    const res = overlayMyActions(board, [], null);
+    expect(res.applied).toBe(false);
+    expect(board.state.actions).toBe(10);
+  });
+
+  it("marked_sent with no town does not bump any town", () => {
+    const board = {
+      state: { actions: 0, helped: 0, goal: 360000 },
+      towns: [{ name: "Lowell", county: "Middlesex", pop2020: 115554, helped: 0 }],
+    };
+    overlayMyActions(board, ["marked_sent"], null);
+    expect(board.towns[0]!.helped).toBe(0);
+  });
+});

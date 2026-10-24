@@ -29,6 +29,33 @@ export function badgesFor(helped: number): Badge[] {
   return b;
 }
 
+/**
+ * Demo overlay: fold THIS device's own recent actions into a board view so the
+ * live demo never looks empty without Supabase. `actions` bumps the state
+ * action count; a `marked_sent` in `myTypes` from `myTownId` bumps that town's
+ * helped display by one. Returns a new view + whether anything was added.
+ * This is a display-only courtesy; the authoritative counts come from the server.
+ */
+export function overlayMyActions(
+  board: { state: { actions: number; helped: number; goal: number }; towns: { name: string; county: string; pop2020: number; helped: number }[] },
+  myTypes: string[],
+  myTownName: string | null,
+): { applied: boolean } {
+  let applied = false;
+  if (myTypes.length > 0) {
+    board.state.actions += myTypes.length;
+    applied = true;
+  }
+  if (myTownName && myTypes.includes("marked_sent")) {
+    const town = board.towns.find((t) => t.name === myTownName);
+    if (town) {
+      town.helped += 1;
+      applied = true;
+    }
+  }
+  return { applied };
+}
+
 /** Fold events + members into per-town / per-county / state aggregates. */
 export function aggregate(
   members: Member[],

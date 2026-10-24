@@ -59,3 +59,42 @@ This feature was built in **Kiro IDE on branch `kiro/letter-chat`**, in parallel
 - **Safety steering caught the design** — `community-safety.md` (fileMatch on the community/referral paths) kept eligibility/health/income/letter content out of `lib/community` entirely; only the six in-app event types feed it; counts 1–9 are suppressed before leaving the server; recognition only (badges, no prizes).
 - **Property tests (7)** — no API response carries a member id; 1–9 suppressed; town sums = county = state before suppression; referral counts once per invitee, never self, capped at 20/helper/day; badge thresholds 1/3/10.
 - **e2e** — Maria finishes → "I sent it" (logs `marked_sent`) → share card + impact → `/community` shows Lowell and Maria. 59 unit/property + 7 e2e green.
+
+## 2026-10-24 — Stage 4: Kiro evidence summary (complete record)
+
+A consolidated index of how Kiro was used across the whole build, for the judges.
+
+### Specs (`.kiro/specs/`) — spec-driven, written before code
+- `rules-engine` — pure eligibility engine, EARS requirements straight from `docs/RULES_SOURCE.md`; 8 property tests.
+- `member-flow` — the six member screens (PRD §4 Phase A).
+- `coordination` — PacketStore + consent (`readForViewer`), partner sign-off, Navigator Board; properties 11–13.
+- `letter-reader` — on-device OCR + plain-code extraction + the Luna fallback route.
+- `letter-chat` — the "Ask about your letter" sheet, voice, fix-what-we-read, delete (built in Kiro IDE, parallel branch).
+- `community-referrals` — the Community Board + referrals, minimum scope.
+- `bugfix-partner-token` — the base64url browser crash, recorded as a bugfix spec (current vs expected vs fix).
+
+### Steering (`.kiro/steering/`)
+- `product.md`, `tech.md`, `structure.md` (always-on); `design-system.md`, `plain-language.md`, `policy-sources.md`, `consent-privacy.md`, `community-safety.md` (fileMatch). The biggest wins: `plain-language.md` → the banned-phrase list enforced by `test:content` and the Luna banned filter; `consent-privacy.md` → the on-device-OCR + redaction + `readForViewer` design; `community-safety.md` → kept eligibility/health/income out of `lib/community` entirely.
+
+### Hooks (`.kiro/hooks/hooks.json`)
+- Rules tests on `lib/rules/**` save; content tests on `locales|content` save; typecheck on any `.ts(x)` save; an agent consent-guard on navigator/partner/store files; a Stop hook appending to this log.
+
+### MCP (`.kiro/settings/mcp.json`)
+- Playwright MCP (read mass.gov, drive the deployed app on a phone viewport); AWS Documentation MCP; Google Data Commons MCP (disabled, stretch).
+
+### Subagents
+- A `kirocrew-lite` subagent was dispatched for the six-language locales. It **returned "success" in 9 s having written zero files** — caught by inspecting the side effects (no files on disk) rather than trusting the completion. The i18n layer was then built inline. Lesson: the lite agent is too thin for multi-file build tasks.
+
+### Property-based testing — real counterexamples fast-check found
+1. **`$1000` no-comma amount** (earnings total = sum): the amount regex required a comma for thousands, so `$1000.00` matched only `100`. Fixed the regex to accept comma-grouped OR a plain long run.
+2. **`$0.02` vs `$0.01` grounding false-positive** (Luna grounding): the amount-grounding check had a permissive rounded-whole-dollar fallback, so an ungrounded `$0.02` matched the `0` in `$0.01`. Tightened to require an exact representation — a safety bug, since grounding is what stops Luna returning a value not in the member's letter.
+
+### Bugfix
+- **`base64url` browser crash** — `makePartnerToken` used Node's `base64url` encoding, which Next's browser `Buffer` polyfill rejects; the "Send sign-off link" render crashed. Caught by a Playwright `pageerror` listener, recorded as `bugfix-partner-token`, fixed with a runtime-agnostic base64.
+
+### CI (`.github/workflows/kiro-review.yml`)
+- On push to `main`: `npm ci`, lint, typecheck, `npm test`, `test:content`, then a Kiro CLI headless review of changed `locales/*.json` against `plain-language.md` (skipped when no `KIRO_API_KEY` secret; the test gates still run). Uses repository secrets; no hard-coded credentials.
+
+### Crew schedules
+- **Policy watcher** (every 6 h, `America/New_York`): compares the mass.gov work-requirements page against `docs/RULES_SOURCE.md` and opens a GitHub issue `policy: mass.gov rules changed` with the diff when it changes. (One-shot run attempted now: the page bot-blocks plain fetch with 403, so the scheduled job uses the browser path.)
+- **Deploy heartbeat** (every 30 min until 8 PM ET): runs Maria's flow on the live URL in a phone viewport and alerts only on failure.
