@@ -90,6 +90,9 @@ export default function CommunityBoard() {
         <div className={styles.bar} role="progressbar" aria-valuenow={Math.round(pct)} aria-valuemin={0} aria-valuemax={100}>
           <i style={{ width: `${pct}%` }} />
         </div>
+        <span className="sub" style={{ fontSize: ".8rem" }}>
+          {stateActions.toLocaleString("en-US")} actions in Blue Envelope so far
+        </span>
       </div>
 
       <div className={styles.controls}>
@@ -139,6 +142,25 @@ export default function CommunityBoard() {
           </div>
         </div>
       )}
+
+      {data && rows.length > 0 && (
+        <div>
+          <span className="label">{t("community_improved", lang)}</span>
+          <div className={styles.helpers}>
+            <span className={styles.helper}>
+              🚀 {rows[0]!.name} · {rows[0]!.perThousand.toFixed(2)} / 1,000
+            </span>
+          </div>
+        </div>
+      )}
+
+      <div>
+        <span className="label">{t("community_partners", lang)}</span>
+        <div className={styles.helpers}>
+          <span className={styles.helper}>🤝 Riverside Food Pantry (sample)</span>
+          <span className={styles.helper}>🏥 Riverside Community Health Center (sample)</span>
+        </div>
+      </div>
 
       <p className={styles.foot}>Independent tool · Not MassHealth · Sample data</p>
     </div>

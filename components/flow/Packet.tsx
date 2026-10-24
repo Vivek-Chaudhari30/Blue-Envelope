@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { useFlow } from "./FlowContext";
 import { Button } from "@/components/ui";
 import { t, type MessageKey } from "@/lib/i18n";
-import { daysLeft, money } from "@/lib/deadline";
+import { daysLeft, money, DEADLINE } from "@/lib/deadline";
+import { buildIcs } from "@/lib/calendar/ics";
 import { evaluate } from "@/lib/rules/engine";
 import { getStore, NAVIGATOR_ID, type Packet as PacketRecord } from "@/lib/store";
 import { makePartnerToken, PARTNER_ID } from "@/lib/store/partner-token";
@@ -45,6 +46,21 @@ export function Packet() {
     void logEvent(L, "packet_ready");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  function downloadIcs() {
+    // Use the edited deadline if the member changed it, else the sample date.
+    const iso = editedDeadline
+      ? new Date(`${editedDeadline} 23:59:00`).toISOString()
+      : new Date(DEADLINE).toISOString();
+    const ics = buildIcs(iso, "Blue Envelope — respond to MassHealth");
+    const blob = new Blob([ics], { type: "text/calendar" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "blue-envelope-deadline.ics";
+    a.click();
+    URL.revokeObjectURL(url);
+  }
 
   // Keep Maria's packet record and consent in sync with the store so the
   // Navigator Board (readForViewer) and partner page see the real state.
@@ -173,6 +189,10 @@ export function Packet() {
         <span>{editedDeadline ? `${tr("deadline")}: ${editedDeadline}` : tr("due_banner")}</span>
         <b>{t("days_left", L, { n: daysLeft() })}</b>
       </div>
+
+      <Button variant="secondary" onClick={downloadIcs}>
+        📅 {tr("add_calendar")}
+      </Button>
 
       <ul className="items">
         {items.map((it, i) => (
