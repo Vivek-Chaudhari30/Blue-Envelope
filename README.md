@@ -4,7 +4,7 @@ Helps MassHealth members keep their coverage through the 2027 work and education
 
 > **Independent tool · Not MassHealth · Sample data.** Every person, letter and amount shown is a labeled sample. This never tells anyone they are eligible or approved — MassHealth makes the decision. Built for Hackachusetts 2026 (Healthcare & Biotech, challenge H2).
 
-**Live preview:** _Vercel preview URL will appear here once the repo is connected (see Deploy below)._
+**Live preview:** https://blue-envelope-six.vercel.app (auto-deploys on every push to `crew/build`; `main` is production).
 
 ## What it does (Phase A — shipping)
 

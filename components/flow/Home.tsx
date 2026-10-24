@@ -35,7 +35,8 @@ export function Home() {
         {t("sub", L)}
       </p>
       <label className="btn file-btn" lang={L}>
-        📷 {t("photo", L)}
+        {"📷 "}
+        {t("photo", L)}
         <input
           type="file"
           accept="image/*"
