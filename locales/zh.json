@@ -4,7 +4,6 @@
   "back": "返回",
   "step_of": "第 {n} 步，共 {total} 步 · {name}",
   "language": "语言",
-
   "headline": "收到 MassHealth 的蓝色信封了吗？",
   "sub": "给信件拍张照片。我们会告诉您信件的意思，并帮您准备证明材料。",
   "photo": "给信件拍照",
@@ -15,7 +14,6 @@
   "trust_choose": "由您决定谁能看您的材料",
   "screener_note": "不确定新规定是否影响您？先用 MassHealth 的问卷。之后再用 Blue Envelope。",
   "screener_link": "MassHealth 的问卷",
-
   "deadline": "截止日期",
   "asking": "他们要求什么",
   "send": "需要寄送什么",
@@ -31,7 +29,6 @@
   "read_aloud_unavailable": "此浏览器不支持朗读。正式应用使用自带的语音。",
   "photo_got": "已收到您的照片。在正式应用里，Textract 和 Claude 会读取它。此原型在示例信件上展示透视。",
   "check_applies": "看看哪些适用于我",
-
   "q_label": "四个简单问题",
   "q_title": "一起找出您最简单的途径",
   "q_sub": "已填入 Maria 的示例答案。更改它们即可看到结果变化。",
@@ -52,7 +49,6 @@
   "hours_last_month": "上个月的小时数",
   "earned_last_month": "上个月收入（$）",
   "see_path": "查看我最简单的途径",
-
   "ex_pregnant": "怀孕，或在过去 12 个月内生过孩子",
   "ex_caregiver": "照顾 14 岁以下的孩子或残障人士",
   "ex_medicare": "拥有 Medicare",
@@ -60,7 +56,6 @@
   "ex_treatment": "正在参加酒精或药物治疗项目",
   "ex_veteran": "拥有 VA 完全伤残评级的退伍军人",
   "ex_none": "以上都不是",
-
   "path_label": "您最简单的途径",
   "path_age_title": "按您的年龄，新的工作规定很可能不适用",
   "path_age_body": "这些规定针对 19 至 64 岁的成年人。即便如此，也请在截止日期前回复信件，让您的保险继续有效。",
@@ -94,7 +89,6 @@
   "under_580": "这低于每月 $580 的金额。",
   "gig_payout": "零工应用收入",
   "decides_guide": "这是指引，不是决定。由 MassHealth 对您的保险做出决定。",
-
   "packet_label": "证明材料包",
   "packet_title": "您的材料包",
   "due_banner": "2026 年 12 月 15 日到期",
@@ -127,7 +121,6 @@
   "share_title": "与我的健康中心共享",
   "share_on_body": "Riverside Community Health Center（示例）的导航员可以查看您的材料包，并在您寄送前检查。您可以随时关闭。",
   "share_off_body": "已关闭。没有其他人能看您的材料包。如果您想让导航员检查，请打开。",
-
   "submit_label": "寄送",
   "submit_title": "把您的证明寄给 MassHealth",
   "submit_sub": "选对您最方便的方式。请使用您本人信件上印的联系方式。",
@@ -141,5 +134,18 @@
   "help_label": "需要帮助？",
   "help_211": "随时拨打 Mass 211，获取食物、住房和其他需求方面的帮助。",
   "decides_watch": "由 MassHealth 做出决定。请留意带有结果的信件、短信或电子邮件。",
-  "start_over": "重新开始"
+  "start_over": "重新开始",
+  "step_home": "收到蓝色信封？",
+  "step_home_desc": "一个按钮，六种语言。",
+  "step_letter": "信件透视",
+  "step_letter_desc": "截止日期、要求和需寄送内容，已标注并翻译。",
+  "step_questions": "四个简单问题",
+  "step_questions_desc": "年龄、免除理由、上个月活动、联系方式。",
+  "step_path": "您最简单的途径",
+  "step_path_desc": "收入、小时、上学或免除。收入截图已加总。",
+  "step_packet": "证明材料包",
+  "step_packet_desc": "清单、伙伴确认、提醒、共享许可。",
+  "step_submit": "寄给 MassHealth",
+  "step_submit_desc": "官方渠道，加上 211 和健康中心的帮助。",
+  "build_packet": "建立我的证明材料包"
 }

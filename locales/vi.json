@@ -4,7 +4,6 @@
   "back": "Quay lại",
   "step_of": "Bước {n} trên {total} · {name}",
   "language": "Ngôn ngữ",
-
   "headline": "Bạn nhận được phong bì màu xanh từ MassHealth?",
   "sub": "Chụp ảnh lá thư của bạn. Chúng tôi sẽ giải thích ý nghĩa và giúp bạn chuẩn bị giấy tờ chứng minh.",
   "photo": "Chụp ảnh lá thư",
@@ -15,7 +14,6 @@
   "trust_choose": "Bạn chọn ai được xem giấy tờ của mình",
   "screener_note": "Không chắc các quy định mới có ảnh hưởng đến bạn? Hãy bắt đầu với bảng hỏi của MassHealth. Blue Envelope giúp sau bước đó.",
   "screener_link": "bảng hỏi của MassHealth",
-
   "deadline": "Hạn chót",
   "asking": "Họ yêu cầu gì",
   "send": "Cần gửi gì",
@@ -31,7 +29,6 @@
   "read_aloud_unavailable": "Trình duyệt này không hỗ trợ đọc to. Ứng dụng thật dùng giọng đọc riêng.",
   "photo_got": "Đã nhận ảnh của bạn. Trong ứng dụng thật, Textract và Claude đọc ảnh. Bản mẫu này hiển thị phần soi trên một lá thư mẫu.",
   "check_applies": "Xem điều gì áp dụng cho tôi",
-
   "q_label": "Bốn câu hỏi nhanh",
   "q_title": "Cùng tìm cách dễ nhất cho bạn",
   "q_sub": "Câu trả lời mẫu của Maria đã được điền sẵn. Hãy thay đổi để thấy kết quả thay đổi.",
@@ -52,7 +49,6 @@
   "hours_last_month": "Số giờ tháng trước",
   "earned_last_month": "Thu nhập tháng trước ($)",
   "see_path": "Xem cách dễ nhất của tôi",
-
   "ex_pregnant": "Đang mang thai, hoặc đã sinh con trong 12 tháng qua",
   "ex_caregiver": "Chăm sóc trẻ dưới 14 tuổi hoặc người khuyết tật",
   "ex_medicare": "Có Medicare",
@@ -60,7 +56,6 @@
   "ex_treatment": "Đang trong chương trình điều trị do dùng rượu hoặc ma túy",
   "ex_veteran": "Cựu chiến binh được VA xếp loại khuyết tật toàn phần",
   "ex_none": "Không điều nào",
-
   "path_label": "Cách dễ nhất của bạn",
   "path_age_title": "Với tuổi của bạn, các quy định làm việc mới có lẽ không áp dụng",
   "path_age_body": "Chúng áp dụng cho người lớn từ 19 đến 64 tuổi. Dù vậy, hãy trả lời thư trước hạn chót để bảo hiểm của bạn tiếp tục.",
@@ -94,7 +89,6 @@
   "under_580": "Số đó ít hơn mức $580 mỗi tháng.",
   "gig_payout": "Khoản trả từ ứng dụng làm theo giờ",
   "decides_guide": "Đây là hướng dẫn, không phải quyết định. MassHealth đưa ra quyết định về bảo hiểm của bạn.",
-
   "packet_label": "Bộ hồ sơ chứng minh",
   "packet_title": "Bộ hồ sơ của bạn",
   "due_banner": "Hạn 15 tháng 12 năm 2026",
@@ -127,7 +121,6 @@
   "share_title": "Chia sẻ với trung tâm y tế của tôi",
   "share_on_body": "Một hướng dẫn viên tại Riverside Community Health Center (mẫu) có thể xem bộ hồ sơ của bạn và kiểm tra trước khi bạn gửi. Bạn có thể tắt bất cứ lúc nào.",
   "share_off_body": "Đã tắt. Không ai khác xem được bộ hồ sơ của bạn. Bật lên nếu bạn muốn một hướng dẫn viên kiểm tra.",
-
   "submit_label": "Gửi đi",
   "submit_title": "Gửi bằng chứng của bạn đến MassHealth",
   "submit_sub": "Chọn cách dễ nhất cho bạn. Dùng thông tin liên hệ in trên lá thư của chính bạn.",
@@ -141,5 +134,18 @@
   "help_label": "Cần giúp đỡ?",
   "help_211": "Gọi Mass 211 để được giúp về thực phẩm, nhà ở và các nhu cầu khác, bất cứ lúc nào.",
   "decides_watch": "MassHealth đưa ra quyết định. Hãy để ý thư, tin nhắn hoặc email có câu trả lời.",
-  "start_over": "Bắt đầu lại"
+  "start_over": "Bắt đầu lại",
+  "step_home": "Nhận phong bì xanh?",
+  "step_home_desc": "Một nút, sáu ngôn ngữ.",
+  "step_letter": "Soi lá thư",
+  "step_letter_desc": "Hạn chót, yêu cầu và cần gửi gì, được tô sáng và dịch.",
+  "step_questions": "Bốn câu hỏi nhanh",
+  "step_questions_desc": "Tuổi, lý do được miễn, hoạt động tháng trước, thông tin liên hệ.",
+  "step_path": "Cách dễ nhất của bạn",
+  "step_path_desc": "Thu nhập, số giờ, đi học hoặc được miễn. Ảnh thu nhập được cộng lại.",
+  "step_packet": "Bộ hồ sơ chứng minh",
+  "step_packet_desc": "Danh sách, xác nhận đối tác, nhắc nhở, cho phép chia sẻ.",
+  "step_submit": "Gửi đến MassHealth",
+  "step_submit_desc": "Kênh chính thức, cùng trợ giúp từ 211 và trung tâm y tế.",
+  "build_packet": "Tạo bộ hồ sơ chứng minh của tôi"
 }

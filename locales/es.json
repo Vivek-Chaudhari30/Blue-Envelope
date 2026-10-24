@@ -4,7 +4,6 @@
   "back": "Atrás",
   "step_of": "Paso {n} de {total} · {name}",
   "language": "Idioma",
-
   "headline": "¿Recibió un sobre azul de MassHealth?",
   "sub": "Tome una foto de su carta. Le explicamos lo que significa y le ayudamos a preparar sus pruebas.",
   "photo": "Tomar foto de la carta",
@@ -15,7 +14,6 @@
   "trust_choose": "Usted elige quién ve sus papeles",
   "screener_note": "¿No sabe si las nuevas reglas le afectan? Empiece con el cuestionario de MassHealth. Blue Envelope ayuda después de eso.",
   "screener_link": "el cuestionario de MassHealth",
-
   "deadline": "Fecha límite",
   "asking": "Lo que le piden",
   "send": "Qué enviar",
@@ -31,7 +29,6 @@
   "read_aloud_unavailable": "La lectura en voz alta no está disponible en este navegador. La app real usa una voz propia.",
   "photo_got": "Recibimos su foto. En la app real, Textract y Claude la leen. Este prototipo muestra la radiografía en una carta de ejemplo.",
   "check_applies": "Ver qué me aplica a mí",
-
   "q_label": "Cuatro preguntas rápidas",
   "q_title": "Busquemos su camino más fácil",
   "q_sub": "Las respuestas de ejemplo de Maria ya están puestas. Cámbielas para ver cómo cambia el resultado.",
@@ -52,7 +49,6 @@
   "hours_last_month": "Horas el mes pasado",
   "earned_last_month": "Ganó el mes pasado ($)",
   "see_path": "Ver mi camino más fácil",
-
   "ex_pregnant": "Embarazada, o tuvo un bebé en los últimos 12 meses",
   "ex_caregiver": "Cuida a un niño menor de 14 años o a una persona con discapacidad",
   "ex_medicare": "Tiene Medicare",
@@ -60,7 +56,6 @@
   "ex_treatment": "En un programa de tratamiento por uso de alcohol o drogas",
   "ex_veteran": "Veterano con una calificación de discapacidad total del VA",
   "ex_none": "Ninguna de estas",
-
   "path_label": "Su camino más fácil",
   "path_age_title": "Es probable que las nuevas reglas de trabajo no apliquen a su edad",
   "path_age_body": "Cubren a adultos de 19 a 64 años. Aun así, responda su carta antes de la fecha límite para que su cobertura continúe.",
@@ -94,7 +89,6 @@
   "under_580": "Eso es menos que el monto mensual de $580.",
   "gig_payout": "Pago de app de encargos",
   "decides_guide": "Esto es una guía, no una decisión. MassHealth toma la decisión sobre su cobertura.",
-
   "packet_label": "Paquete de pruebas",
   "packet_title": "Su paquete",
   "due_banner": "Vence el 15 de diciembre de 2026",
@@ -127,7 +121,6 @@
   "share_title": "Compartir con mi centro de salud",
   "share_on_body": "Un navegador en Riverside Community Health Center (ejemplo) puede ver su paquete y revisarlo antes de que lo envíe. Puede desactivarlo cuando quiera.",
   "share_off_body": "Desactivado. Nadie más puede ver su paquete. Actívelo si quiere que un navegador lo revise.",
-
   "submit_label": "Enviarlo",
   "submit_title": "Envíe su prueba a MassHealth",
   "submit_sub": "Elija la forma que le resulte más fácil. Use los datos de contacto impresos en su propia carta.",
@@ -141,5 +134,18 @@
   "help_label": "¿Necesita ayuda?",
   "help_211": "Llame a Mass 211 para ayuda con comida, vivienda y otras necesidades, a cualquier hora.",
   "decides_watch": "MassHealth toma la decisión. Esté atento a una carta, mensaje de texto o correo con la respuesta.",
-  "start_over": "Empezar de nuevo"
+  "start_over": "Empezar de nuevo",
+  "step_home": "¿Un sobre azul?",
+  "step_home_desc": "Un botón, seis idiomas.",
+  "step_letter": "Radiografía de la carta",
+  "step_letter_desc": "La fecha límite, lo que piden y qué enviar, resaltado y traducido.",
+  "step_questions": "Cuatro preguntas rápidas",
+  "step_questions_desc": "Edad, razones que lo eximen, actividades del mes pasado, datos de contacto.",
+  "step_path": "Su camino más fácil",
+  "step_path_desc": "Ingresos, horas, escuela o exención. Capturas de ganancias sumadas.",
+  "step_packet": "Paquete de pruebas",
+  "step_packet_desc": "Lista, confirmación de socio, recordatorios, permiso para compartir.",
+  "step_submit": "Enviarlo a MassHealth",
+  "step_submit_desc": "Canales oficiales, más ayuda de 211 y un centro de salud.",
+  "build_packet": "Armar mi paquete de pruebas"
 }

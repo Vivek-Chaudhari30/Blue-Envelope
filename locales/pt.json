@@ -4,7 +4,6 @@
   "back": "Voltar",
   "step_of": "Etapa {n} de {total} · {name}",
   "language": "Idioma",
-
   "headline": "Recebeu um envelope azul do MassHealth?",
   "sub": "Tire uma foto da sua carta. Vamos explicar o que ela significa e ajudar você a preparar seus comprovantes.",
   "photo": "Tirar foto da carta",
@@ -15,7 +14,6 @@
   "trust_choose": "Você escolhe quem vê seus papéis",
   "screener_note": "Não tem certeza se as novas regras afetam você? Comece pelo questionário do MassHealth. O Blue Envelope ajuda depois disso.",
   "screener_link": "o questionário do MassHealth",
-
   "deadline": "Prazo",
   "asking": "O que estão pedindo",
   "send": "O que enviar",
@@ -31,7 +29,6 @@
   "read_aloud_unavailable": "A leitura em voz alta não está disponível neste navegador. O app real usa uma voz própria.",
   "photo_got": "Recebemos sua foto. No app real, o Textract e o Claude leem a carta. Este protótipo mostra o raio-X em uma carta de exemplo.",
   "check_applies": "Ver o que se aplica a mim",
-
   "q_label": "Quatro perguntas rápidas",
   "q_title": "Vamos achar seu caminho mais fácil",
   "q_sub": "As respostas de exemplo da Maria já estão preenchidas. Mude-as para ver o resultado mudar.",
@@ -52,7 +49,6 @@
   "hours_last_month": "Horas no mês passado",
   "earned_last_month": "Ganhou no mês passado ($)",
   "see_path": "Ver meu caminho mais fácil",
-
   "ex_pregnant": "Grávida, ou teve um bebê nos últimos 12 meses",
   "ex_caregiver": "Cuida de uma criança menor de 14 anos ou de uma pessoa com deficiência",
   "ex_medicare": "Tem Medicare",
@@ -60,7 +56,6 @@
   "ex_treatment": "Em um programa de tratamento por uso de álcool ou drogas",
   "ex_veteran": "Veterano com classificação de incapacidade total do VA",
   "ex_none": "Nenhuma destas",
-
   "path_label": "Seu caminho mais fácil",
   "path_age_title": "As novas regras de trabalho provavelmente não se aplicam à sua idade",
   "path_age_body": "Elas cobrem adultos de 19 a 64 anos. Mesmo assim, responda sua carta até o prazo para que sua cobertura continue.",
@@ -94,7 +89,6 @@
   "under_580": "Isso é menos que o valor mensal de $580.",
   "gig_payout": "Pagamento de app de entregas",
   "decides_guide": "Isto é um guia, não uma decisão. O MassHealth toma a decisão sobre sua cobertura.",
-
   "packet_label": "Pacote de comprovantes",
   "packet_title": "Seu pacote",
   "due_banner": "Vence em 15 de dezembro de 2026",
@@ -127,7 +121,6 @@
   "share_title": "Compartilhar com meu centro de saúde",
   "share_on_body": "Um navegador no Riverside Community Health Center (exemplo) pode ver seu pacote e revisá-lo antes de você enviar. Você pode desativar quando quiser.",
   "share_off_body": "Desativado. Ninguém mais pode ver seu pacote. Ative se quiser que um navegador o revise.",
-
   "submit_label": "Enviar",
   "submit_title": "Envie seu comprovante ao MassHealth",
   "submit_sub": "Escolha a forma mais fácil para você. Use os contatos impressos na sua própria carta.",
@@ -141,5 +134,18 @@
   "help_label": "Precisa de ajuda?",
   "help_211": "Ligue para o Mass 211 para ajuda com comida, moradia e outras necessidades, a qualquer hora.",
   "decides_watch": "O MassHealth toma a decisão. Fique atento a uma carta, mensagem de texto ou e-mail com a resposta.",
-  "start_over": "Começar de novo"
+  "start_over": "Começar de novo",
+  "step_home": "Um envelope azul?",
+  "step_home_desc": "Um botão, seis idiomas.",
+  "step_letter": "Raio-X da carta",
+  "step_letter_desc": "O prazo, o pedido e o que enviar, destacado e traduzido.",
+  "step_questions": "Quatro perguntas rápidas",
+  "step_questions_desc": "Idade, motivos que dispensam você, atividades do mês passado, contatos.",
+  "step_path": "Seu caminho mais fácil",
+  "step_path_desc": "Renda, horas, escola ou dispensa. Capturas de ganhos somadas.",
+  "step_packet": "Pacote de comprovantes",
+  "step_packet_desc": "Lista, confirmação de parceiro, lembretes, permissão para compartilhar.",
+  "step_submit": "Enviar ao MassHealth",
+  "step_submit_desc": "Canais oficiais, mais ajuda do 211 e de um centro de saúde.",
+  "build_packet": "Montar meu pacote de comprovantes"
 }

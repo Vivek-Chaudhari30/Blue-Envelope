@@ -4,7 +4,6 @@
   "back": "Retounen",
   "step_of": "Etap {n} sou {total} · {name}",
   "language": "Lang",
-
   "headline": "Ou resevwa yon anvlòp ble nan men MassHealth?",
   "sub": "Pran yon foto lèt ou a. N ap montre w sa li vle di epi ede w prepare prèv ou yo.",
   "photo": "Pran foto lèt la",
@@ -15,7 +14,6 @@
   "trust_choose": "Se ou ki chwazi kiyès ki wè papye w yo",
   "screener_note": "Ou pa sèten si nouvo règ yo konsène w? Kòmanse ak kesyonè MassHealth lan. Blue Envelope ede apre sa.",
   "screener_link": "kesyonè MassHealth lan",
-
   "deadline": "Dat limit",
   "asking": "Sa yo mande w",
   "send": "Sa pou w voye",
@@ -31,7 +29,6 @@
   "read_aloud_unavailable": "Lekti awotvwa pa disponib nan navigatè sa a. Vrè app la sèvi ak yon vwa pa li.",
   "photo_got": "Nou resevwa foto w la. Nan vrè app la, Textract ak Claude li li. Pwototip sa a montre radyografi a sou yon lèt egzanp.",
   "check_applies": "Gade sa ki konsène mwen",
-
   "q_label": "Kat kesyon rapid",
   "q_title": "Ann jwenn chemen ki pi fasil pou ou a",
   "q_sub": "Repons egzanp Maria yo deja ranpli. Chanje yo pou w wè rezilta a chanje.",
@@ -52,7 +49,6 @@
   "hours_last_month": "Èdtan mwa pase a",
   "earned_last_month": "Sa w touche mwa pase a ($)",
   "see_path": "Gade chemen ki pi fasil pou mwen an",
-
   "ex_pregnant": "Ansent, oswa w te fè yon tibebe nan dènye 12 mwa yo",
   "ex_caregiver": "Pran swen yon timoun ki poko gen 14 an oswa yon moun ki andikape",
   "ex_medicare": "Gen Medicare",
@@ -60,7 +56,6 @@
   "ex_treatment": "Nan yon pwogram tretman pou alkòl oswa dwòg",
   "ex_veteran": "Veteran ki gen yon klasman andikap total nan men VA",
   "ex_none": "Okenn nan sa yo",
-
   "path_label": "Chemen ki pi fasil pou ou a",
   "path_age_title": "Nouvo règ travay yo gen anpil chans pou yo pa konsène laj ou",
   "path_age_body": "Yo kouvri granmoun ki gen 19 a 64 an. Kanmenm, reponn lèt ou a anvan dat limit la pou asirans ou ka kontinye.",
@@ -94,7 +89,6 @@
   "under_580": "Sa mwens pase montan mansyèl $580 la.",
   "gig_payout": "Peman app gig",
   "decides_guide": "Sa a se yon gid, se pa yon desizyon. Se MassHealth ki pran desizyon sou asirans ou.",
-
   "packet_label": "Pakè prèv",
   "packet_title": "Pakè ou a",
   "due_banner": "Dat limit 15 desanm 2026",
@@ -127,7 +121,6 @@
   "share_title": "Pataje ak sant sante mwen an",
   "share_on_body": "Yon navigatè nan Riverside Community Health Center (egzanp) ka wè pakè ou a epi tcheke l anvan w voye l. Ou ka dezaktive l nenpòt lè.",
   "share_off_body": "Dezaktive. Pèsonn lòt pa ka wè pakè ou a. Aktive l si w vle yon navigatè tcheke l.",
-
   "submit_label": "Voye l",
   "submit_title": "Voye prèv ou bay MassHealth",
   "submit_sub": "Chwazi fason ki pi fasil la. Sèvi ak enfòmasyon kontak ki enprime sou pwòp lèt ou a.",
@@ -141,5 +134,18 @@
   "help_label": "Bezwen èd?",
   "help_211": "Rele Mass 211 pou èd ak manje, lojman ak lòt bezwen, nenpòt lè.",
   "decides_watch": "Se MassHealth ki pran desizyon an. Veye yon lèt, mesaj tèks oswa imèl ak repons lan.",
-  "start_over": "Rekòmanse"
+  "start_over": "Rekòmanse",
+  "step_home": "Yon anvlòp ble?",
+  "step_home_desc": "Yon bouton, sis lang.",
+  "step_letter": "Radyografi lèt la",
+  "step_letter_desc": "Dat limit la, demann lan ak sa pou voye, make epi tradwi.",
+  "step_questions": "Kat kesyon rapid",
+  "step_questions_desc": "Laj, rezon ki egzante w, aktivite mwa pase, enfòmasyon kontak.",
+  "step_path": "Chemen ki pi fasil ou a",
+  "step_path_desc": "Revni, èdtan, lekòl oswa egzante. Foto sa w touche adisyone.",
+  "step_packet": "Pakè prèv",
+  "step_packet_desc": "Lis, konfimasyon patnè, rapèl, pèmisyon pou pataje.",
+  "step_submit": "Voye l bay MassHealth",
+  "step_submit_desc": "Chanèl ofisyèl, plis èd nan 211 ak yon sant sante.",
+  "build_packet": "Bati pakè prèv mwen an"
 }
