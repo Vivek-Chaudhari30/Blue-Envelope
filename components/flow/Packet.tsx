@@ -1,7 +1,6 @@
 "use client";
-"use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useFlow } from "./FlowContext";
 import { Button } from "@/components/ui";
 import { t, type MessageKey } from "@/lib/i18n";
@@ -9,6 +8,7 @@ import { daysLeft, money } from "@/lib/deadline";
 import { evaluate } from "@/lib/rules/engine";
 import { getStore, NAVIGATOR_ID, type Packet as PacketRecord } from "@/lib/store";
 import { makePartnerToken, PARTNER_ID } from "@/lib/store/partner-token";
+import { loadValues } from "@/lib/chat/store";
 
 const MASSHEALTH_URL = "https://www.mass.gov/topics/masshealth";
 const PANEL_STATUS = {
@@ -31,6 +31,13 @@ export function Packet() {
   const L = state.lang;
   const tr = (k: MessageKey) => t(k, L);
   const r = evaluate({ age: state.age, exemptions: state.exemptions, act: state.act });
+
+  // F3: an edited deadline (from the X-Ray "fix what we read") flows here.
+  const [editedDeadline, setEditedDeadline] = useState<string | null>(null);
+  useEffect(() => {
+    const d = loadValues().deadline;
+    setEditedDeadline(d && d.provenance === "edited" ? d.value : null);
+  }, []);
 
   // Keep Maria's packet record and consent in sync with the store so the
   // Navigator Board (readForViewer) and partner page see the real state.
@@ -156,7 +163,7 @@ export function Packet() {
       </div>
 
       <div className="due-banner">
-        <span>{tr("due_banner")}</span>
+        <span>{editedDeadline ? `${tr("deadline")}: ${editedDeadline}` : tr("due_banner")}</span>
         <b>{t("days_left", L, { n: daysLeft() })}</b>
       </div>
 

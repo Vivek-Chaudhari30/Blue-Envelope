@@ -987,4 +987,21 @@ p {
     transition: none !important;
     animation: none !important;
   }
+  .be-flash {
+    outline: 2px solid var(--stamp);
+  }
+}
+
+/* Evidence-chip highlight: flash a letter line / callout when cited. */
+.be-flash {
+  animation: be-flash 1.4s ease;
+}
+@keyframes be-flash {
+  0%,
+  100% {
+    background: transparent;
+  }
+  30% {
+    background: var(--mark-due);
+  }
 }

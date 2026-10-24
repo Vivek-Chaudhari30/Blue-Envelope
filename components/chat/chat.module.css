@@ -1,0 +1,130 @@
+.open {
+  width: 100%;
+}
+.sheet {
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  background: var(--card);
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+  text-transform: none;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.chip {
+  border: 1.5px solid var(--rule);
+  background: var(--app);
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  min-height: 36px;
+}
+.chip:hover {
+  border-color: var(--envelope);
+}
+.turns {
+  display: grid;
+  gap: 10px;
+}
+.turn {
+  display: grid;
+  gap: 4px;
+}
+.q {
+  justify-self: end;
+  background: var(--envelope-soft);
+  border-radius: 12px 12px 2px 12px;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  max-width: 85%;
+}
+.a {
+  justify-self: start;
+  background: var(--app);
+  border: 1px solid var(--rule);
+  border-radius: 12px 12px 12px 2px;
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  max-width: 92%;
+  display: grid;
+  gap: 8px;
+}
+.notsure {
+  border-color: var(--warn);
+  background: var(--warn-soft);
+}
+.answerActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.talk {
+  border: 1px solid var(--envelope);
+  background: var(--envelope-soft);
+  border-radius: 12px;
+  padding: 12px;
+  display: grid;
+  gap: 8px;
+}
+.talk code {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  user-select: all;
+}
+.ask {
+  display: grid;
+  gap: 8px;
+}
+.ask input {
+  border: 1px solid var(--rule);
+  background: var(--app);
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 1rem;
+  color: var(--ink);
+  width: 100%;
+}
+.row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.cap {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.flash {
+  animation: flash 1.4s ease;
+}
+@keyframes flash {
+  0%,
+  100% {
+    background: transparent;
+  }
+  30% {
+    background: var(--mark-due);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flash {
+    animation: none;
+    outline: 2px solid var(--stamp);
+  }
+}

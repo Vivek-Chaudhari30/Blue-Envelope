@@ -9,6 +9,13 @@ import { daysLeft } from "@/lib/deadline";
 import { SAMPLE_LETTER } from "@/content/sample-letter";
 import { runOcr } from "@/lib/readers/ocr-client";
 import { readLetter } from "@/lib/readers/letter-rules";
+import { LetterChat } from "@/components/chat/LetterChat";
+import { HIGHLIGHT_EVENT } from "@/components/chat/EvidenceChip";
+import { ExtractedValue } from "./ExtractedValue";
+import { DeleteLetter } from "./DeleteLetter";
+import { loadValues, saveValues } from "@/lib/chat/store";
+import type { Provenance } from "@/lib/chat/types";
+import { evaluate } from "@/lib/rules/engine";
 
 const CALLOUTS: {
   pin: 1 | 2 | 3 | 4;
@@ -47,6 +54,43 @@ export function LetterXRay() {
       alive = false;
     };
   }, [state.letterPhoto]);
+
+  // Edited deadline (provenance). Starts from the sample/OCR value.
+  const defaultDeadline = "December 15, 2026";
+  const [deadline, setDeadline] = useState<{ value: string; provenance: Provenance }>(
+    () => loadValues().deadline ?? { value: defaultDeadline, provenance: "letter" },
+  );
+
+  function onDeadlineChange(value: string, provenance: Provenance) {
+    const next = { value, provenance };
+    setDeadline(next);
+    const values = loadValues();
+    values.deadline = next;
+    saveValues(values); // flows to the packet banner + .ics (F3)
+  }
+
+  // Evidence chip -> scroll to + flash the matching callout/letter line.
+  useEffect(() => {
+    function onHighlight(e: Event) {
+      const id = (e as CustomEvent<{ lineId: string }>).detail?.lineId;
+      if (!id) return;
+      const el = document.querySelector<HTMLElement>(`[data-line="${id}"]`);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+        el.classList.add("be-flash");
+        setTimeout(() => el.classList.remove("be-flash"), 1500);
+      }
+    }
+    window.addEventListener(HIGHLIGHT_EVENT, onHighlight);
+    return () => window.removeEventListener(HIGHLIGHT_EVENT, onHighlight);
+  }, []);
+
+  const rulesSummary = (() => {
+    const r = evaluate({ age: state.age, exemptions: state.exemptions, act: state.act });
+    return `status=${r.status}; hours=${r.hours}; income=${r.income}`;
+  })();
+  const letterChatText = SAMPLE_LETTER.lines.map((l) => l.highlight!.mark).join(" ");
+  const chatLineIds = ["1", "2", "3", "4"];
 
   function readAloud() {
     const text = CALLOUTS.map((c) => `${t(c.labelKey, L)}. ${t(c.bodyKey, L)}`).join(". ");
@@ -124,7 +168,7 @@ export function LetterXRay() {
 
       <div className="callouts" lang={L}>
         {CALLOUTS.map((c) => (
-          <div key={c.pin} className={`callout ${c.due ? "due" : ""}`}>
+          <div key={c.pin} data-line={String(c.pin)} className={`callout ${c.due ? "due" : ""}`}>
             <span className={`pin ${c.due ? "due" : ""}`}>{c.pin}</span>
             <b>
               {t(c.labelKey, L)}{" "}
@@ -135,12 +179,32 @@ export function LetterXRay() {
         ))}
       </div>
 
+      {/* Fix what we read: edit the deadline; provenance + flow-through to packet/.ics */}
+      <ExtractedValue
+        lang={L}
+        label={t("deadline", L)}
+        value={deadline.value}
+        provenance={deadline.provenance}
+        onChange={onDeadlineChange}
+      />
+
       <Button variant="secondary" onClick={readAloud}>
         {t("read_aloud", L)}
       </Button>
       {speechNote && <p className="note">{speechNote}</p>}
 
+      {/* Ask-about-your-letter chat (AI helper, member_help only) */}
+      <LetterChat
+        lang={L}
+        letterText={letterChatText}
+        lineIds={chatLineIds}
+        rulesSummary={rulesSummary}
+        onShare={() => dispatch({ type: "go", step: "packet" })}
+      />
+
       <HelpButton lang={L} letterText={letterPlainText()} rulesSummary="" />
+
+      <DeleteLetter lang={L} onDeleted={() => dispatch({ type: "photo", photo: "" })} />
 
       <Button onClick={() => dispatch({ type: "go", step: "questions" })}>
         {t("check_applies", L)}
