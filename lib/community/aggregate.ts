@@ -30,6 +30,44 @@ export function badgesFor(helped: number): Badge[] {
 }
 
 /**
+ * Compute safe PUBLISHED totals that resist a differencing attack.
+ * - Each county total counts ONLY its ranked towns (helped >= 10).
+ * - The statewide published total is the true total UNLESS the suppressed
+ *   residual (true total minus ranked towns) could isolate a single small town
+ *   or a sub-10 group: if fewer than 3 suppressed towns remain OR their combined
+ *   helpers are under 10, round the statewide total DOWN to the nearest 10.
+ * Returns published numbers plus the safe county list.
+ */
+export function publishedTotals(agg: CommunityAggregate): {
+  statewideHelped: number;
+  counties: { county: string; helped: number }[];
+} {
+  const RANK_MIN = SUPPRESS_MAX + 1; // 10
+  const ranked = agg.towns.filter((t) => t.helped >= RANK_MIN);
+  const suppressed = agg.towns.filter((t) => t.helped >= 1 && t.helped < RANK_MIN);
+
+  const rankedHelped = ranked.reduce((s, t) => s + t.helped, 0);
+  const suppressedHelped = agg.state.helped - rankedHelped;
+  const fewTowns = suppressed.length < 3;
+  const smallGroup = suppressedHelped < 10;
+
+  const statewideHelped =
+    fewTowns || smallGroup
+      ? Math.floor(agg.state.helped / 10) * 10
+      : agg.state.helped;
+
+  // County totals from ranked towns only.
+  const byCounty = new Map<string, number>();
+  for (const t of ranked) byCounty.set(t.county, (byCounty.get(t.county) ?? 0) + t.helped);
+  const counties = Array.from(byCounty.entries())
+    .map(([county, helped]) => ({ county, helped }))
+    .filter((c) => c.helped >= RANK_MIN)
+    .sort((a, b) => b.helped - a.helped);
+
+  return { statewideHelped, counties };
+}
+
+/**
  * Demo overlay: fold THIS device's own recent actions into a board view so the
  * live demo never looks empty without Supabase. `actions` bumps the state
  * action count; a `marked_sent` in `myTypes` from `myTownId` bumps that town's

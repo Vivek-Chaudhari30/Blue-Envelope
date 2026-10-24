@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getCommunityStore } from "@/lib/community/store";
-import { aggregate, suppress, SUPPRESS_MAX } from "@/lib/community/aggregate";
+import { aggregate, publishedTotals, suppress, SUPPRESS_MAX } from "@/lib/community/aggregate";
 import { rateLimited, clientIp } from "@/lib/community/ratelimit";
 import towns from "@/lib/community/towns.json";
 import type { Town } from "@/lib/community/types";
@@ -14,6 +14,7 @@ export async function GET(req: Request) {
   const store = getCommunityStore();
   const [members, events] = await Promise.all([store.allMembers(), store.allEvents()]);
   const agg = aggregate(members, events, towns as Town[]);
+  const published = publishedTotals(agg);
 
   // Privacy: a town with a suppressed count (1-9) must expose NO numeric field
   // from which the count can be recovered — NOT perThousand, NOT pop2020, NOT
@@ -34,14 +35,13 @@ export async function GET(req: Request) {
     .sort((a, b) => a.name.localeCompare(b.name));
 
   return NextResponse.json({
-    state: { actions: agg.state.actions, helped: agg.state.helped, goal: agg.state.goal },
+    // Statewide total is differencing-safe (rounded down when the residual
+    // could isolate a single small town or a sub-10 group).
+    state: { actions: agg.state.actions, helped: published.statewideHelped, goal: agg.state.goal },
     ranked,
     gettingStarted,
-    counties: agg.counties.map((c) =>
-      c.helped > SUPPRESS_MAX
-        ? { county: c.county, helped: c.helped }
-        : { county: c.county, helpedDisplay: suppress(c.helped) },
-    ),
+    // County totals count ONLY ranked (10+) towns; suppressed towns add nothing.
+    counties: published.counties, // [{ county, helped }], all helped >= 10
     helpers: agg.helpers.map((h) => ({
       firstName: h.firstName,
       lastInitial: h.lastInitial,

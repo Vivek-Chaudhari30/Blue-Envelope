@@ -10,7 +10,7 @@ interface CommunityData {
   state: { actions: number; helped: number; goal: number };
   ranked: { name: string; county: string; helped: number; perThousand: number }[];
   gettingStarted: { name: string; county: string }[];
-  counties: { county: string; helped?: number; helpedDisplay?: string }[];
+  counties: { county: string; helped: number }[];
   helpers: { firstName: string; lastInitial: string; town: string; helpedDisplay: string }[];
   demo: boolean;
 }
@@ -54,6 +54,7 @@ export default function CommunityBoard() {
 
   const stateActions = (data?.state.actions ?? 0) + mine;
   const pct = data ? Math.min(100, (data.state.helped / data.state.goal) * 100) : 0;
+  const milestonePct = data ? Math.min(100, (data.state.helped / 1000) * 100) : 0;
 
   return (
     <div className={styles.wrap}>
@@ -78,6 +79,19 @@ export default function CommunityBoard() {
         <span className="sub" style={{ fontSize: ".8rem" }}>
           {stateActions.toLocaleString("en-US")} actions in Blue Envelope so far
         </span>
+
+        {/* Near-term milestone so the bar doesn't look empty at 530/360,000. */}
+        <div style={{ marginTop: 6 }}>
+          <div className="row" style={{ display: "flex", justifyContent: "space-between", fontSize: ".8rem" }}>
+            <span className="sub">{t("community_milestone", lang)}</span>
+            <span className="sub" style={{ fontVariantNumeric: "tabular-nums" }}>
+              {Math.min(data?.state.helped ?? 0, 1000).toLocaleString("en-US")} / 1,000
+            </span>
+          </div>
+          <div className={styles.bar} role="progressbar" aria-valuenow={Math.round(milestonePct)} aria-valuemin={0} aria-valuemax={100}>
+            <i className="ok" style={{ width: `${milestonePct}%`, background: "var(--ok)" }} />
+          </div>
+        </div>
       </div>
 
       <div className={styles.controls}>
